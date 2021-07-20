@@ -2,6 +2,9 @@ var canvas = document.getElementById("Canvas");
 var ctx = canvas.getContext("2d");
 
 var field = new Array(7);
+var hexArray = new Array;
+var edgeArray = new Array;
+var vertexArray = new Array;
 
 function shuffle(a) {
 	var i = a.length;
@@ -15,10 +18,14 @@ function shuffle(a) {
 }
 
 function frameLoop() {
-	for (var i = 0; i < 7; i++) {
-		for (var j = 0; j < 7; j++) {
-			field[i][j].Draw();
-		}
+	for (var i = 0; i < hexArray.length; i++) {
+		hexArray[i].Draw();
+	}
+	for (var i = 0; i < edgeArray.length; i++) {
+		edgeArray[i].Draw();
+	}
+	for (var i = 0; i < vertexArray.length; i++) {
+		vertexArray[i].Draw();
 	}
 }
 function gameOpen(){
@@ -40,16 +47,11 @@ function gameOpen(){
 		field[i] = new Array(7);
 		for (var j = 0; j < 7; j++) {
 			if (typeMap[i][j] == 0)
-				field[i][j] = new Hex(j, i, -1, 0);
+				field[i][j] = null;
 			if (typeMap[i][j] == 1)
 				field[i][j] = new Hex(j, i, typeDeck.pop(), levelDeck.pop());
 			if (typeMap[i][j] == 2)
 				field[i][j] = new Hex(j, i, 0, 0);
-		}
-	}
-	for (var i = 0; i < 7; i++) {
-		for (var j = 0; j < 7; j++) {
-			
 		}
 	}
 }
