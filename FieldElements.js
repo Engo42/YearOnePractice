@@ -55,7 +55,7 @@ class Hex {
 			this.vertexes[i] = new Vertex(x, y, i - 2);
 		}
 	}
-	Draw() {
+	draw() {
 		if (this.type == 0)
 			ctx.fillStyle = '#FFFF00';
 		if (this.type == 1)
@@ -80,7 +80,7 @@ class Edge {
 		this.state = 0;
 		this.player = -1;
 	}
-	Draw() {
+	draw() {
 		ctx.fillStyle = 'black';
 		ctx.lineWidth = 3;
 		ctx.beginPath();
@@ -108,7 +108,7 @@ class Vertex {
 		this.state = 0;
 		this.player = -1;
 	}
-	Draw() {
+	draw() {
 		ctx.fillStyle = 'blue';
 		if (this.direction == 0){
 			ctx.fillRect(10 + this.x * 100 + 95 + this.y * 50, 10 + this.y * 100 + 95, 10, 10);

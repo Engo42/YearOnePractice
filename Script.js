@@ -20,14 +20,17 @@ function shuffle(a) {
 
 function frameLoop() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	for (var i = 0; i < buttonArray.length; i++) {
+		buttonArray[i].onFrame();
+	}
 	for (var i = 0; i < hexArray.length; i++) {
-		hexArray[i].Draw();
+		hexArray[i].draw();
 	}
 	for (var i = 0; i < edgeArray.length; i++) {
-		edgeArray[i].Draw();
+		edgeArray[i].draw();
 	}
 	for (var i = 0; i < vertexArray.length; i++) {
-		vertexArray[i].Draw();
+		vertexArray[i].draw();
 	}
 	ctx.fillStyle = '#FF8800';
 	ctx.fillRect(mouseX - 5, mouseY - 5, 10, 10);
@@ -58,6 +61,22 @@ function gameOpen(){
 				field[i][j] = new Hex(j, i, 0, 0);
 		}
 	}
+	
 }
+
+function a() {
+	testButton.color = 'grey';
+}
+function b() {
+	testButton.color = 'white';
+}
+function c() {
+	testButton.color = 'black';
+}
+function d() {
+	testButton.color = 'grey';
+}
+var testButton = new Button(1000, 200, 100, 50, a, b, c, d);
+
 gameOpen();
 setInterval(frameLoop, 100/6);
