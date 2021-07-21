@@ -5,6 +5,7 @@ var field = new Array(7);
 var hexArray = new Array;
 var edgeArray = new Array;
 var vertexArray = new Array;
+var buttonArray = new Array;
 
 function shuffle(a) {
 	var i = a.length;
@@ -18,6 +19,7 @@ function shuffle(a) {
 }
 
 function frameLoop() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	for (var i = 0; i < hexArray.length; i++) {
 		hexArray[i].Draw();
 	}
@@ -27,8 +29,10 @@ function frameLoop() {
 	for (var i = 0; i < vertexArray.length; i++) {
 		vertexArray[i].Draw();
 	}
+	ctx.fillStyle = '#FF8800';
+	ctx.fillRect(mouseX - 5, mouseY - 5, 10, 10);
 }
-function gameOpen(){
+function gameOpen(){ 
 	var typeMap = [
 		[0, 0, 0, 0, 0, 0, 0],
 		[0, 0, 0, 1, 1, 1, 0],
