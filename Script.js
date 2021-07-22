@@ -39,10 +39,10 @@ function gameOpen(){
         players[i] = new Player("Player_" + (i+1));
     }
     
-    currentPlayer.developmentCards.push(new developmentCard(0));
-    currentPlayer.developmentCards.push(new developmentCard(0));
-    currentPlayer.developmentCards.push(new developmentCard(1));
-    currentPlayer.developmentCards.push(new developmentCard(0));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
 }
 
 gameOpen();

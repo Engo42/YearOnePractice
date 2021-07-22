@@ -64,10 +64,24 @@ class ModeMenuUI {
         }
     }
 }
+
 class DevelopmentModeUI {
     constructor(){
         this.state = 0;
         this.cards = players[currentPlayer].developmentCards;
+        this.cardsUI = new Array(this.cards.length);
+        for (var i = 0; i <= this.cardsUI.length; i++) {
+            this.cardsUI[i] = new DevelopmentCardUI(this.cards[i]);
+        }
+    }
+    draw() {
+        
+    }
+}
+class DevelopmentCardUI {
+    constructor(card){
+        this.card = card;
+        this.parentUI = gameUI.developmentModeUI;
     }
     draw() {
         
