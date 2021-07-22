@@ -1,43 +1,35 @@
 class Button {
-	constructor(x, y, width, height, onIdle, onHover, onPress, onClick){
+	constructor(x, y, width, height, id, parentUI, onClick){
 		buttonArray.push(this);
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.id = id;
+		this.parentUI = parentUI;
 		
-		//тут callback функции при разных состояниях кнопки
-		this.onIdle = onIdle;
-		this.onHover = onHover;
-		this.onPress = onPress;
 		this.onClick = onClick;
 		
+		this.hover = false;
 		this.pressed = false;
-		this.color = 'grey';
+		this.active = true;
 	}
 	onFrame() {
 		if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
-			if (this.pressed) {
-				this.onPress();
-			}
-			else {
-				this.onHover();
-			}
+			this.hover = true;
 		}
 		else {
 			if (this.pressed) {
 				this.pressed = false;
 			}
-			this.onIdle();
+			this.hover = false;
 		}
-		ctx.fillStyle = this.color;
-		ctx.fillRect(this.x, this.y, this.width, this.height);
 	}
 	checkRelease() {
 		if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
 			if (this.pressed == true) {
 				this.pressed = false;
-				this.onClick();
+				this.onClick(this.id, this.parentUI);
 			}
 		}
 	}

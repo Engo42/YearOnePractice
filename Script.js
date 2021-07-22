@@ -30,8 +30,7 @@ function frameLoop() {
 }
 function gameOpen(){ 
 	field = new Field;
-	fieldUI = new FieldUI(field);
-	gameUI = new GameUI(fieldUI);
+	gameUI = new GameUI(field);
 }
 
 gameOpen();

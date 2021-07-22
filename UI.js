@@ -1,9 +1,11 @@
 class GameUI {
-	constructor(fieldUI){
-		this.fieldUI = fieldUI;
+	constructor(field){
+		this.fieldUI = new FieldUI(field);
+		this.modeMenuUI = new ModeMenuUI;
 	}
 	draw() {
 		this.fieldUI.draw();
+		this.modeMenuUI.draw();
 	}
 }
 
@@ -13,7 +15,7 @@ class FieldUI {
 	}
 	draw() {
 		for (var i = 0; i < this.field.hexArray.length; i++) {
-			let hex = this.field.hexArray[i];
+			var hex = this.field.hexArray[i];
 			ctx.drawImage(hex.img, 420 + hex.x * 160 + hex.y * 80, 10 + hex.y * 140);
 			if (hex.level != 0) {
 				ctx.fillStyle = "white";
@@ -24,12 +26,41 @@ class FieldUI {
 			}
 		}
 		for (var i = 0; i < this.field.edgeArray.length; i++) {
-			let edge = this.field.edgeArray[i];
+			var edge = this.field.edgeArray[i];
 			ctx.drawImage(edge.img, 420 + edge.x * 160 + edge.y * 80, 10 + edge.y * 140);
 		}
 		for (var i = 0; i < this.field.vertexArray.length; i++) {
-			let vertex = this.field.vertexArray[i];
+			var vertex = this.field.vertexArray[i];
 			ctx.drawImage(vertex.img, 420 + vertex.x * 160 + vertex.y * 80, 10 + vertex.y * 140);
+		}
+	}
+}
+class ModeMenuUI {
+	constructor(){
+		this.state = 0;
+		this.buttons = new Array(3);
+		for(var i = 0; i < 3; i++) {
+			this.buttons[i] = new Button(10 + 60 * i, 500, 50, 50, i, this,
+				function(id, parentUI) {
+					parentUI.buttons[parentUI.state].active = true;
+					parentUI.state = id;
+					parentUI.buttons[id].active = false;
+				}
+			)
+		}
+		this.buttons[0].active = false;
+	}
+	draw() {
+		for(var i = 0; i < 3; i++) {
+			if (this.buttons[i].active == false)
+				ctx.fillStyle = '#444444';
+			else if (this.buttons[i].pressed)
+				ctx.fillStyle = '#884400';
+			else if (this.buttons[i].hover)
+				ctx.fillStyle = '#FFAA22';
+			else
+				ctx.fillStyle = '#FF8800';
+			ctx.fillRect(10 + 60 * i, 500, 50, 50);
 		}
 	}
 }
