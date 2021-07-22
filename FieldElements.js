@@ -102,7 +102,6 @@ class Edge {
         this.img = new Image();
         this.img.src = 'Sprites/Edges/d' + this.direction + '.png';
     }
-    draw() {}
 }
 class Vertex {
     constructor(x, y, direction, field) {
@@ -115,12 +114,10 @@ class Vertex {
         this.img = new Image();
         this.img.src = 'Sprites/Vertexes/d' + this.direction + 'l' + this.level + '.png';
     }
-    draw() {
-        ctx.drawImage(this.img, 420 + this.x * 160 + this.y * 80, 10 + this.y * 140);
-    }
 }
+
 class Player {
-    constructor(name, wood, wool, seed, clay, ore, settlements, roads, cities, developmentCards, knights, pointOfWin, ) {
+    constructor(name) {
         this.name = name;
         this.wood = 0;
         this.wool = 0;
