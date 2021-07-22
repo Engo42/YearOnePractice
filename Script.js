@@ -61,22 +61,7 @@ function gameOpen(){
 				field[i][j] = new Hex(j, i, 0, 0);
 		}
 	}
-	
 }
-
-function a() {
-	testButton.color = 'grey';
-}
-function b() {
-	testButton.color = 'white';
-}
-function c() {
-	testButton.color = 'black';
-}
-function d() {
-	testButton.color = 'grey';
-}
-var testButton = new Button(1500, 200, 100, 50, a, b, c, d);
 
 gameOpen();
 setInterval(frameLoop, 100/6);
