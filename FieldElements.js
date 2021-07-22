@@ -59,6 +59,13 @@ class Hex {
 	}
 	draw() {
 		ctx.drawImage(this.img, 10 + this.x * 160 + this.y * 80, 10 + this.y * 140);
+		if (this.level != 0) {
+			ctx.fillStyle = "white";
+			ctx.textBaseline = "middle";
+			ctx.textAlign = "center";
+			ctx.font = "48px Arial";
+			ctx.fillText(this.level, 113 + this.x * 160 + this.y * 80, 115 + this.y * 140);
+		}
 	}
 }
 class Edge {
