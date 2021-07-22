@@ -1,24 +1,35 @@
-class Hex {
-	constructor(x, y, type, level){
-		hexArray.push(this);
-		this.x = x;
-		this.y = y;
-		this.type = type;
-		this.level = level;
+class GameUI {
+	constructor(fieldUI){
+		this.fieldUI = fieldUI;
 	}
 	draw() {
-		if (this.type == 0)
-			ctx.fillStyle = '#FFFF00';
-		if (this.type == 1)
-			ctx.fillStyle = '#008800';
-		if (this.type == 2)
-			ctx.fillStyle = '#00FF00';
-		if (this.type == 3)
-			ctx.fillStyle = '#BB8800';
-		if (this.type == 4)
-			ctx.fillStyle = '#FF8800';
-		if (this.type == 5)
-			ctx.fillStyle = '#888888';
-		ctx.fillRect(10 + this.x * 100 + this.y * 50, 10 + this.y * 100, 100, 100);
+		this.fieldUI.draw();
+	}
+}
+
+class FieldUI {
+	constructor(field){
+		this.field = field;
+	}
+	draw() {
+		for (var i = 0; i < this.field.hexArray.length; i++) {
+			let hex = this.field.hexArray[i];
+			ctx.drawImage(hex.img, 420 + hex.x * 160 + hex.y * 80, 10 + hex.y * 140);
+			if (hex.level != 0) {
+				ctx.fillStyle = "white";
+				ctx.textBaseline = "middle";
+				ctx.textAlign = "center";
+				ctx.font = "48px Arial";
+				ctx.fillText(hex.level, 523 + hex.x * 160 + hex.y * 80, 115 + hex.y * 140);
+			}
+		}
+		for (var i = 0; i < this.field.edgeArray.length; i++) {
+			let edge = this.field.edgeArray[i];
+			ctx.drawImage(edge.img, 420 + edge.x * 160 + edge.y * 80, 10 + edge.y * 140);
+		}
+		for (var i = 0; i < this.field.vertexArray.length; i++) {
+			let vertex = this.field.vertexArray[i];
+			ctx.drawImage(vertex.img, 420 + vertex.x * 160 + vertex.y * 80, 10 + vertex.y * 140);
+		}
 	}
 }
