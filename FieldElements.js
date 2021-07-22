@@ -10,7 +10,7 @@ class Hex {
 		this.edges = new Array(6);
 		this.vertexes = new Array(6);
 		this.img = new Image();
-		this.img.src = 'sprites/hexes/t' + this.type + '.png';
+		this.img.src = 'Sprites/Hexes/t' + this.type + '.png';
 		
 		if (field[y][x-1] != null) {
 			this.neighbors[4] = field[y][x-1];
@@ -70,7 +70,7 @@ class Edge {
 		this.state = 0;
 		this.player = -1;
 		this.img = new Image();
-		this.img.src = 'sprites/edges/d' + this.direction + '.png';
+		this.img.src = 'Sprites/Edges/d' + this.direction + '.png';
 	}
 	draw() {
 		ctx.drawImage(this.img, 10 + this.x * 160 + this.y * 80, 10 + this.y * 140);
@@ -85,7 +85,7 @@ class Vertex {
 		this.level = 0;
 		this.player = -1;
 		this.img = new Image();
-		this.img.src = 'sprites/vertexes/d' + this.direction + 'l' + this.level + '.png';
+		this.img.src = 'Sprites/Vertexes/d' + this.direction + 'l' + this.level + '.png';
 	}
 	draw() {
 		ctx.drawImage(this.img, 10 + this.x * 160 + this.y * 80, 10 + this.y * 140);
