@@ -2,7 +2,7 @@ body {
     margin: 0;
 }
 canvas {
-	background: #e0e0e0;
+	background: #000;
 	display: block;
 	max-width: 100%;
 	max-height: 100%;

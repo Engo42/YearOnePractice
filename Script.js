@@ -76,7 +76,7 @@ function c() {
 function d() {
 	testButton.color = 'grey';
 }
-var testButton = new Button(1000, 200, 100, 50, a, b, c, d);
+var testButton = new Button(1500, 200, 100, 50, a, b, c, d);
 
 gameOpen();
 setInterval(frameLoop, 100/6);

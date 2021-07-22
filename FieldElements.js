@@ -9,6 +9,8 @@ class Hex {
 		this.neighbors = new Array(6);
 		this.edges = new Array(6);
 		this.vertexes = new Array(6);
+		this.img = new Image();
+		this.img.src = 'sprites/hexes/t' + this.type + '.png';
 		
 		if (field[y][x-1] != null) {
 			this.neighbors[4] = field[y][x-1];
@@ -56,19 +58,7 @@ class Hex {
 		}
 	}
 	draw() {
-		if (this.type == 0)
-			ctx.fillStyle = '#FFFF00';
-		if (this.type == 1)
-			ctx.fillStyle = '#008800';
-		if (this.type == 2)
-			ctx.fillStyle = '#00FF00';
-		if (this.type == 3)
-			ctx.fillStyle = '#BB8800';
-		if (this.type == 4)
-			ctx.fillStyle = '#FF8800';
-		if (this.type == 5)
-			ctx.fillStyle = '#888888';
-		ctx.fillRect(10 + this.x * 100 + this.y * 50, 10 + this.y * 100, 100, 100);
+		ctx.drawImage(this.img, 10 + this.x * 160 + this.y * 80, 10 + this.y * 140);
 	}
 }
 class Edge {
@@ -79,24 +69,11 @@ class Edge {
 		this.direction = direction;
 		this.state = 0;
 		this.player = -1;
+		this.img = new Image();
+		this.img.src = 'sprites/edges/d' + this.direction + '.png';
 	}
 	draw() {
-		ctx.fillStyle = 'black';
-		ctx.lineWidth = 3;
-		ctx.beginPath();
-		if (this.direction == 0){
-			ctx.moveTo(10 + this.x * 100 + 100 + this.y * 50, 10 + this.y * 100);
-			ctx.lineTo(10 + this.x * 100 + 100 + this.y * 50, 10 + this.y * 100 + 100);
-		}
-		if (this.direction == 1){
-			ctx.lineTo(10 + this.x * 100 + 100 + this.y * 50, 10 + this.y * 100 + 100);
-			ctx.lineTo(10 + this.x * 100 + 50 + this.y * 50, 10 + this.y * 100 + 100);
-		}
-		if (this.direction == 2){
-			ctx.lineTo(10 + this.x * 100 + 50 + this.y * 50, 10 + this.y * 100 + 100);
-			ctx.lineTo(10 + this.x * 100 + this.y * 50, 10 + this.y * 100 + 100);
-		}
-		ctx.stroke();
+		ctx.drawImage(this.img, 10 + this.x * 160 + this.y * 80, 10 + this.y * 140);
 	}
 }
 class Vertex {
@@ -105,16 +82,12 @@ class Vertex {
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
-		this.state = 0;
+		this.level = 0;
 		this.player = -1;
+		this.img = new Image();
+		this.img.src = 'sprites/vertexes/d' + this.direction + 'l' + this.level + '.png';
 	}
 	draw() {
-		ctx.fillStyle = 'blue';
-		if (this.direction == 0){
-			ctx.fillRect(10 + this.x * 100 + 95 + this.y * 50, 10 + this.y * 100 + 95, 10, 10);
-		}
-		if (this.direction == 1){
-			ctx.fillRect(10 + this.x * 100 + 45 + this.y * 50, 10 + this.y * 100 + 95, 10, 10);
-		}
+		ctx.drawImage(this.img, 10 + this.x * 160 + this.y * 80, 10 + this.y * 140);
 	}
 }
