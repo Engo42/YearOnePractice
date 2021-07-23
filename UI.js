@@ -86,7 +86,7 @@ class DevelopmentModeUI {
         this.deckX = 40;
         this.deckLowY = 1020;
         this.deckHighY = 585;
-        this.deckWidth = 600;
+        this.deckWidth = 580;
         
         this.state = 0;
         this.cards = players[currentPlayer].developmentCards;
@@ -122,6 +122,10 @@ class DevelopmentModeUI {
             if (this.cardsUI[i].used) {
                 players[currentPlayer].useCard(i);
                 this.cardsUI.splice(i, 1);
+                for (var j = 0; j < this.cards.length; j++) {
+                    //this.cards[j].active = false;
+                }
+                i--;
             }
         }
     }
@@ -145,7 +149,7 @@ class DevelopmentCardUI {
         this.targetY = lowY;
         
         this.lowTrigger = new Button(this.x, this.y, this.width, 60, 0, this, noop);
-        this.highTrigger = new Button(this.x, this.y, 300, 435, 0, this, noop);
+        this.highTrigger = new Button(this.x, this.y, 300, 436, 0, this, noop);
         this.highTrigger.active = false;
         this.useButton = new Button(this.x + 80, this.y + 380, 140, 40, card.active, this,
             function(id, parentUI) {
@@ -154,6 +158,8 @@ class DevelopmentCardUI {
         );
     }
     frameAction() {
+        this.useButton.active = this.card.active;
+        
         if (this.lowTrigger.hover || this.highTrigger.hover) {
             this.targetY = this.deckHighY;
             this.highTrigger.active = true;
@@ -184,7 +190,14 @@ class DevelopmentCardUI {
     }
     draw() {
         ctx.drawImage(this.card.img, this.x, this.y);
-        ctx.fillStyle = '#00AA00';
+        if (this.useButton.active == false)
+            ctx.fillStyle = '#444444';
+        else if (this.useButton.pressed)
+            ctx.fillStyle = '#004400';
+        else if (this.useButton.hover)
+            ctx.fillStyle = '#00FF00';
+        else
+            ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
     }
 }
