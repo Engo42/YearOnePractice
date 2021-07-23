@@ -19,9 +19,7 @@ class Button {
             this.hover = true;
         }
         else {
-            if (this.pressed) {
-                this.pressed = false;
-            }
+            this.pressed = false;
             this.hover = false;
         }
     }

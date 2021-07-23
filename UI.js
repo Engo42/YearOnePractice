@@ -82,19 +82,14 @@ class DevelopmentCardUI {
     constructor(card){
         this.card = card;
         this.parentUI = gameUI.developmentModeUI;
+        this.lifted = false;
+        
+        this.x = this.id
+        this.y = 1850;
+        this.targetX = this.x
+        this.targetY = this.y
     }
     draw() {
-        
-    }
-}
-
-class DevelopmentCard {
-    constructor(type){
-        this.type = type;
-        this.img = new Image();
-        this.img.src = 'Sprites/Cards/Card' + this.type + '.png';
-    }
-    use() {
         
     }
 }

@@ -1,6 +1,6 @@
 var mousePressed = false;
 var mouseX = 0;
-var mouseY = 0
+var mouseY = 0;
 
 function mouseDownHandler(e) {
     mousePressed = true;

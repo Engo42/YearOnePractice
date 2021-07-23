@@ -115,20 +115,3 @@ class Vertex {
         this.img.src = 'Sprites/Vertexes/d' + this.direction + 'l' + this.level + '.png';
     }
 }
-
-class Player {
-    constructor(name) {
-        this.name = name;
-        this.wood = 0;
-        this.wool = 0;
-        this.seed = 0;
-        this.clay = 0;
-        this.ore = 0;
-        this.settlements = 0;
-        this.roads = 0; //самая длинная сеть дорог у данного игрока
-        this.cities = 0;
-        this.developmentCards = new Array;
-        this.knights = 0;
-        this.pointOfWin = 0;
-    }
-}
