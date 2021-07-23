@@ -95,22 +95,33 @@ class DevelopmentModeUI {
             if (i == this.cardsUI.length - 1)
                 var width = 300;
             else
-                var width = (this.deckWidth - 300)/(this.cards.length - 1)
-            this.cardsUI[i] = new DevelopmentCardUI(this.deckX + i*(this.deckWidth - 300)/(this.cards.length - 1),
+                var width = (this.deckWidth - 300)/(this.cards.length - 1);
+            if (this.cardsUI.length - 1 == 0)
+                var step = 0;
+            else
+                var step = (this.deckWidth - 300)/(this.cards.length - 1);
+            this.cardsUI[i] = new DevelopmentCardUI(this.deckX + i * step,
                                                     this.deckLowY, this.deckHighY, width, this.cards[i]);
         }
     }
     frameAction() {
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].frameAction();
+            
+            if (i == this.cardsUI.length - 1)
+                var width = 300;
+            else
+                var width = (this.deckWidth - 300)/(this.cards.length - 1);
+            if (this.cardsUI.length - 1 == 0)
+                var step = 0;
+            else
+                var step = (this.deckWidth - 300)/(this.cards.length - 1);
+            this.cardsUI[i].targetX = this.deckX + i * step;
+            this.cardsUI[i].width = width;   
+            
             if (this.cardsUI[i].used) {
-                this.cards[i].use();
+                players[currentPlayer].useCard(i);
                 this.cardsUI.splice(i, 1);
-            }
-            this.cardsUI[i].targetX = this.deckX + i*(this.deckWidth - 300)/(this.cards.length - 1);
-            if (i == this.cardsUI.length - 1) {
-                this.cardsUI[this.cardsUI.length - 1].width = 300;
-                this.cardsUI[this.cardsUI.length - 1].lowTrigger.width = 300;                
             }
         }
     }
@@ -151,22 +162,29 @@ class DevelopmentCardUI {
             this.targetY = this.deckLowY;
             this.highTrigger.active = false;
         }
+        this.lowTrigger.x = this.x;
+        this.lowTrigger.width = this.width;
+        this.highTrigger.x = this.x;
         this.highTrigger.y = this.y;
+        this.useButton.x = this.x + 80;
+        this.useButton.y = this.y + 380;
         
-        if (this.targetX - this.x > 5)
-            this.x += 5;
-        if (this.targetX - this.x < -5)
-            this.x -= 5;
-        if (Math.abs(this.targetX - this.x) <= 5)
+        if (this.targetX - this.x > 15)
+            this.x += 15;
+        if (this.targetX - this.x < -15)
+            this.x -= 15;
+        if (Math.abs(this.targetX - this.x) <= 15)
             this.x = this.targetX;
-        if (this.targetY - this.y > 20)
-            this.y += 20;
-        if (this.targetY - this.y < -20)
-            this.y -= 20;
-        if (Math.abs(this.targetY - this.y) <= 20)
+        if (this.targetY - this.y > 25)
+            this.y += 25;
+        if (this.targetY - this.y < -25)
+            this.y -= 25;
+        if (Math.abs(this.targetY - this.y) <= 25)
             this.y = this.targetY;
     }
     draw() {
         ctx.drawImage(this.card.img, this.x, this.y);
+        ctx.fillStyle = '#00AA00';
+        ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
     }
 }

@@ -13,6 +13,10 @@ class Player {
         this.knights = 0;
         this.pointOfWin = 0;
     }
+    useCard(id) {
+        this.developmentCards[id].use();
+        this.developmentCards.splice(id, 1);
+    }
 }
 
 class DevelopmentCard {
