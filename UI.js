@@ -88,7 +88,6 @@ class DevelopmentModeUI {
         this.deckHighY = 585;
         this.deckWidth = 580;
         
-        this.state = 0;
         this.cards = players[currentPlayer].developmentCards;
         this.cardsUI = new Array(this.cards.length);
         for (var i = 0; i < this.cardsUI.length; i++) {
@@ -103,6 +102,12 @@ class DevelopmentModeUI {
             this.cardsUI[i] = new DevelopmentCardUI(this.deckX + i * step,
                                                     this.deckLowY, this.deckHighY, width, this.cards[i]);
         }
+        this.buyButton = new Button(640, 980, 200, 60, 0, this,
+            function(id, parentUI) {
+                parentUI.cardsUI.push( new DevelopmentCardUI(parentUI.deckX + parentUI.deckWidth,
+                                                             parentUI.deckLowY, parentUI.deckHighY, 300, players[currentPlayer].buyCard()));
+            }
+        )
     }
     frameAction() {
         for (var i = 0; i < this.cardsUI.length; i++) {
@@ -133,6 +138,15 @@ class DevelopmentModeUI {
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].draw();
         }
+        if (this.buyButton.active == false)
+            ctx.fillStyle = '#444444';
+        else if (this.buyButton.pressed)
+            ctx.fillStyle = '#004400';
+        else if (this.buyButton.hover)
+            ctx.fillStyle = '#00FF00';
+        else
+            ctx.fillStyle = '#00AA00';
+        ctx.fillRect(this.buyButton.x, this.buyButton.y, this.buyButton.width, this.buyButton.height);
     }
 }
 class DevelopmentCardUI {
@@ -172,6 +186,7 @@ class DevelopmentCardUI {
         this.lowTrigger.width = this.width;
         this.highTrigger.x = this.x;
         this.highTrigger.y = this.y;
+        this.highTrigger.height = this.deckLowY - this.y;
         this.useButton.x = this.x + 80;
         this.useButton.y = this.y + 380;
         
