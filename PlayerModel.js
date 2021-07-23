@@ -1,11 +1,14 @@
 class Player {
-    constructor(name) {
+    constructor(name, color) {
         this.name = name;
+        this.color = color;
         this.wood = 0;
         this.wool = 0;
         this.seed = 0;
         this.clay = 0;
         this.ore = 0;
+        this.resources = new Array[0, 0, 0, 0, 0]; //wood,wool,seed,clay,ore
+        this.totalResources = 0;
         this.settlements = 0;
         this.roads = 0; //самая длинная сеть дорог у данного игрока
         this.cities = 0;
@@ -24,16 +27,20 @@ class Player {
         this.developmentCards[id].use();
         this.developmentCards.splice(id, 1);
     }
+    draw(this) {
+
+    }
+
 }
 
 class DevelopmentCard {
-    constructor(type){
+    constructor(type) {
         this.type = type;
         this.active = false;
         this.img = new Image();
         this.img.src = 'Sprites/Cards/Card' + this.type + '.png';
     }
     use() {
-        
+
     }
 }
