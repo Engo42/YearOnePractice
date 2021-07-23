@@ -15,25 +15,31 @@ class Button {
         this.active = true;
     }
     onFrame() {
-        if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
-            this.hover = true;
-        }
-        else {
-            this.pressed = false;
-            this.hover = false;
+        if (this.active) {
+            if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
+                this.hover = true;
+            }
+            else {
+                this.pressed = false;
+                this.hover = false;
+            }
         }
     }
     checkRelease() {
-        if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
-            if (this.pressed == true) {
-                this.pressed = false;
-                this.onClick(this.id, this.parentUI);
+        if (this.active) {
+            if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
+                if (this.pressed == true) {
+                    this.pressed = false;
+                    this.onClick(this.id, this.parentUI);
+                }
             }
         }
     }
     checkPress() {
-        if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
-            this.pressed = true;
+        if (this.active) {
+            if (mouseX > this.x && mouseX < this.x + this.width && mouseY > this.y && mouseY < this.y + this.height) {
+                this.pressed = true;
+            }
         }
     }
 }

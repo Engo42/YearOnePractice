@@ -18,6 +18,7 @@ function shuffle(a) {
     }
     return a;
 }
+function noop() {}
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -31,18 +32,21 @@ function frameLoop() {
     ctx.fillRect(mouseX - 5, mouseY - 5, 10, 10);
 }
 function gameOpen(){ 
-    field = new Field;
-    gameUI = new GameUI(field);
-    
     players = new Array(4);
     for (var i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i+1));
     }
-    
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
+    for (var i = 0; i < 4; i++) {
+        players[currentPlayer].developmentCards[i].active = true;
+    }
+    
+    
+    field = new Field;
+    gameUI = new GameUI(field);
 }
 
 gameOpen();

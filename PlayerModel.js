@@ -18,6 +18,7 @@ class Player {
 class DevelopmentCard {
     constructor(type){
         this.type = type;
+        this.active = false;
         this.img = new Image();
         this.img.src = 'Sprites/Cards/Card' + this.type + '.png';
     }
