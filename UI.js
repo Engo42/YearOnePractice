@@ -163,7 +163,7 @@ class DevelopmentCardUI {
         this.targetY = lowY;
         
         this.lowTrigger = new Button(this.x, this.y, this.width, 60, 0, this, noop);
-        this.highTrigger = new Button(this.x, this.y, 300, 436, 0, this, noop);
+        this.highTrigger = new Button(this.x, this.y, 300, 435, 0, this, noop);
         this.highTrigger.active = false;
         this.useButton = new Button(this.x + 80, this.y + 380, 140, 40, card.active, this,
             function(id, parentUI) {
@@ -186,7 +186,7 @@ class DevelopmentCardUI {
         this.lowTrigger.width = this.width;
         this.highTrigger.x = this.x;
         this.highTrigger.y = this.y;
-        this.highTrigger.height = this.deckLowY - this.y;
+        this.highTrigger.height = this.deckLowY - this.y + 1;
         this.useButton.x = this.x + 80;
         this.useButton.y = this.y + 380;
         
