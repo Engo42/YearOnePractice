@@ -39,7 +39,7 @@ class ModeMenuUI {
     constructor(){
         this.state = 0;
         this.buttons = new Array(3);
-        this.childUI = new DevelopmentModeUI;
+        this.childUI = new BuildModeUI;
         for(var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10 + 60 * i, 500, 50, 50, i, this,
                 function(id, parentUI) {
@@ -55,7 +55,7 @@ class ModeMenuUI {
         this.childUI.delete;
         this.state = newState;
         if (newState == 0) {
-            this.childUI = new DevelopmentModeUI;
+            this.childUI = new BuildModeUI;
         }
         if (newState == 1) {
             this.childUI = new DevelopmentModeUI;
@@ -214,5 +214,66 @@ class DevelopmentCardUI {
         else
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
+    }
+}
+
+class BuildModeUI {
+    constructor(){
+        this.state = 0;
+        this.buttons = new Array(3);
+        this.childUI = new RoadBuilderUI;
+        for(var i = 0; i < 3; i++) {
+            this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
+                function(id, parentUI) {
+                    parentUI.buttons[parentUI.state].active = true;
+                    parentUI.changeState(id);
+                    parentUI.buttons[id].active = false;
+                }
+            )
+        }
+        this.buttons[0].active = false;
+    }
+    changeState(newState){
+        this.childUI.delete;
+        this.state = newState;
+        if (newState == 0) {
+            this.childUI = new RoadBuilderUI;
+        }
+        if (newState == 1) {
+            this.childUI = new RoadBuilderUI;
+        }
+        if (newState == 2) {
+            this.childUI = new RoadBuilderUI;
+        }
+    }
+    frameAction() {
+        this.childUI.frameAction();
+    }
+    draw() {
+        for(var i = 0; i < 3; i++) {
+            if (this.buttons[i].active == false)
+                ctx.fillStyle = '#444444';
+            else if (this.buttons[i].pressed)
+                ctx.fillStyle = '#000088';
+            else if (this.buttons[i].hover)
+                ctx.fillStyle = '#4444FF';
+            else
+                ctx.fillStyle = '#0000FF';
+            ctx.fillRect(10, 560 + i * 60, 300, 50);
+        }
+        this.childUI.draw();
+    }
+}
+class RoadBuilderUI {
+    constructor() {
+        this.roads = field.edgeArray;
+        this.buttons = new Array;
+        for(var i = 0; i < this.roads.length; i++) {
+            
+        }
+    }
+    frameAction() {
+    }
+    draw() {
     }
 }
