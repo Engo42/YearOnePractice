@@ -27,10 +27,6 @@ class Player {
         this.developmentCards[id].use();
         this.developmentCards.splice(id, 1);
     }
-    draw(this) {
-
-    }
-
 }
 
 class DevelopmentCard {
