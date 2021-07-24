@@ -7,7 +7,7 @@ class Player {
         this.seed = 0;
         this.clay = 0;
         this.ore = 0;
-        this.resources = new Array[0, 0, 0, 0, 0]; //wood,wool,seed,clay,ore
+        this.resources = [0, 0, 0, 0, 0]; //wood,wool,seed,clay,ore
         this.totalResources = 0;
         this.settlements = 0;
         this.roads = 0; //самая длинная сеть дорог у данного игрока
