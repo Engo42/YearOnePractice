@@ -2,10 +2,12 @@ class GameUI {
     constructor(field) {
         this.fieldUI = new FieldUI(field);
         this.modeMenuUI = new ModeMenuUI;
+        this.PlayerInfoU = new PlayerInfoU;
     }
     draw() {
         this.fieldUI.draw();
         this.modeMenuUI.draw();
+        this.PlayerInfoU.draw();
     }
 }
 
@@ -280,18 +282,18 @@ class PlayerInfoU {
     constructor(Player) {
         this.Player = Player;
     }
-    draw(this) {
-        ctx.fillStyle = this.Player.color;
-        let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.Player.number;
-        ctx.fillStyle = this.Player.color;
+    draw() {
+        ctx.fillStyle = this.color;
+        let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.number;
+        ctx.fillStyle = this.color;
         ctx.fillRect(leftBoard, highBoard, widthOfBig, heightOfBig);
         ctx.font = "20px serif";
-        ctx.fillStyle = "black";
-        ctx.fillText(this.Player.name, leftBoard + 5, highBoard + 25);
+        ctx.fillStyle = "white";
+        ctx.fillText(this.name, leftBoard + 5, highBoard + 25);
         for (let j = 0; j < 5; j++) {
             ctx.fillStyle = "yellow";
             ctx.fillRect(leftBoard + j * (widthOfSmall + 5), highBoard + 40, widthOfSmall, heightOfSmall);
-            ctx.fillText(this.resources[j], leftBoard + j * (widthOfSmall + 5), highBoard + 40 + heightOfSmall + 2);
+            ctx.fillText("0", leftBoard + j * (widthOfSmall + 5), highBoard + 40 + heightOfSmall + 2);
         }
     }
 }
