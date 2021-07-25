@@ -43,7 +43,7 @@ function frameLoop() {
 function gameOpen() {
     players = new Array(4);
     for (var i = 0; i < 4; i++) {
-        players[i] = new Player("Player_" + (i + 1));
+        players[i] = new Player("Player_" + (i + 1), "white", i);
     }
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
@@ -56,6 +56,7 @@ function gameOpen() {
 
     field = new Field;
     gameUI = new GameUI(field);
+
 }
 
 gameOpen();

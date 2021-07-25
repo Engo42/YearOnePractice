@@ -2,12 +2,12 @@ class GameUI {
     constructor(field) {
         this.fieldUI = new FieldUI(field);
         this.modeMenuUI = new ModeMenuUI;
-        this.PlayerInfoU = new PlayerInfoU;
+        //this.PlayerInfoU = new PlayerInfoU(players[0]);
     }
     draw() {
         this.fieldUI.draw();
         this.modeMenuUI.draw();
-        this.PlayerInfoU.draw();
+        //this.PlayerInfoU.draw();
     }
 }
 
@@ -283,7 +283,9 @@ class PlayerInfoU {
         this.Player = Player;
     }
     draw() {
+        console.log(5);
         ctx.fillStyle = this.color;
+        console.log(this.color);
         let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.number;
         ctx.fillStyle = this.color;
         ctx.fillRect(leftBoard, highBoard, widthOfBig, heightOfBig);
