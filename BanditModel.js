@@ -1,6 +1,6 @@
 class Bandit {
     constructor() {///какие координаты у середины?
-        this.location = -1;
+        this.location = -1;///его локация (где на данный момент)
         this.x;
         this.y;
 

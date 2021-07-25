@@ -47,6 +47,9 @@ class Hex {
         this.type = type;
         this.level = level;
         this.bandit = (type === 0) ? 1 : 0;
+        this.img_bandit = new Image();
+        this.img_bandit.src = 'Sprites/Bandit/bandit.png';
+
         this.neighbors = new Array(6);
         this.edges = new Array(6);
         this.vertexes = new Array(6);

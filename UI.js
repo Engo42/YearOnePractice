@@ -28,6 +28,10 @@ class FieldUI {
                 ctx.font = "48px Arial";
                 ctx.fillText(hex.level, 523 + hex.x * 160 + hex.y * 80, 115 + hex.y * 140);
             }
+            else if (hex.bandit===1){///я же правильно понимаю,что у него там до этого проверка была, типа
+                ///нужен он или нет?
+                ctx.drawImage(hex.img_bandit, 480 + hex.x * 160 + hex.y * 80, 30 + hex.y * 140);
+            }
         }
         for (var i = 0; i < this.field.edgeArray.length; i++) {
             var edge = this.field.edgeArray[i];
