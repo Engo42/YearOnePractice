@@ -1,13 +1,14 @@
 class Field {
     constructor() {
         var typeMap = [
-            [0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 1, 0],
-            [0, 0, 1, 1, 1, 1, 0],
-            [0, 1, 1, 2, 1, 1, 0],
-            [0, 1, 1, 1, 1, 0, 0],
-            [0, 1, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 1, 0],
+            [0, 0, 0, 1, 1, 1, 1, 0],
+            [0, 0, 1, 1, 2, 1, 1, 0],
+            [0, 0, 1, 1, 1, 1, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0]
         ]
         var typeDeck = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5];
         typeDeck = shuffle(typeDeck);
@@ -17,14 +18,14 @@ class Field {
         this.hexArray = new Array;
         this.edgeArray = new Array;
         this.vertexArray = new Array;
-        this.hexMap = new Array(7);
-        this.edgeMap = new Array(7);
-        this.vertexMap = new Array(7);
-        for (var i = 0; i < 7; i++) {
-            this.hexMap[i] = new Array(7);
-            this.edgeMap[i] = new Array(7);
-            this.vertexMap[i] = new Array(7);
-            for (var j = 0; j < 7; j++) {
+        this.hexMap = new Array(8);
+        this.edgeMap = new Array(8);
+        this.vertexMap = new Array(8);
+        for (var i = 0; i < 8; i++) {
+            this.hexMap[i] = new Array(8);
+            this.edgeMap[i] = new Array(8);
+            this.vertexMap[i] = new Array(8);
+            for (var j = 0; j < 8; j++) {
                 this.edgeMap[i][j] = new Array(3);
                 this.vertexMap[i][j] = new Array(2);
                 if (typeMap[i][j] == 0)
@@ -35,11 +36,18 @@ class Field {
                     this.hexMap[i][j] = new Hex(j, i, 0, 0, this);
             }
         }
+        for (var i = 0; i < this.hexArray.length; i++)
+            this.hexArray[i].connect();
+        for (var i = 0; i < this.edgeArray.length; i++)
+            this.edgeArray[i].connect();
+        for (var i = 0; i < this.vertexArray.length; i++)
+            this.vertexArray[i].connect();
     }
 }
 class Hex {
     constructor(x, y, type, level, field) {
         field.hexArray.push(this);
+        this.field = field;
         this.x = x;
         this.y = y;
         this.type = type;
@@ -75,6 +83,9 @@ class Hex {
         }
     }
     connect() {
+        let field = this.field;
+        let x = this.x;
+        let y = this.y;
         this.neighbors[0] = field.hexMap[y - 1][x + 1];
         this.neighbors[1] = field.hexMap[y][x + 1];
         this.neighbors[2] = field.hexMap[y + 1][x];
@@ -89,18 +100,19 @@ class Hex {
         this.edges[4] = field.edgeMap[y][x - 1][0];
         this.edges[5] = field.edgeMap[y - 1][x][1];
         
-        this.vertexes[0] = field.edgeMap[y - 1][x][0];
-        this.vertexes[1] = field.edgeMap[y - 1][x - 1][1];
-        this.vertexes[2] = field.edgeMap[y][x][0];
-        this.vertexes[3] = field.edgeMap[y][x][1];
-        this.vertexes[4] = field.edgeMap[y][x - 1][0];
-        this.vertexes[5] = field.edgeMap[y - 1][x][1];
+        this.vertexes[0] = field.vertexMap[y - 1][x][0];
+        this.vertexes[1] = field.vertexMap[y - 1][x - 1][1];
+        this.vertexes[2] = field.vertexMap[y][x][0];
+        this.vertexes[3] = field.vertexMap[y][x][1];
+        this.vertexes[4] = field.vertexMap[y][x - 1][0];
+        this.vertexes[5] = field.vertexMap[y - 1][x][1];
     }
 }
 class Edge {
     constructor(x, y, direction, field) {
         field.edgeArray.push(this);
         field.edgeMap[y][x][direction] = this;
+        this.field = field;
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -112,29 +124,32 @@ class Edge {
         this.img.src = 'Sprites/Edges/d' + this.direction + '.png';
     }
     connect() {
+        let field = this.field;
+        let x = this.x;
+        let y = this.y;
         if (this.direction == 0) {
             this.edges[0] = field.edgeMap[y - 1][x + 1][2];
             this.edges[1] = field.edgeMap[y - 1][x + 1][1];
             this.edges[2] = field.edgeMap[y][x + 1][2];
             this.edges[3] = field.edgeMap[y][x][1];
-            this.vertexes[0] = field.edgeMap[y - 1][x + 1][1];
-            this.vertexes[1] = field.edgeMap[y][x][0];
+            this.vertexes[0] = field.vertexMap[y - 1][x + 1][1];
+            this.vertexes[1] = field.vertexMap[y][x][0];
         }
         if (this.direction == 1) {
             this.edges[0] = field.edgeMap[y][x][0];
             this.edges[1] = field.edgeMap[y][x + 1][2];
             this.edges[2] = field.edgeMap[y + 1][x - 1][0];
             this.edges[3] = field.edgeMap[y][x][2];
-            this.vertexes[0] = field.edgeMap[y][x][0];
-            this.vertexes[1] = field.edgeMap[y][x][1];
+            this.vertexes[0] = field.vertexMap[y][x][0];
+            this.vertexes[1] = field.vertexMap[y][x][1];
         }
         if (this.direction == 3) {
             this.edges[0] = field.edgeMap[y][x][1];
             this.edges[1] = field.edgeMap[y + 1][x - 1][0];
             this.edges[2] = field.edgeMap[y][x - 1][1];
             this.edges[3] = field.edgeMap[y][x - 1][0];
-            this.vertexes[0] = field.edgeMap[y][x][1];
-            this.vertexes[1] = field.edgeMap[y][x - 1][0];
+            this.vertexes[0] = field.vertexMap[y][x][1];
+            this.vertexes[1] = field.vertexMap[y][x - 1][0];
         }
     }
 }
@@ -142,6 +157,7 @@ class Vertex {
     constructor(x, y, direction, field) {
         field.vertexArray.push(this);
         field.vertexMap[y][x][direction] = this;
+        this.field = field;
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -153,21 +169,24 @@ class Vertex {
         this.img.src = 'Sprites/Vertexes/d' + this.direction + 'l' + this.level + '.png';
     }
     connect() {
+        let field = this.field;
+        let x = this.x;
+        let y = this.y;
         if (this.direction == 0) {
             this.edges[0] = field.edgeMap[y][x][0];
             this.edges[1] = field.edgeMap[y][x + 1][2];
             this.edges[2] = field.edgeMap[y][x][1];
-            this.vertexes[0] = field.edgeMap[y - 1][x + 1][1];
-            this.vertexes[1] = field.edgeMap[y][x + 1][1];
-            this.vertexes[2] = field.edgeMap[y][x][1];
+            this.vertexes[0] = field.vertexMap[y - 1][x + 1][1];
+            this.vertexes[1] = field.vertexMap[y][x + 1][1];
+            this.vertexes[2] = field.vertexMap[y][x][1];
         }
         if (this.direction == 1) {
             this.edges[0] = field.edgeMap[y][x][1];
             this.edges[1] = field.edgeMap[y + 1][x - 1][0];
             this.edges[2] = field.edgeMap[y][x][2];
-            this.vertexes[0] = field.edgeMap[y][x][0];
-            this.vertexes[1] = field.edgeMap[y + 1][x - 1][0];
-            this.vertexes[2] = field.edgeMap[y][x - 1][0];
+            this.vertexes[0] = field.vertexMap[y][x][0];
+            this.vertexes[1] = field.vertexMap[y + 1][x - 1][0];
+            this.vertexes[2] = field.vertexMap[y][x - 1][0];
         }
     }
 }

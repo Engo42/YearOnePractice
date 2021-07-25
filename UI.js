@@ -10,6 +10,11 @@ class GameUI {
         this.PlayerInfoU.draw();
     }
 }
+class EmptyUI {
+    constructor() {}
+    frameAction() {}
+    draw() {}
+}
 
 class FieldUI {
     constructor(field) {
@@ -18,22 +23,22 @@ class FieldUI {
     draw() {
         for (var i = 0; i < this.field.hexArray.length; i++) {
             var hex = this.field.hexArray[i];
-            ctx.drawImage(hex.img, 420 + hex.x * 160 + hex.y * 80, 10 + hex.y * 140);
+            ctx.drawImage(hex.img, 180 + hex.x * 160 + hex.y * 80, -130 + hex.y * 140);
             if (hex.level != 0) {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = "middle";
                 ctx.textAlign = "center";
                 ctx.font = "48px Arial";
-                ctx.fillText(hex.level, 523 + hex.x * 160 + hex.y * 80, 115 + hex.y * 140);
+                ctx.fillText(hex.level, 283 + hex.x * 160 + hex.y * 80, -25 + hex.y * 140);
             }
         }
         for (var i = 0; i < this.field.edgeArray.length; i++) {
             var edge = this.field.edgeArray[i];
-            ctx.drawImage(edge.img, 420 + edge.x * 160 + edge.y * 80, 10 + edge.y * 140);
+            ctx.drawImage(edge.img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
         }
         for (var i = 0; i < this.field.vertexArray.length; i++) {
             var vertex = this.field.vertexArray[i];
-            ctx.drawImage(vertex.img, 420 + vertex.x * 160 + vertex.y * 80, 10 + vertex.y * 140);
+            ctx.drawImage(vertex.img, 180 + vertex.x * 160 + vertex.y * 80, -130 + vertex.y * 140);
         }
     }
 }
@@ -220,32 +225,33 @@ class DevelopmentCardUI {
 
 class BuildModeUI {
     constructor() {
-        this.state = 0;
+        this.state = -1;
         this.buttons = new Array(3);
-        this.childUI = new RoadBuilderUI;
+        this.childUI = new EmptyUI;
         for (var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
                 function(id, parentUI) {
-                    parentUI.buttons[parentUI.state].active = true;
                     parentUI.changeState(id);
-                    parentUI.buttons[id].active = false;
                 }
             )
         }
-        this.buttons[0].active = false;
     }
     changeState(newState) {
+        if (this.state != -1)
+            this.buttons[this.state].active = true;
+        if (newState != -1)
+            this.buttons[newState].active = false;
+        
         this.childUI.delete;
         this.state = newState;
-        if (newState == 0) {
+        if (newState == -1)
+            this.childUI = new EmptyUI;
+        if (newState == 0)
             this.childUI = new RoadBuilderUI;
-        }
-        if (newState == 1) {
+        if (newState == 1)
             this.childUI = new RoadBuilderUI;
-        }
-        if (newState == 2) {
+        if (newState == 2)
             this.childUI = new RoadBuilderUI;
-        }
     }
     frameAction() {
         this.childUI.frameAction();
@@ -267,14 +273,47 @@ class BuildModeUI {
 }
 class RoadBuilderUI {
     constructor() {
-        this.roads = field.edgeArray;
+        this.ParentUI = gameUI.modeMenuUI.childUI;
+        this.roads = field.edgeMap;
+        this.target = -1;
         this.buttons = new Array;
-        for (var i = 0; i < this.roads.length; i++) {
-
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < 7; j++) {
+                for (var k = 0; k < 3; k++) {
+                    if (this.roads[i][j][k] != null && this.roads[i][j][k].player == -1) {
+                        var available = false;
+                        for (var q = 0; q < 4; q++) {
+                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player == currentPlayer)
+                                available = true;
+                        }
+                        for (var q = 0; q < 2; q++) {
+                            if (this.roads[i][j][k].vertexes[q] != null && this.roads[i][j][k].vertexes[q].player == currentPlayer)
+                                available = true;
+                        }
+                        if (available)
+                            this.buttons.push(new SpriteButton(i, j, 1, this.roads[i][j][k].direction, this));
+                    }
+                }
+            }
         }
     }
-    frameAction() {}
-    draw() {}
+    frameAction() {
+        if (this.target != -1) {
+            players[currentPlayer].buildRoad(target[0], target[1]);
+            this.ParentUI.changeState(-1);
+        }
+    }
+    draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+        ctx.fillRect(800, 0, 1120, 1080);
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        for (var i = 0; i < this.buttons.length; i++) {
+            if (this.buttons[i].hover)
+                drawColorSprite(this.buttons[i].img, this.buttons[i].x, this.buttons[i].y, players[currentPlayer].color);
+            else
+                drawColorSprite(this.buttons[i].img, this.buttons[i].x, this.buttons[i].y, 'white');
+        }
+    }
 }
 
 
