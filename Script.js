@@ -26,7 +26,8 @@ function shuffle(a) {
     return a;
 }
 
-function noop() {}
+function noop() {
+}
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -41,15 +42,16 @@ function frameLoop() {
 }
 
 function gameOpen() {
+    let i;
     players = new Array(4);
-    for (var i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), "white", i);
     }
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
-    for (var i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         players[currentPlayer].developmentCards[i].active = true;
     }
 
