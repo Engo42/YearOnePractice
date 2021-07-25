@@ -53,7 +53,7 @@ class SpriteButton {
         this.ghostCanvas.height = 210;
         this.gctx = this.ghostCanvas.getContext("2d");
         this.img = new Image();
-        this.img.src = 'Sprites/Buttons/t' + type + 'd' + direction + '.png';
+        this.img.src = './Sprites/Buttons/t' + type + 'd' + direction + '.png';
         
         this.hover = false;
         this.pressed = false;

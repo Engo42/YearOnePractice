@@ -143,7 +143,7 @@ class Edge {
             this.vertexes[0] = field.vertexMap[y][x][0];
             this.vertexes[1] = field.vertexMap[y][x][1];
         }
-        if (this.direction == 3) {
+        if (this.direction == 2) {
             this.edges[0] = field.edgeMap[y][x][1];
             this.edges[1] = field.edgeMap[y + 1][x - 1][0];
             this.edges[2] = field.edgeMap[y][x - 1][1];

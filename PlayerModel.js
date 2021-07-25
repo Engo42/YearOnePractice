@@ -28,6 +28,8 @@ class Player {
         this.developmentCards[id].use();
         this.developmentCards.splice(id, 1);
     }
+    buildRoad(x, y, direction) {
+    }
 }
 
 class DevelopmentCard {
