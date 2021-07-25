@@ -2,12 +2,12 @@ class GameUI {
     constructor(field) {
         this.fieldUI = new FieldUI(field);
         this.modeMenuUI = new ModeMenuUI;
-        //this.PlayerInfoU = new PlayerInfoU(players[0]);
+        this.PlayerInfoU = new PlayerInfoU(players[0]);
     }
     draw() {
         this.fieldUI.draw();
         this.modeMenuUI.draw();
-        //this.PlayerInfoU.draw();
+        this.PlayerInfoU.draw();
     }
 }
 
