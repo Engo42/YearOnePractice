@@ -18,7 +18,7 @@ class FieldUI {
     }
 
     draw() {
-        for (var i = 0; i < this.field.hexArray.length; i++) {
+        for (let i = 0; i < this.field.hexArray.length; i++) {
             var hex = this.field.hexArray[i];
             ctx.drawImage(hex.img, 420 + hex.x * 160 + hex.y * 80, 10 + hex.y * 140);
             if (hex.level !== 0) {
