@@ -29,6 +29,8 @@ class Player {
         this.developmentCards.splice(id, 1);
     }
     buildRoad(x, y, direction) {
+        field.edgeMap[y][x][direction].player = this.number;
+        field.edgeMap[y][x][direction].level = 1;
     }
 }
 

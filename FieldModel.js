@@ -1,14 +1,15 @@
 class Field {
     constructor() {
         var typeMap = [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 1, 0],
-            [0, 0, 0, 1, 1, 1, 1, 0],
-            [0, 0, 1, 1, 2, 1, 1, 0],
-            [0, 0, 1, 1, 1, 1, 0, 0],
-            [0, 0, 1, 1, 1, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 1, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 0, 0],
+            [0, 0, 1, 1, 2, 1, 1, 0, 0],
+            [0, 0, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0]
         ]
         var typeDeck = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5];
         typeDeck = shuffle(typeDeck);
@@ -18,16 +19,22 @@ class Field {
         this.hexArray = new Array;
         this.edgeArray = new Array;
         this.vertexArray = new Array;
-        this.hexMap = new Array(8);
-        this.edgeMap = new Array(8);
-        this.vertexMap = new Array(8);
-        for (var i = 0; i < 8; i++) {
-            this.hexMap[i] = new Array(8);
-            this.edgeMap[i] = new Array(8);
-            this.vertexMap[i] = new Array(8);
-            for (var j = 0; j < 8; j++) {
+        this.hexMap = new Array(9);
+        this.edgeMap = new Array(9);
+        this.vertexMap = new Array(9);
+        for (var i = 0; i < 9; i++) {
+            this.hexMap[i] = new Array(9);
+            this.edgeMap[i] = new Array(9);
+            this.vertexMap[i] = new Array(9);
+            for (var j = 0; j < 9; j++) {
                 this.edgeMap[i][j] = new Array(3);
+                for (var k = 0; k < 3; k++) {
+                    this.edgeMap[i][j][k] = null;
+                }
                 this.vertexMap[i][j] = new Array(2);
+                for (var k = 0; k < 2; k++) {
+                    this.vertexMap[i][j][k] = null;
+                }
                 if (typeMap[i][j] == 0)
                     this.hexMap[i][j] = null;
                 if (typeMap[i][j] == 1)
@@ -120,8 +127,6 @@ class Edge {
         this.player = -1;
         this.edges = new Array(4);
         this.vertexes = new Array(2);
-        this.img = new Image();
-        this.img.src = 'Sprites/Edges/d' + this.direction + '.png';
     }
     connect() {
         let field = this.field;

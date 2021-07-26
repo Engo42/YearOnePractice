@@ -14,11 +14,26 @@ class EmptyUI {
     constructor() {}
     frameAction() {}
     draw() {}
+    deleteSelf() {
+        this.delete;
+    }
 }
 
 class FieldUI {
     constructor(field) {
         this.field = field;
+        this.edgeImg = new Array(3);
+        for (var i = 0; i < 3; i++) {
+            this.edgeImg[i] = new Array(5);
+            this.edgeImg[i][4] = new Image;
+            this.edgeImg[i][4].src = './Sprites/Edges/d' + i + '.png';
+            for (var j = 0; j < 4; j++) {
+                this.edgeImg[i][j] = new Image;
+                this.edgeImg[i][j].src = './Sprites/Edges/d' + i + 'p' + j + '.png';
+            }
+        }
+        this.buildMode = 0;
+        this.highlightEdges = new Array;
     }
     draw() {
         for (var i = 0; i < this.field.hexArray.length; i++) {
@@ -34,8 +49,19 @@ class FieldUI {
         }
         for (var i = 0; i < this.field.edgeArray.length; i++) {
             var edge = this.field.edgeArray[i];
-            ctx.drawImage(edge.img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
+            if (edge.player === -1)
+                var img = this.edgeImg[edge.direction][4];
+            else
+                var img = this.edgeImg[edge.direction][edge.player];
+            ctx.drawImage(img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
         }
+        ctx.globalAlpha = 0.5;
+        for (var i = 0; i < this.highlightEdges.length; i++) {
+            var edge = this.highlightEdges[i];
+            var img = this.edgeImg[edge.direction][currentPlayer];
+            ctx.drawImage(img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
+        }
+        ctx.globalAlpha = 1;
         for (var i = 0; i < this.field.vertexArray.length; i++) {
             var vertex = this.field.vertexArray[i];
             ctx.drawImage(vertex.img, 180 + vertex.x * 160 + vertex.y * 80, -130 + vertex.y * 140);
@@ -242,7 +268,7 @@ class BuildModeUI {
         if (newState != -1)
             this.buttons[newState].active = false;
         
-        this.childUI.delete;
+        this.childUI.deleteSelf();
         this.state = newState;
         if (newState == -1)
             this.childUI = new EmptyUI;
@@ -273,6 +299,7 @@ class BuildModeUI {
 }
 class RoadBuilderUI {
     constructor() {
+        gameUI.fieldUI.buildMode = 1;
         this.ParentUI = gameUI.modeMenuUI.childUI;
         this.roads = field.edgeMap;
         this.target = -1;
@@ -290,8 +317,10 @@ class RoadBuilderUI {
                             if (this.roads[i][j][k].vertexes[q] != null && this.roads[i][j][k].vertexes[q].player == currentPlayer)
                                 available = true;
                         }
-                        if (available)
-                            this.buttons.push(new SpriteButton(i, j, 1, this.roads[i][j][k].direction, this));
+                        if (available) {
+                            this.buttons.push(new SpriteButton(j, i, 1, this.roads[i][j][k].direction, this));
+                            gameUI.fieldUI.highlightEdges.push(this.roads[i][j][k]);
+                        }
                     }
                 }
             }
@@ -304,15 +333,14 @@ class RoadBuilderUI {
         }
     }
     draw() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
-        ctx.fillRect(800, 0, 1120, 1080);
-        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+    }
+    deleteSelf() {
+        gameUI.fieldUI.buildMode = 1;
+        gameUI.fieldUI.highlightEdges.length = 0;
         for (var i = 0; i < this.buttons.length; i++) {
-            if (this.buttons[i].hover)
-                drawColorSprite(this.buttons[i].img, this.buttons[i].x, this.buttons[i].y, players[currentPlayer].color);
-            else
-                drawColorSprite(this.buttons[i].img, this.buttons[i].x, this.buttons[i].y, 'white');
+            this.buttons[i].delete;
         }
+        this.delete;
     }
 }
 
