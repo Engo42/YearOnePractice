@@ -64,7 +64,7 @@ class FieldUI {
             }
             else if (hex.bandit===1){///я же правильно понимаю,что у него там до этого проверка была, типа
                 ///нужен он или нет?
-                ctx.drawImage(hex.img_bandit, 480 + hex.x * 160 + hex.y * 80, 30 + hex.y * 140);
+                ctx.drawImage(hex.img_bandit, 243 + hex.x * 160 + hex.y * 80, -100 + hex.y * 140);
             }
         }
         
@@ -475,9 +475,7 @@ class PlayerInfoU {
     }
 
     draw() {
-        console.log(5);
         ctx.fillStyle = this.color;
-        console.log(this.color);
         let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.number;
         ctx.fillStyle = this.color;
         ctx.fillRect(leftBoard, highBoard, widthOfBig, heightOfBig);
