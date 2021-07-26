@@ -32,6 +32,13 @@ class Player {
         field.edgeMap[y][x][direction].player = this.number;
         field.edgeMap[y][x][direction].level = 1;
     }
+    buildSettlement(x, y, direction) {
+        field.vertexMap[y][x][direction].player = this.number;
+        field.vertexMap[y][x][direction].level = 1;
+    }
+    buildCity(x, y, direction) {
+        field.vertexMap[y][x][direction].level = 2;
+    }
 }
 
 class DevelopmentCard {

@@ -32,10 +32,24 @@ class FieldUI {
                 this.edgeImg[i][j].src = './Sprites/Edges/d' + i + 'p' + j + '.png';
             }
         }
-        this.buildMode = 0;
+        this.vertexImg = new Array(2);
+        for (var i = 0; i < 2; i++) {
+            this.vertexImg[i] = new Array(3);
+            this.vertexImg[i][0] = new Image;
+            this.vertexImg[i][0].src = './Sprites/Vertexes/d' + i + 'l0.png';
+            for (var j = 1; j < 3; j++) {
+                this.vertexImg[i][j] = new Array(4);
+                for (var k = 0; k < 4; k++) {
+                    this.vertexImg[i][j][k] = new Image;
+                    this.vertexImg[i][j][k].src = './Sprites/Vertexes/d' + i + 'l' + j + 'p' + k + '.png';
+                }
+            }
+        }
         this.highlightEdges = new Array;
+        this.highlightVertexes = new Array;
     }
     draw() {
+        var img;
         for (var i = 0; i < this.field.hexArray.length; i++) {
             var hex = this.field.hexArray[i];
             ctx.drawImage(hex.img, 180 + hex.x * 160 + hex.y * 80, -130 + hex.y * 140);
@@ -47,25 +61,38 @@ class FieldUI {
                 ctx.fillText(hex.level, 283 + hex.x * 160 + hex.y * 80, -25 + hex.y * 140);
             }
         }
+        
         for (var i = 0; i < this.field.edgeArray.length; i++) {
             var edge = this.field.edgeArray[i];
             if (edge.player === -1)
-                var img = this.edgeImg[edge.direction][4];
+                img = this.edgeImg[edge.direction][4];
             else
-                var img = this.edgeImg[edge.direction][edge.player];
+                img = this.edgeImg[edge.direction][edge.player];
             ctx.drawImage(img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
         }
         ctx.globalAlpha = 0.5;
         for (var i = 0; i < this.highlightEdges.length; i++) {
             var edge = this.highlightEdges[i];
-            var img = this.edgeImg[edge.direction][currentPlayer];
+            img = this.edgeImg[edge.direction][currentPlayer];
             ctx.drawImage(img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
         }
+        
         ctx.globalAlpha = 1;
         for (var i = 0; i < this.field.vertexArray.length; i++) {
             var vertex = this.field.vertexArray[i];
-            ctx.drawImage(vertex.img, 180 + vertex.x * 160 + vertex.y * 80, -130 + vertex.y * 140);
+            if (vertex.player === -1)
+                img = this.vertexImg[vertex.direction][0];
+            else
+                img = this.vertexImg[vertex.direction][vertex.level][vertex.player];
+            ctx.drawImage(img, 180 + vertex.x * 160 + vertex.y * 80, -130 + vertex.y * 140);
         }
+        ctx.globalAlpha = 0.5;
+        for (var i = 0; i < this.highlightVertexes.length; i++) {
+            var vertex = this.highlightVertexes[i];
+            img = this.vertexImg[vertex.direction][vertex.level + 1][currentPlayer];
+            ctx.drawImage(img, 180 + vertex.x * 160 + vertex.y * 80, -130 + vertex.y * 140);
+        }
+        ctx.globalAlpha = 1;
     }
 }
 class ModeMenuUI {
@@ -275,9 +302,9 @@ class BuildModeUI {
         if (newState == 0)
             this.childUI = new RoadBuilderUI;
         if (newState == 1)
-            this.childUI = new RoadBuilderUI;
+            this.childUI = new SettlementBuilderUI;
         if (newState == 2)
-            this.childUI = new RoadBuilderUI;
+            this.childUI = new CityBuilderUI;
     }
     frameAction() {
         this.childUI.frameAction();
@@ -299,7 +326,6 @@ class BuildModeUI {
 }
 class RoadBuilderUI {
     constructor() {
-        gameUI.fieldUI.buildMode = 1;
         this.ParentUI = gameUI.modeMenuUI.childUI;
         this.roads = field.edgeMap;
         this.target = -1;
@@ -335,8 +361,85 @@ class RoadBuilderUI {
     draw() {
     }
     deleteSelf() {
-        gameUI.fieldUI.buildMode = 1;
         gameUI.fieldUI.highlightEdges.length = 0;
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].delete;
+        }
+        this.delete;
+    }
+}
+class SettlementBuilderUI {
+    constructor() {
+        this.ParentUI = gameUI.modeMenuUI.childUI;
+        this.vertexes = field.vertexMap;
+        this.target = -1;
+        this.buttons = new Array;
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < 7; j++) {
+                for (var k = 0; k < 3; k++) {
+                    if (this.vertexes[i][j][k] != null && this.vertexes[i][j][k].player == -1) {
+                        var available = false;
+                        for (var q = 0; q < 3; q++) {
+                            if (this.vertexes[i][j][k].edges[q] != null && this.vertexes[i][j][k].edges[q].player == currentPlayer)
+                                available = true;
+                        }
+                        for (var q = 0; q < 3; q++) {
+                            if (this.vertexes[i][j][k].vertexes[q] != null && this.vertexes[i][j][k].vertexes[q].level > 0)
+                                available = false;
+                        }
+                        if (available) {
+                            this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
+                            gameUI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    frameAction() {
+        if (this.target != -1) {
+            players[currentPlayer].buildSettlement(this.target[0], this.target[1], this.target[2]);
+            this.ParentUI.changeState(-1);
+        }
+    }
+    draw() {
+    }
+    deleteSelf() {
+        gameUI.fieldUI.highlightVertexes.length = 0;
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].delete;
+        }
+        this.delete;
+    }
+}
+class CityBuilderUI {
+    constructor() {
+        this.ParentUI = gameUI.modeMenuUI.childUI;
+        this.vertexes = field.vertexMap;
+        this.target = -1;
+        this.buttons = new Array;
+        for (var i = 0; i < 7; i++) {
+            for (var j = 0; j < 7; j++) {
+                for (var k = 0; k < 3; k++) {
+                    if (this.vertexes[i][j][k] != null 
+                    && this.vertexes[i][j][k].player === currentPlayer && this.vertexes[i][j][k].level === 1) {
+                        this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
+                        gameUI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
+                    }
+                }
+            }
+        }
+    }
+    frameAction() {
+        if (this.target != -1) {
+            players[currentPlayer].buildCity(this.target[0], this.target[1], this.target[2]);
+            this.ParentUI.changeState(-1);
+        }
+    }
+    draw() {
+    }
+    deleteSelf() {
+        gameUI.fieldUI.highlightVertexes.length = 0;
         for (var i = 0; i < this.buttons.length; i++) {
             this.buttons[i].delete;
         }

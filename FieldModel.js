@@ -170,8 +170,6 @@ class Vertex {
         this.player = -1;
         this.edges = new Array(3);
         this.vertexes = new Array(3);
-        this.img = new Image();
-        this.img.src = 'Sprites/Vertexes/d' + this.direction + 'l' + this.level + '.png';
     }
     connect() {
         let field = this.field;
