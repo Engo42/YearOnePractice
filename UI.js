@@ -27,8 +27,7 @@ class FieldUI {
                 ctx.textAlign = "center";
                 ctx.font = "48px Arial";
                 ctx.fillText(hex.level, 523 + hex.x * 160 + hex.y * 80, 115 + hex.y * 140);
-            }
-            else if (hex.bandit===1){///я же правильно понимаю,что у него там до этого проверка была, типа
+            } else if (hex.bandit === 1) { ///я же правильно понимаю,что у него там до этого проверка была, типа
                 ///нужен он или нет?
                 ctx.drawImage(hex.img_bandit, 480 + hex.x * 160 + hex.y * 80, 30 + hex.y * 140);
             }
@@ -51,7 +50,7 @@ class ModeMenuUI {
         this.childUI = new BuildModeUI;
         for (var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10 + 60 * i, 500, 50, 50, i, this,
-                function (id, parentUI) {
+                function(id, parentUI) {
                     parentUI.buttons[parentUI.state].active = true;
                     parentUI.changeState(id);
                     parentUI.buttons[id].active = false;
@@ -115,7 +114,7 @@ class DevelopmentModeUI {
                 this.deckLowY, this.deckHighY, width, this.cards[i]);
         }
         this.buyButton = new Button(640, 980, 200, 60, 0, this,
-            function (id, parentUI) {
+            function(id, parentUI) {
                 parentUI.cardsUI.push(new DevelopmentCardUI(parentUI.deckX + parentUI.deckWidth,
                     parentUI.deckLowY, parentUI.deckHighY, 300, players[currentPlayer].buyCard()));
             }
@@ -183,7 +182,7 @@ class DevelopmentCardUI {
         this.highTrigger = new Button(this.x, this.y, 300, 435, 0, this, noop);
         this.highTrigger.active = false;
         this.useButton = new Button(this.x + 80, this.y + 380, 140, 40, card.active, this,
-            function (id, parentUI) {
+            function(id, parentUI) {
                 parentUI.used = true;
             }
         );
@@ -242,7 +241,7 @@ class BuildModeUI {
         this.childUI = new RoadBuilderUI;
         for (var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
-                function (id, parentUI) {
+                function(id, parentUI) {
                     parentUI.buttons[parentUI.state].active = true;
                     parentUI.changeState(id);
                     parentUI.buttons[id].active = false;
@@ -295,33 +294,28 @@ class RoadBuilderUI {
         }
     }
 
-    frameAction() {
-    }
+    frameAction() {}
 
-    draw() {
-    }
+    draw() {}
 }
 
 
 class PlayerInfoU {
-    constructor(Player) {
-        this.Player = Player;
+    constructor(player) {
+        this.player = player;
     }
-
     draw() {
-        console.log(5);
-        ctx.fillStyle = this.color;
-        console.log(this.color);
-        let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.number;
-        ctx.fillStyle = this.color;
-        ctx.fillRect(leftBoard, highBoard, widthOfBig, heightOfBig);
+        ctx.fillStyle = this.player.color;
+        let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.player.number;
+        ctx.fillStyle = this.player.color;
+        ctx.fillRect(leftBoard - 10, highBoard, widthOfBig, heightOfBig);
         ctx.font = "20px serif";
-        ctx.fillStyle = "white";
-        ctx.fillText(this.name, leftBoard + 5, highBoard + 25);
+        ctx.fillStyle = "black";
+        ctx.fillText(this.player.name, leftBoard + 32, highBoard + 25);
         for (let j = 0; j < 5; j++) {
             ctx.fillStyle = "yellow";
-            ctx.fillRect(leftBoard + j * (widthOfSmall + 5), highBoard + 40, widthOfSmall, heightOfSmall);
-            ctx.fillText("0", leftBoard + j * (widthOfSmall + 5), highBoard + 40 + heightOfSmall + 2);
+            ctx.fillRect(leftBoard - 3 + j * (widthOfSmall + 5), highBoard + 40, widthOfSmall, heightOfSmall);
+            ctx.fillText("0", leftBoard + 2 + j * (widthOfSmall + 5), highBoard + 40 + heightOfSmall + 10);
         }
     }
 }
