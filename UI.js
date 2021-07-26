@@ -120,7 +120,7 @@ class ModeMenuUI {
     }
 
     changeState(newState) {
-        this.childUI.delete;
+        this.childUI.deleteSelf();
         this.state = newState;
         if (newState === 0) {
             this.childUI = new BuildModeUI;
@@ -179,7 +179,6 @@ class DevelopmentModeUI {
             }
         )
     }
-
     frameAction() {
         var width;
         var step;
@@ -199,6 +198,7 @@ class DevelopmentModeUI {
 
             if (this.cardsUI[i].used) {
                 players[currentPlayer].useCard(i);
+                this.cardsUI[i].deleteSelf();
                 this.cardsUI.splice(i, 1);
                 for (var j = 0; j < this.cards.length; j++) {
                     //this.cards[j].active = false;
@@ -207,7 +207,6 @@ class DevelopmentModeUI {
             }
         }
     }
-
     draw() {
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].draw();
@@ -221,6 +220,13 @@ class DevelopmentModeUI {
         else
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.buyButton.x, this.buyButton.y, this.buyButton.width, this.buyButton.height);
+    }
+    deleteSelf() {
+        for (var i = 0; i < this.cardsUI.length; i++) {
+            this.cardsUI[i].deleteSelf();
+        }
+        this.buyButton.deleteSelf();
+        this.delete;
     }
 }
 
@@ -291,6 +297,12 @@ class DevelopmentCardUI {
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
     }
+    deleteSelf() {
+        this.lowTrigger.deleteSelf();
+        this.highTrigger.deleteSelf();
+        this.useButton.deleteSelf();
+        this.delete;
+    }
 }
 
 class BuildModeUI {
@@ -343,6 +355,13 @@ class BuildModeUI {
         }
         this.childUI.draw();
     }
+    deleteSelf() {
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].deleteSelf();
+        }
+        this.childUI.deleteSelf();
+        this.delete;
+    }
 }
 
 class RoadBuilderUI {
@@ -382,9 +401,9 @@ class RoadBuilderUI {
     draw() {
     }
     deleteSelf() {
-        gameUI.fieldUI.highlightEdges.length = 0;
+        gameUI.fieldUI.highlightEdges = [];
         for (var i = 0; i < this.buttons.length; i++) {
-            this.buttons[i].delete;
+            this.buttons[i].deleteSelf();
         }
         this.delete;
     }
@@ -426,9 +445,9 @@ class SettlementBuilderUI {
     draw() {
     }
     deleteSelf() {
-        gameUI.fieldUI.highlightVertexes.length = 0;
+        gameUI.fieldUI.highlightVertexes = [];
         for (var i = 0; i < this.buttons.length; i++) {
-            this.buttons[i].delete;
+            this.buttons[i].deleteSelf();
         }
         this.delete;
     }
@@ -460,9 +479,9 @@ class CityBuilderUI {
     draw() {
     }
     deleteSelf() {
-        gameUI.fieldUI.highlightVertexes.length = 0;
+        gameUI.fieldUI.highlightVertexes = [];
         for (var i = 0; i < this.buttons.length; i++) {
-            this.buttons[i].delete;
+            this.buttons[i].deleteSelf();
         }
         this.delete;
     }

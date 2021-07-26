@@ -35,6 +35,10 @@ class Button {
             this.pressed = true;
         }
     }
+    deleteSelf() {
+        buttonArray.splice(buttonArray.indexOf(this), 1);
+        this.delete;
+    }
 }
 
 class SpriteButton {
@@ -77,7 +81,6 @@ class SpriteButton {
             this.hover = false;
         }
     }
-
     checkRelease() {
         if (this.hover && this.pressed == true) {
             this.pressed = false;
@@ -89,5 +92,9 @@ class SpriteButton {
         if (this.hover) {
             this.pressed = true;
         }
+    }
+    deleteSelf() {
+        buttonArray.splice(buttonArray.indexOf(this), 1);
+        this.delete;
     }
 }
