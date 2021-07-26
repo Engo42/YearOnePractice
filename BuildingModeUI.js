@@ -61,22 +61,20 @@ class BuildModeUI {
             ctx.fillStyle = 'white';
             ctx.font = "22px Verdana";
             ctx.fillText(text[i], 70, 590 + i * 58, 120)
-            if (i===0){
-                ctx.drawImage(img_clay,210,565 + i * 60,40,40);
-                ctx.drawImage(img_wood,260,565 + i * 60,40,40);
-            }
-            else if (i===1){
-                ctx.drawImage(img_clay,130,565 + i * 60,40,40);
-                ctx.drawImage(img_wood,175,565 + i * 60,40,40);
-                ctx.drawImage(img_wool,225,565 + i * 60,40,40);
-                ctx.drawImage(img_corn,270,565 + i * 60,40,40);
-            }
-            else {
-                ctx.drawImage(img_iron,145,565 + i * 60,40,40);
-                ctx.drawImage(img_iron,165,565 + i * 60,40,40);
-                ctx.drawImage(img_iron,185,565 + i * 60,40,40);
-                ctx.drawImage(img_corn,270,565 + i * 60,40,40);
-                ctx.drawImage(img_corn,235,565 + i * 60,40,40);
+            if (i === 0) {
+                ctx.drawImage(img_clay, 210, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_wood, 260, 565 + i * 60, 40, 40);
+            } else if (i === 1) {
+                ctx.drawImage(img_clay, 130, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_wood, 175, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_wool, 225, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_corn, 270, 565 + i * 60, 40, 40);
+            } else {
+                ctx.drawImage(img_iron, 145, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_iron, 165, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_iron, 185, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_corn, 270, 565 + i * 60, 40, 40);
+                ctx.drawImage(img_corn, 235, 565 + i * 60, 40, 40);
             }
         }
         this.childUI.draw();

@@ -11,10 +11,17 @@ class GameUI {
         this.PlayerInfoU.draw();
     }
 }
+
 class EmptyUI {
-    constructor() {}
-    frameAction() {}
-    draw() {}
+    constructor() {
+    }
+
+    frameAction() {
+    }
+
+    draw() {
+    }
+
     deleteSelf() {
         this.delete;
     }
@@ -61,13 +68,12 @@ class FieldUI {
                 ctx.textAlign = "center";
                 ctx.font = "48px Arial";
                 ctx.fillText(hex.level, 283 + hex.x * 160 + hex.y * 80, -25 + hex.y * 140);
-            }
-            else if (hex.bandit===1){///я же правильно понимаю,что у него там до этого проверка была, типа
+            } else if (hex.bandit === 1) {///я же правильно понимаю,что у него там до этого проверка была, типа
                 ///нужен он или нет?
                 ctx.drawImage(hex.img_bandit, 243 + hex.x * 160 + hex.y * 80, -100 + hex.y * 140);
             }
         }
-        
+
         for (var i = 0; i < this.field.edgeArray.length; i++) {
             var edge = this.field.edgeArray[i];
             if (edge.player === -1)
@@ -82,7 +88,7 @@ class FieldUI {
             img = this.edgeImg[edge.direction][currentPlayer];
             ctx.drawImage(img, 180 + edge.x * 160 + edge.y * 80, -130 + edge.y * 140);
         }
-        
+
         ctx.globalAlpha = 1;
         for (var i = 0; i < this.field.vertexArray.length; i++) {
             var vertex = this.field.vertexArray[i];
@@ -135,10 +141,10 @@ class ModeMenuUI {
 
     draw() {
 
-        this.image=[new Image(),new Image(),new Image()];
+        this.image = [new Image(), new Image(), new Image()];
         this.image[0].src = "Sprites/Img_But/hammer.png";
-        this.image[1].src="Sprites/Img_But/coin.png";
-        this.image[2].src="Sprites/Img_But/scroll.png";
+        this.image[1].src = "Sprites/Img_But/coin.png";
+        this.image[2].src = "Sprites/Img_But/scroll.png";
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
@@ -149,11 +155,11 @@ class ModeMenuUI {
             else
                 ctx.fillStyle = '#FF8800';
             ctx.fillRect(10 + 60 * i, 500, 50, 50);
-            if(i!==1)
-            ctx.drawImage(this.image[i],10 + 60 * i, 500,50,50);
+            if (i !== 1)
+                ctx.drawImage(this.image[i], 10 + 60 * i, 500, 50, 50);
 
         }
-        ctx.drawImage(this.image[1],0, 430,190,190);
+        ctx.drawImage(this.image[1], 0, 430, 190, 190);
         this.childUI.frameAction();
         this.childUI.draw();
     }

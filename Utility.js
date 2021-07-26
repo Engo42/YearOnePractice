@@ -9,4 +9,5 @@ function shuffle(a) {
     return a;
 }
 
-function noop() {}
+function noop() {
+}

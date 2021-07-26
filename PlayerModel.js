@@ -30,14 +30,17 @@ class Player {
         this.developmentCards[id].use();
         this.developmentCards.splice(id, 1);
     }
+
     buildRoad(x, y, direction) {
         field.edgeMap[y][x][direction].player = this.number;
         field.edgeMap[y][x][direction].level = 1;
     }
+
     buildSettlement(x, y, direction) {
         field.vertexMap[y][x][direction].player = this.number;
         field.vertexMap[y][x][direction].level = 1;
     }
+
     buildCity(x, y, direction) {
         field.vertexMap[y][x][direction].level = 2;
     }

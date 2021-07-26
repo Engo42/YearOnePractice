@@ -112,7 +112,7 @@ class Hex {
         this.edges[3] = field.edgeMap[y][x][2];
         this.edges[4] = field.edgeMap[y][x - 1][0];
         this.edges[5] = field.edgeMap[y - 1][x][1];
-        
+
         this.vertexes[0] = field.vertexMap[y - 1][x][0];
         this.vertexes[1] = field.vertexMap[y - 1][x - 1][1];
         this.vertexes[2] = field.vertexMap[y][x][0];
