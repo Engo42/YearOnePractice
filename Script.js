@@ -4,7 +4,7 @@ var ctx = canvas.getContext("2d");
 const leftBoard = 20; //константы для отрисовки списка игроков
 const highBoardOfHighest = 10;
 const heightOfBig = 100;
-const widthOfBig = 200;
+const widthOfBig = 300;
 const heightOfSmall = 10;
 const widthOfSmall = 10;
 
@@ -26,8 +26,7 @@ function shuffle(a) {
     return a;
 }
 
-function noop() {
-}
+function noop() {}
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
