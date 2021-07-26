@@ -134,6 +134,11 @@ class ModeMenuUI {
     }
 
     draw() {
+      //  let text=["Road","Colony","City"]
+        this.image=[new Image(),new Image(),new Image()];
+        this.image[0].src = "Sprites/Img_But/hammer.png";
+        this.image[1].src="Sprites/Img_But/coin.png";
+        this.image[2].src="Sprites/Img_But/scroll.png";
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
@@ -144,7 +149,11 @@ class ModeMenuUI {
             else
                 ctx.fillStyle = '#FF8800';
             ctx.fillRect(10 + 60 * i, 500, 50, 50);
+            if(i!==1)
+            ctx.drawImage(this.image[i],10 + 60 * i, 500,50,50);
+
         }
+        ctx.drawImage(this.image[1],0, 430,190,190);
         this.childUI.frameAction();
         this.childUI.draw();
     }
