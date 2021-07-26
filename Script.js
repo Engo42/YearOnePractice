@@ -8,26 +8,14 @@ const widthOfBig = 200;
 const heightOfSmall = 10;
 const widthOfSmall = 10;
 
+const playerColors = ['#FF0000', '#FFFF00', '#00FF00', '#0000FF'];
+
 var buttonArray = new Array;
 var field;
 var gameUI;
 
 var players;
 var currentPlayer = 0;
-
-function shuffle(a) {
-    var i = a.length;
-    var j;
-    while (0 !== i) {
-        j = Math.floor(Math.random() * i);
-        i--;
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-}
-
-function noop() {
-}
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -44,8 +32,8 @@ function frameLoop() {
 function gameOpen() {
     let i;
     players = new Array(4);
-    for (i = 0; i < 4; i++) {
-        players[i] = new Player("Player_" + (i + 1), "white", i);
+    for (var i = 0; i < 4; i++) {
+        players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
     }
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
@@ -57,6 +45,9 @@ function gameOpen() {
 
 
     field = new Field;
+    field.vertexArray[0].level = 1;
+    field.vertexArray[0].player = currentPlayer;
+    
     gameUI = new GameUI(field);
 
 }
