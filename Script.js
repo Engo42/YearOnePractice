@@ -32,7 +32,7 @@ function frameLoop() {
 function gameOpen() {
     let i;
     players = new Array(4);
-    for (var i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
     }
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
