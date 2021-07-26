@@ -2,8 +2,9 @@ class GameUI {
     constructor(field) {
         this.fieldUI = new FieldUI(field);
         this.modeMenuUI = new ModeMenuUI;
-        this.PlayerInfoU = new PlayerInfoU;
+        this.PlayerInfoU = new PlayerInfoU(players[0]);
     }
+
     draw() {
         this.fieldUI.draw();
         this.modeMenuUI.draw();
@@ -48,17 +49,22 @@ class FieldUI {
         this.highlightEdges = new Array;
         this.highlightVertexes = new Array;
     }
+
     draw() {
         var img;
         for (var i = 0; i < this.field.hexArray.length; i++) {
             var hex = this.field.hexArray[i];
             ctx.drawImage(hex.img, 180 + hex.x * 160 + hex.y * 80, -130 + hex.y * 140);
-            if (hex.level != 0) {
+            if (hex.level !== 0) {
                 ctx.fillStyle = "white";
                 ctx.textBaseline = "middle";
                 ctx.textAlign = "center";
                 ctx.font = "48px Arial";
                 ctx.fillText(hex.level, 283 + hex.x * 160 + hex.y * 80, -25 + hex.y * 140);
+            }
+            else if (hex.bandit===1){///я же правильно понимаю,что у него там до этого проверка была, типа
+                ///нужен он или нет?
+                ctx.drawImage(hex.img_bandit, 480 + hex.x * 160 + hex.y * 80, 30 + hex.y * 140);
             }
         }
         
@@ -95,6 +101,7 @@ class FieldUI {
         ctx.globalAlpha = 1;
     }
 }
+
 class ModeMenuUI {
     constructor() {
         this.state = 0;
@@ -102,7 +109,7 @@ class ModeMenuUI {
         this.childUI = new BuildModeUI;
         for (var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10 + 60 * i, 500, 50, 50, i, this,
-                function(id, parentUI) {
+                function (id, parentUI) {
                     parentUI.buttons[parentUI.state].active = true;
                     parentUI.changeState(id);
                     parentUI.buttons[id].active = false;
@@ -111,22 +118,24 @@ class ModeMenuUI {
         }
         this.buttons[0].active = false;
     }
+
     changeState(newState) {
         this.childUI.delete;
         this.state = newState;
-        if (newState == 0) {
+        if (newState === 0) {
             this.childUI = new BuildModeUI;
         }
-        if (newState == 1) {
+        if (newState === 1) {
             this.childUI = new DevelopmentModeUI;
         }
-        if (newState == 2) {
+        if (newState === 2) {
             this.childUI = new DevelopmentModeUI;
         }
     }
+
     draw() {
         for (var i = 0; i < 3; i++) {
-            if (this.buttons[i].active == false)
+            if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
             else if (this.buttons[i].pressed)
                 ctx.fillStyle = '#884400';
@@ -147,40 +156,44 @@ class DevelopmentModeUI {
         this.deckLowY = 1020;
         this.deckHighY = 585;
         this.deckWidth = 580;
-
+        var width;
+        var step;
         this.cards = players[currentPlayer].developmentCards;
         this.cardsUI = new Array(this.cards.length);
         for (var i = 0; i < this.cardsUI.length; i++) {
-            if (i == this.cardsUI.length - 1)
-                var width = 300;
+            if (i === this.cardsUI.length - 1)
+                width = 300;
             else
-                var width = (this.deckWidth - 300) / (this.cards.length - 1);
-            if (this.cardsUI.length - 1 == 0)
-                var step = 0;
+                width = (this.deckWidth - 300) / (this.cards.length - 1);
+            if (this.cardsUI.length - 1 === 0)
+                step = 0;
             else
-                var step = (this.deckWidth - 300) / (this.cards.length - 1);
+                step = (this.deckWidth - 300) / (this.cards.length - 1);
             this.cardsUI[i] = new DevelopmentCardUI(this.deckX + i * step,
                 this.deckLowY, this.deckHighY, width, this.cards[i]);
         }
         this.buyButton = new Button(640, 980, 200, 60, 0, this,
-            function(id, parentUI) {
+            function (id, parentUI) {
                 parentUI.cardsUI.push(new DevelopmentCardUI(parentUI.deckX + parentUI.deckWidth,
                     parentUI.deckLowY, parentUI.deckHighY, 300, players[currentPlayer].buyCard()));
             }
         )
     }
+
     frameAction() {
+        var width;
+        var step;
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].frameAction();
 
-            if (i == this.cardsUI.length - 1)
-                var width = 300;
+            if (i === this.cardsUI.length - 1)
+                width = 300;
             else
-                var width = (this.deckWidth - 300) / (this.cards.length - 1);
-            if (this.cardsUI.length - 1 == 0)
-                var step = 0;
+                width = (this.deckWidth - 300) / (this.cards.length - 1);
+            if (this.cardsUI.length - 1 === 0)
+                step = 0;
             else
-                var step = (this.deckWidth - 300) / (this.cards.length - 1);
+                step = (this.deckWidth - 300) / (this.cards.length - 1);
             this.cardsUI[i].targetX = this.deckX + i * step;
             this.cardsUI[i].width = width;
 
@@ -194,11 +207,12 @@ class DevelopmentModeUI {
             }
         }
     }
+
     draw() {
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].draw();
         }
-        if (this.buyButton.active == false)
+        if (this.buyButton.active === false)
             ctx.fillStyle = '#444444';
         else if (this.buyButton.pressed)
             ctx.fillStyle = '#004400';
@@ -209,6 +223,7 @@ class DevelopmentModeUI {
         ctx.fillRect(this.buyButton.x, this.buyButton.y, this.buyButton.width, this.buyButton.height);
     }
 }
+
 class DevelopmentCardUI {
     constructor(x, lowY, highY, width, card) {
         this.card = card;
@@ -226,11 +241,12 @@ class DevelopmentCardUI {
         this.highTrigger = new Button(this.x, this.y, 300, 435, 0, this, noop);
         this.highTrigger.active = false;
         this.useButton = new Button(this.x + 80, this.y + 380, 140, 40, card.active, this,
-            function(id, parentUI) {
+            function (id, parentUI) {
                 parentUI.used = true;
             }
         );
     }
+
     frameAction() {
         this.useButton.active = this.card.active;
 
@@ -262,9 +278,10 @@ class DevelopmentCardUI {
         if (Math.abs(this.targetY - this.y) <= 25)
             this.y = this.targetY;
     }
+
     draw() {
         ctx.drawImage(this.card.img, this.x, this.y);
-        if (this.useButton.active == false)
+        if (this.useButton.active === false)
             ctx.fillStyle = '#444444';
         else if (this.useButton.pressed)
             ctx.fillStyle = '#004400';
@@ -283,12 +300,13 @@ class BuildModeUI {
         this.childUI = new EmptyUI;
         for (var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
-                function(id, parentUI) {
+                function (id, parentUI) {
                     parentUI.changeState(id);
                 }
             )
         }
     }
+
     changeState(newState) {
         if (this.state != -1)
             this.buttons[this.state].active = true;
@@ -297,21 +315,23 @@ class BuildModeUI {
         
         this.childUI.deleteSelf();
         this.state = newState;
-        if (newState == -1)
+        if (newState === -1)
             this.childUI = new EmptyUI;
-        if (newState == 0)
+        if (newState === 0)
             this.childUI = new RoadBuilderUI;
-        if (newState == 1)
+        if (newState === 1)
             this.childUI = new SettlementBuilderUI;
-        if (newState == 2)
+        if (newState === 2)
             this.childUI = new CityBuilderUI;
     }
+
     frameAction() {
         this.childUI.frameAction();
     }
+
     draw() {
         for (var i = 0; i < 3; i++) {
-            if (this.buttons[i].active == false)
+            if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
             else if (this.buttons[i].pressed)
                 ctx.fillStyle = '#000088';
@@ -324,6 +344,7 @@ class BuildModeUI {
         this.childUI.draw();
     }
 }
+
 class RoadBuilderUI {
     constructor() {
         this.ParentUI = gameUI.modeMenuUI.childUI;
@@ -452,8 +473,11 @@ class PlayerInfoU {
     constructor(Player) {
         this.Player = Player;
     }
+
     draw() {
+        console.log(5);
         ctx.fillStyle = this.color;
+        console.log(this.color);
         let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.number;
         ctx.fillStyle = this.color;
         ctx.fillRect(leftBoard, highBoard, widthOfBig, heightOfBig);

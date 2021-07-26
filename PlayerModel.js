@@ -17,6 +17,7 @@ class Player {
         this.knights = 0;
         this.pointOfWin = 0;
     }
+
     buyCard(id) {
         this.wood--;
         this.seed--;
@@ -24,6 +25,7 @@ class Player {
         this.developmentCards.push(new DevelopmentCard(1));
         return this.developmentCards[this.developmentCards.length - 1];
     }
+
     useCard(id) {
         this.developmentCards[id].use();
         this.developmentCards.splice(id, 1);
@@ -48,6 +50,7 @@ class DevelopmentCard {
         this.img = new Image();
         this.img.src = 'Sprites/Cards/Card' + this.type + '.png';
     }
+
     use() {
 
     }

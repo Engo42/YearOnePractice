@@ -30,6 +30,7 @@ function frameLoop() {
 }
 
 function gameOpen() {
+    let i;
     players = new Array(4);
     for (var i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
@@ -38,7 +39,7 @@ function gameOpen() {
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
-    for (var i = 0; i < 4; i++) {
+    for (i = 0; i < 4; i++) {
         players[currentPlayer].developmentCards[i].active = true;
     }
 
@@ -48,6 +49,7 @@ function gameOpen() {
     field.vertexArray[0].player = currentPlayer;
     
     gameUI = new GameUI(field);
+
 }
 
 gameOpen();
