@@ -20,8 +20,8 @@ function mouseMoveHandler(e) {
     var rect = canvas.getBoundingClientRect();
     var scaleX = canvas.width / rect.width;
     var scaleY = canvas.height / rect.height;
-    mouseX = e.offsetX * scaleX;
-    mouseY = e.offsetY * scaleY;
+    mouseX = Math.floor(e.offsetX*scaleX);
+    mouseY = Math.floor(e.offsetY*scaleY);
 }
 
 document.addEventListener("mousedown", mouseDownHandler, false);
