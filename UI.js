@@ -134,7 +134,7 @@ class ModeMenuUI {
     }
 
     draw() {
-      //  let text=["Road","Colony","City"]
+
         this.image=[new Image(),new Image(),new Image()];
         this.image[0].src = "Sprites/Img_But/hammer.png";
         this.image[1].src="Sprites/Img_But/coin.png";

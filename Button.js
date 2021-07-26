@@ -25,7 +25,7 @@ class Button {
         }
     }
     checkRelease() {
-        if (this.pressed == true) {
+        if (this.pressed === true) {
             this.pressed = false;
             this.onClick(this.id, this.parentUI);
         }
@@ -68,7 +68,7 @@ class SpriteButton {
         this.parentUI.target = this.id;
     }
     onFrame() {
-        if (this.active == false && this.img.complete) {
+        if (this.active === false && this.img.complete) {
             this.gctx.drawImage(this.img, 0, 0);
             this.active = true;
         }
@@ -82,7 +82,7 @@ class SpriteButton {
         }
     }
     checkRelease() {
-        if (this.hover && this.pressed == true) {
+        if (this.hover && this.pressed === true) {
             this.pressed = false;
             this.onClick();
         }
