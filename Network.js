@@ -1,8 +1,9 @@
 var database = firebase.database();
 
-function writeData() {
+function sendMove() {
     firebase.database().ref(sessionCode + '/' + currentPlayer).set({
         fieldChanges: fieldChanges,
-        playerChanges: playerChanges,
+        playerChanges: playerChanges
     });
+    firebase.database().ref(sessionCode + '/currentPlayer').set(currentPlayer);
 }

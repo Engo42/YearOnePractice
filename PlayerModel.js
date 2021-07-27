@@ -73,9 +73,9 @@ class Player {
             roads: this.roads,
             knights: this.knights
         };
-        writeData();
-        fieldChanges.length = 0;
         currentPlayer = (currentPlayer + 1) % 4;
+        sendMove();
+        fieldChanges.length = 0;
     }
 }
 

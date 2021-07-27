@@ -116,11 +116,13 @@ class RoadBuilderUI {
                     if (this.roads[i][j][k] != null && this.roads[i][j][k].player == -1) {
                         var available = false;
                         for (var q = 0; q < 4; q++) {
-                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player == currentPlayer)
+                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player == currentPlayer
+                            && (this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == -1 
+                            || this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == currentPlayer))
                                 available = true;
                         }
                         for (var q = 0; q < 2; q++) {
-                            if (this.roads[i][j][k].vertexes[q] != null && this.roads[i][j][k].vertexes[q].player == currentPlayer)
+                            if (this.roads[i][j][k].vertexes[q].player == currentPlayer)
                                 available = true;
                         }
                         if (available) {
