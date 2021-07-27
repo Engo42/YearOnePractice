@@ -1,6 +1,6 @@
 class GameUI {
-    constructor(field) {
-        this.fieldUI = new FieldUI(field);
+    constructor() {
+        this.fieldUI = new FieldUI;
         this.modeMenuUI = new ModeMenuUI;
         this.PlayerInfoU = new PlayerInfoU(players[0]);
     }
@@ -12,23 +12,8 @@ class GameUI {
     }
 }
 
-class EmptyUI {
-    constructor() {
-    }
-
-    frameAction() {
-    }
-
-    draw() {
-    }
-
-    deleteSelf() {
-        this.delete;
-    }
-}
-
 class FieldUI {
-    constructor(field) {
+    constructor() {
         this.field = field;
         this.edgeImg = new Array(3);
         for (var i = 0; i < 3; i++) {

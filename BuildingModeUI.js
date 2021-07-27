@@ -89,6 +89,21 @@ class BuildModeUI {
     }
 }
 
+class EmptyUI {
+    constructor() {
+    }
+
+    frameAction() {
+    }
+
+    draw() {
+    }
+
+    deleteSelf() {
+        this.delete;
+    }
+}
+
 class RoadBuilderUI {
     constructor() {
         this.ParentUI = gameUI.modeMenuUI.childUI;

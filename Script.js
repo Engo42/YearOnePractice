@@ -48,7 +48,7 @@ function gameOpen() {
     field.vertexArray[0].level = 1;
     field.vertexArray[0].player = currentPlayer;
 
-    gameUI = new GameUI(field);
+    gameUI = new GameUI;
 
 }
 
