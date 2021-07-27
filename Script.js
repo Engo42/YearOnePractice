@@ -39,9 +39,6 @@ function frameLoop() {
     }
 
     gameUI.draw();
-
-    ctx.fillStyle = '#FF8800';
-    ctx.fillRect(mouseX - 5, mouseY - 5, 10, 10);
 }
 
 function gameOpen() {
