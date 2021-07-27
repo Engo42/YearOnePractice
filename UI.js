@@ -4,13 +4,19 @@ class GameUI {
     constructor(field) {
         this.fieldUI = new FieldUI(field);
         this.modeMenuUI = new ModeMenuUI;
-        this.PlayerInfoU = new PlayerInfoU(players[0]);
+        this.PlayerInfoU1 = new PlayerInfoU(players[0]);
+        this.PlayerInfoU2 = new PlayerInfoU(players[1]);
+        this.PlayerInfoU3 = new PlayerInfoU(players[2]);
+        this.PlayerInfoU4 = new PlayerInfoU(players[3]);
     }
 
     draw() {
         this.fieldUI.draw();
         this.modeMenuUI.draw();
-        this.PlayerInfoU.draw();
+        this.PlayerInfoU1.draw();
+        this.PlayerInfoU2.draw();
+        this.PlayerInfoU3.draw();
+        this.PlayerInfoU4.draw();
     }
 }
 class EmptyUI {
@@ -154,20 +160,23 @@ class ModeMenuUI {
 class PlayerInfoU {
     constructor(player) {
         this.player = player;
-        /*this.img_resource_0 = new Image();
+        this.img_resource_0 = new Image();
         this.img_resource_0.src = 'Sprites/Resources/wood.png';
-        /*this.img_resource_1 = new Image();
+        this.img_resource_1 = new Image();
         this.img_resource_1.src = 'Sprites/Resources/wool.png';
         this.img_resource_2 = new Image();
-        this.img_resource_2.src = 'Sprites/Resources/seed.png';
+        this.img_resource_2.src = 'Sprites/Resources/corn.png';
         this.img_resource_3 = new Image();
-        this.img_resource_3.src = 'Sprites/Resources/clay.png';
+        this.img_resource_3.src = 'Sprites/Resources/clay26.png';
         this.img_resource_4 = new Image();
-        this.img_resource_4.src = 'Sprites/Resources/ore.png';
-        this.img_resources = [img_resource_0, img_resource_1, img_resource_2, img_resource_3, img_resource_4]; //*/
+        this.img_resource_4.src = 'Sprites/Resources/iron.png';
+        this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4]; //*/
+        //this.img_knight = new Image();
+        //this.img_knight.src = 'Sprites/Indicators/knight30.png'
         //'Sprites/Hexes/t' + this.type + '.png';
     }
     draw() {
+
         ctx.fillStyle = this.player.color;
         let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.player.number;
         ctx.fillStyle = this.player.color;
@@ -176,20 +185,9 @@ class PlayerInfoU {
         ctx.fillStyle = "black";
         ctx.fillText(this.player.name, leftBoard + 32, highBoard + 25);
         for (let j = 0; j < 5; j++) {
-
-            // Создаем объект изображения
-            var img = new Image();
-            //console.log(5);
-            // Привязываем функцию к событию onload
-            // Это указывает браузеру, что делать, когда изображение загружено
-            img.src = "Sprites/Resources/wood.png";
-            img.onload = function() {
-                ctx.drawImage(img, leftBoard - 3 + j * (widthOfSmall + 30), highBoard + 40);
-            };
-            // Загружаем файл изображения
-            ctx.fillText("0", leftBoard + 2 + j * (widthOfSmall + 32), highBoard + 40 + heightOfSmall + 40);
+            ctx.drawImage(this.img_resources[j], leftBoard - 3 + j * (widthOfSmall + 32), highBoard + 47);
+            ctx.fillText(this.player.resources[j], leftBoard + 9 + j * (widthOfSmall + 32), highBoard + 40 + heightOfSmall + 40);
         }
-
-
+        //ctx.drawImage(this.img_knight, 200, 200);
     }
 }
