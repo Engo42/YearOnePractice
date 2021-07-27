@@ -16,6 +16,8 @@ class Player {
         this.developmentCards = new Array;
         this.knights = 0;
         this.victoryPoints = 0;
+        
+        this.isLocalBot = true;
     }
 
     buyCard(id) {

@@ -45,6 +45,10 @@ function frameLoop() {
         buttonArray[i].onFrame();
     }
 
+    if (players[currentPlayer].isLocalBot) {
+        makeBotMove(players[currentPlayer]);
+    }
+
     gameUI.draw();
 }
 
@@ -59,6 +63,7 @@ function gameOpen() {
     for (var i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
     }
+    players[thisPlayer].isLocalBot = false;
 
     gameUI = new GameUI;
     newSession();

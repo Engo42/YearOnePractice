@@ -14,22 +14,35 @@ class GameUI {
 
     draw() {
         this.fieldUI.draw();
-        this.modeMenuUI.draw();
         this.PlayerInfoU.draw();
-        if (this.endMoveButton.active === false)
-            ctx.fillStyle = '#444444';
-        else if (this.endMoveButton.pressed)
-            ctx.fillStyle = '#884400';
-        else if (this.endMoveButton.hover)
-            ctx.fillStyle = '#FFAA22';
-        else
-            ctx.fillStyle = '#FF8800';
-        ctx.fillRect(this.endMoveButton.x, this.endMoveButton.y, this.endMoveButton.width, this.endMoveButton.height);
-        ctx.fillStyle = "white";
-        ctx.textBaseline = "middle";
-        ctx.textAlign = "left";
-        ctx.font = "24px Arial";
-        ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
+        if (currentPlayer === thisPlayer) {
+            this.modeMenuUI.draw();
+            if (this.endMoveButton.active === false)
+                ctx.fillStyle = '#444444';
+            else if (this.endMoveButton.pressed)
+                ctx.fillStyle = '#884400';
+            else if (this.endMoveButton.hover)
+                ctx.fillStyle = '#FFAA22';
+            else
+                ctx.fillStyle = '#FF8800';
+            ctx.fillRect(this.endMoveButton.x, this.endMoveButton.y, this.endMoveButton.width, this.endMoveButton.height);
+            ctx.fillStyle = "white";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "left";
+            ctx.font = "24px Arial";
+            ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
+        }
+        else {
+            ctx.fillStyle = '#000000';
+            ctx.globalAlpha = 0.8;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = "white";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "center";
+            ctx.font = "96px Arial";
+            ctx.fillText('Ожидание своего хода', canvas.width / 2, canvas.height / 2);
+        }
     }
 }
 
