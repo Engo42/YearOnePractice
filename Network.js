@@ -5,7 +5,7 @@ function sendMove() {
         fieldChanges: fieldChanges,
         playerChanges: playerChanges
     });
-    firebase.database().ref('session/' + sessionCode + '/currentPlayer').set(currentPlayer);
+    firebase.database().ref('session/' + sessionCode + '/currentPlayer').set((currentPlayer + 1) % 4);
 }
 
 function newSession() {
