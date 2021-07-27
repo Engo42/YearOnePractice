@@ -9,13 +9,28 @@ const heightOfSmall = 10;
 const widthOfSmall = 10;
 
 const playerColors = ['#FF0000', '#FFFF00', '#00FF00', '#0000FF'];
+const typeMap = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 2, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+var fieldTypeDeck = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5];
+var fieldLevelDeck = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12];
 
 var buttonArray = new Array;
 var field;
 var gameUI;
-
 var players;
 var currentPlayer = 0;
+
+var sessionCode = '0000';
+var thisPlayer = 0;
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -30,11 +45,18 @@ function frameLoop() {
 }
 
 function gameOpen() {
-    let i;
+    if (thisPlayer === 0) {
+        fieldTypeDeck = shuffle(fieldTypeDeck);
+        fieldLevelDeck = shuffle(fieldLevelDeck);
+    }
+    field = new Field(fieldTypeDeck, fieldLevelDeck);
     players = new Array(4);
-    for (i = 0; i < 4; i++) {
+    for (var i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
     }
+
+    gameUI = new GameUI;
+    
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
@@ -43,14 +65,16 @@ function gameOpen() {
         players[currentPlayer].developmentCards[i].active = true;
     }
 
-
-    field = new Field;
     field.vertexArray[0].level = 1;
-    field.vertexArray[0].player = currentPlayer;
-
-    gameUI = new GameUI;
-
+    field.vertexArray[0].player = 0;
+    field.vertexArray[30].level = 1;
+    field.vertexArray[30].player = 1;
+    field.vertexArray[10].level = 1;
+    field.vertexArray[10].player = 2;
+    field.vertexArray[20].level = 1;
+    field.vertexArray[20].player = 3;
+    
+    setInterval(frameLoop, 100 / 6);
 }
 
 gameOpen();
-setInterval(frameLoop, 100 / 6);

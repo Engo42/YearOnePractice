@@ -44,6 +44,10 @@ class Player {
     buildCity(x, y, direction) {
         field.vertexMap[y][x][direction].level = 2;
     }
+
+    endMove() {
+        currentPlayer = (currentPlayer + 1) % 4;
+    }
 }
 
 class DevelopmentCard {

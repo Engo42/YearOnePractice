@@ -5,5 +5,3 @@ function writeData(folder, data) {
         data: data,
     });
 }
-
-writeData('test1', 'data1');

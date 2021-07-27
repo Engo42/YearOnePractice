@@ -2,13 +2,34 @@ class GameUI {
     constructor() {
         this.fieldUI = new FieldUI;
         this.modeMenuUI = new ModeMenuUI;
-        this.PlayerInfoU = new PlayerInfoU(players[0]);
+        this.PlayerInfoU = new PlayerInfoU;
+        this.endMoveButton = new Button(1700, 1000, 200, 60, 0, this, 
+            function(id, parentUI) {
+                players[currentPlayer].endMove();
+                parentUI.modeMenuUI.deleteSelf();
+                parentUI.modeMenuUI = new ModeMenuUI;
+            }
+        )
     }
 
     draw() {
         this.fieldUI.draw();
         this.modeMenuUI.draw();
         this.PlayerInfoU.draw();
+        if (this.endMoveButton.active === false)
+            ctx.fillStyle = '#444444';
+        else if (this.endMoveButton.pressed)
+            ctx.fillStyle = '#884400';
+        else if (this.endMoveButton.hover)
+            ctx.fillStyle = '#FFAA22';
+        else
+            ctx.fillStyle = '#FF8800';
+        ctx.fillRect(this.endMoveButton.x, this.endMoveButton.y, this.endMoveButton.width, this.endMoveButton.height);
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "left";
+        ctx.font = "24px Arial";
+        ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
     }
 }
 
@@ -148,11 +169,19 @@ class ModeMenuUI {
         this.childUI.frameAction();
         this.childUI.draw();
     }
+
+    deleteSelf() {
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].deleteSelf();
+        }
+        this.childUI.deleteSelf();
+        this.delete;
+    }
 }
 
 class PlayerInfoU {
-    constructor(Player) {
-        this.Player = Player;
+    constructor() {
+        this.Player = players[currentPlayer];
     }
 
     draw() {
