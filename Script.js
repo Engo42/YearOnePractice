@@ -29,7 +29,7 @@ var gameUI;
 var players;
 var currentPlayer = 0;
 
-var sessionCode = '0000';
+var sessionCode = -1;
 var thisPlayer = 0;
 var fieldChanges = new Array;
 var playerChanges = {
@@ -49,6 +49,7 @@ function frameLoop() {
 }
 
 function gameOpen() {
+    
     if (thisPlayer === 0) {
         fieldTypeDeck = shuffle(fieldTypeDeck);
         fieldLevelDeck = shuffle(fieldLevelDeck);
@@ -60,6 +61,7 @@ function gameOpen() {
     }
 
     gameUI = new GameUI;
+    newSession();
     
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
