@@ -110,8 +110,8 @@ class RoadBuilderUI {
         this.roads = field.edgeMap;
         this.target = -1;
         this.buttons = new Array;
-        for (var i = 0; i < 7; i++) {
-            for (var j = 0; j < 7; j++) {
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
                 for (var k = 0; k < 3; k++) {
                     if (this.roads[i][j][k] != null && this.roads[i][j][k].player == -1) {
                         var available = false;
@@ -160,8 +160,8 @@ class SettlementBuilderUI {
         this.vertexes = field.vertexMap;
         this.target = -1;
         this.buttons = new Array;
-        for (var i = 0; i < 7; i++) {
-            for (var j = 0; j < 7; j++) {
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
                 for (var k = 0; k < 3; k++) {
                     if (this.vertexes[i][j][k] != null && this.vertexes[i][j][k].player == -1) {
                         var available = false;
@@ -208,8 +208,8 @@ class CityBuilderUI {
         this.vertexes = field.vertexMap;
         this.target = -1;
         this.buttons = new Array;
-        for (var i = 0; i < 7; i++) {
-            for (var j = 0; j < 7; j++) {
+        for (var i = 0; i < 9; i++) {
+            for (var j = 0; j < 9; j++) {
                 for (var k = 0; k < 3; k++) {
                     if (this.vertexes[i][j][k] != null
                         && this.vertexes[i][j][k].player === currentPlayer && this.vertexes[i][j][k].level === 1) {
