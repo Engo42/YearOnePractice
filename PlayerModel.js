@@ -19,6 +19,24 @@ class Player {
         this.victoryPoints = 0;
         this.isLocalBot = false;
     }
+    
+    startMove() {
+        UI.dices.throwDices();
+    }
+    
+    harvest(level) {
+        for (var i = 0; i < field.hexArray.length; i++) {
+            if (field.hexArray[i].level === level) {
+                for (var j = 0; j < 6; j++) {
+                    if (field.hexArray[i].vertexes[j].player != -1)
+                        players[field.hexArray[i].vertexes[j].player].resources[field.hexArray[i].type - 1] += field.hexArray[i].vertexes[j].level;
+                }
+            }
+        }
+    }
+    
+    moveBandit() {
+    }
 
     buyCard(id) {
         this.resources[0]--;

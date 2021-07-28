@@ -103,6 +103,7 @@ function listenToSession() {
                     }
                 }
             }
+            players[currentPlayer].startMove();
         }
     });
 }

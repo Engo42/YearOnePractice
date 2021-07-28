@@ -89,7 +89,7 @@ function gameOpen() {
     field.vertexArray[0].player = 2;
     field.vertexArray[20].level = 1;
     field.vertexArray[20].player = 3;
-
+    
     setInterval(frameLoop, 100 / 6);
 }
 

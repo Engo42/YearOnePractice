@@ -90,6 +90,8 @@ class LobbyUI {
 
     deleteSelf() {
         UI = new GameUI;
+        if (thisPlayer === 0)
+            players[0].startMove();
         this.startGameButton.deleteSelf();
         this.delete;
     }
@@ -103,7 +105,7 @@ class GameUI {
         this.PlayerInfoU2 = new PlayerInfoU(players[1]);
         this.PlayerInfoU3 = new PlayerInfoU(players[2]);
         this.PlayerInfoU4 = new PlayerInfoU(players[3]);
-        //this.PlayerInfoU = new PlayerInfoU;
+        this.dices = new Dices;
         this.endMoveButton = new Button(1700, 1000, 200, 60, 0, this,
             function(id, parentUI) {
                 players[currentPlayer].endMove();
@@ -135,6 +137,8 @@ class GameUI {
             ctx.textAlign = "left";
             ctx.font = "24px Arial";
             ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
+            
+            this.dices.draw();
         } else {
             ctx.fillStyle = '#000000';
             ctx.globalAlpha = 0.8;
@@ -146,8 +150,6 @@ class GameUI {
             ctx.font = "96px Arial";
             ctx.fillText('Ожидание своего хода', canvas.width / 2, canvas.height / 2);
         }
-        let f=new Dices();
-        f.draw();
     }
 
 }
@@ -257,7 +259,7 @@ class ModeMenuUI {
             this.childUI = new BuildModeUI;
         }
         if (newState === 1) {
-            this.childUI = new DevelopmentModeUI;
+            this.childUI = new TradingModeUI;
         }
         if (newState === 2) {
             this.childUI = new DevelopmentModeUI;
