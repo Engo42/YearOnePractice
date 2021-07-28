@@ -17,8 +17,7 @@ class Player {
         this.developmentCards = new Array;
         this.knights = 0;
         this.victoryPoints = 0;
-
-        this.isLocalBot = true;
+        this.isLocalBot = false;
     }
 
     buyCard(id) {
@@ -78,7 +77,6 @@ class Player {
         };
         sendMove();
         fieldChanges.length = 0;
-        currentPlayer = (currentPlayer + 1) % 4;
     }
 }
 

@@ -1,4 +1,98 @@
-//const { Resources } = require("winjs"); не знаю, откуда это взялось
+class StartUI {
+    constructor() {
+        this.newSessionButton = new Button(800, 500, 320, 60, 0, this, 
+            function(id, parentUI) {
+                newSession();
+                UI = new LobbyUI;
+                parentUI.newSessionButton.deleteSelf();
+                parentUI.joinSessionButton.deleteSelf();
+                parentUI.delete;
+            }
+        );
+        this.joinSessionButton = new Button(800, 600, 320, 60, 0, this, 
+            function(id, parentUI) {
+                sessionCode = prompt("Введите код сессии:", "");
+                if (joinSession()) {
+                }
+            }
+        );
+    }
+
+    draw() {        
+        if (this.newSessionButton.active === false)
+            ctx.fillStyle = '#444444';
+        else if (this.newSessionButton.pressed)
+            ctx.fillStyle = '#884400';
+        else if (this.newSessionButton.hover)
+            ctx.fillStyle = '#FFAA22';
+        else
+            ctx.fillStyle = '#FF8800';
+        ctx.fillRect(this.newSessionButton.x, this.newSessionButton.y, this.newSessionButton.width, this.newSessionButton.height);
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.font = "36px Arial";
+        ctx.fillText('Создать сессию', this.newSessionButton.x + 160, this.newSessionButton.y + 30);
+        
+        if (this.joinSessionButton.active === false)
+            ctx.fillStyle = '#444444';
+        else if (this.joinSessionButton.pressed)
+            ctx.fillStyle = '#884400';
+        else if (this.joinSessionButton.hover)
+            ctx.fillStyle = '#FFAA22';
+        else
+            ctx.fillStyle = '#FF8800';
+        ctx.fillRect(this.joinSessionButton.x, this.joinSessionButton.y, this.joinSessionButton.width, this.joinSessionButton.height);
+        ctx.fillStyle = "white";
+        ctx.fillText('Войти в сессию', this.joinSessionButton.x + 160, this.joinSessionButton.y + 30);
+    }
+}
+
+class LobbyUI {
+    constructor() {
+        this.startGameButton = new Button(800, 700, 320, 60, 0, this, 
+            function(id, parentUI) {
+                startSession();
+                parentUI.deleteSelf();
+            }
+        );
+        if (thisPlayer != 0)
+            this.startGameButton.active = false;
+    }
+
+    draw() {
+        if (gameState === 2) {
+            startSession();
+            this.deleteSelf();
+        }
+        
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.font = "36px Arial";
+        ctx.fillText('Код: ' + sessionCode, this.startGameButton.x + 160, this.startGameButton.y - 90);
+        ctx.fillText(playerCount + '/4 игоков в сессии', this.startGameButton.x + 160, this.startGameButton.y - 30);
+        if (thisPlayer === 0) {
+            if (this.startGameButton.active === false)
+                ctx.fillStyle = '#444444';
+            else if (this.startGameButton.pressed)
+                ctx.fillStyle = '#884400';
+            else if (this.startGameButton.hover)
+                ctx.fillStyle = '#FFAA22';
+            else
+                ctx.fillStyle = '#FF8800';
+            ctx.fillRect(this.startGameButton.x, this.startGameButton.y, this.startGameButton.width, this.startGameButton.height);
+            ctx.fillStyle = "white";
+            ctx.fillText('Начать игру', this.startGameButton.x + 160, this.startGameButton.y + 30);
+        }
+    }
+
+    deleteSelf() {
+        UI = new GameUI;
+        this.startGameButton.deleteSelf();
+        this.delete;
+    }
+}
 
 class GameUI {
     constructor() {

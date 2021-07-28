@@ -106,7 +106,7 @@ class EmptyUI {
 
 class RoadBuilderUI {
     constructor() {
-        this.ParentUI = gameUI.modeMenuUI.childUI;
+        this.ParentUI = UI.modeMenuUI.childUI;
         this.roads = field.edgeMap;
         this.target = -1;
         this.buttons = new Array;
@@ -127,7 +127,7 @@ class RoadBuilderUI {
                         }
                         if (available) {
                             this.buttons.push(new SpriteButton(j, i, 1, this.roads[i][j][k].direction, this));
-                            gameUI.fieldUI.highlightEdges.push(this.roads[i][j][k]);
+                            UI.fieldUI.highlightEdges.push(this.roads[i][j][k]);
                         }
                     }
                 }
@@ -146,7 +146,7 @@ class RoadBuilderUI {
     }
 
     deleteSelf() {
-        gameUI.fieldUI.highlightEdges = [];
+        UI.fieldUI.highlightEdges = [];
         for (var i = 0; i < this.buttons.length; i++) {
             this.buttons[i].deleteSelf();
         }
@@ -156,7 +156,7 @@ class RoadBuilderUI {
 
 class SettlementBuilderUI {
     constructor() {
-        this.ParentUI = gameUI.modeMenuUI.childUI;
+        this.ParentUI = UI.modeMenuUI.childUI;
         this.vertexes = field.vertexMap;
         this.target = -1;
         this.buttons = new Array;
@@ -175,7 +175,7 @@ class SettlementBuilderUI {
                         }
                         if (available) {
                             this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
-                            gameUI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
+                            UI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
                         }
                     }
                 }
@@ -194,7 +194,7 @@ class SettlementBuilderUI {
     }
 
     deleteSelf() {
-        gameUI.fieldUI.highlightVertexes = [];
+        UI.fieldUI.highlightVertexes = [];
         for (var i = 0; i < this.buttons.length; i++) {
             this.buttons[i].deleteSelf();
         }
@@ -204,7 +204,7 @@ class SettlementBuilderUI {
 
 class CityBuilderUI {
     constructor() {
-        this.ParentUI = gameUI.modeMenuUI.childUI;
+        this.ParentUI = UI.modeMenuUI.childUI;
         this.vertexes = field.vertexMap;
         this.target = -1;
         this.buttons = new Array;
@@ -214,7 +214,7 @@ class CityBuilderUI {
                     if (this.vertexes[i][j][k] != null
                         && this.vertexes[i][j][k].player === currentPlayer && this.vertexes[i][j][k].level === 1) {
                         this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
-                        gameUI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
+                        UI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
                     }
                 }
             }
@@ -232,7 +232,7 @@ class CityBuilderUI {
     }
 
     deleteSelf() {
-        gameUI.fieldUI.highlightVertexes = [];
+        UI.fieldUI.highlightVertexes = [];
         for (var i = 0; i < this.buttons.length; i++) {
             this.buttons[i].deleteSelf();
         }
