@@ -1,38 +1,39 @@
 <html>
-    <head>
-        <title>CATAN_FeFu_Edition</title>
-        <link rel="stylesheet" href="style.css">
-    </head>    
-    <body style="cursor: none">
-        <canvas id="Canvas" width="1920" height="1080"></canvas>
-        <script src="FieldModel.js"></script>
-        <script src="PlayerModel.js"></script>
-        <script src="BuildingModeUI.js"></script>
-        <script src="DevelopmentModeUI.js"></script>
-        <script src="UI.js"></script>
-        <script src="Button.js"></script>
-        <script src="Utility.js"></script>
-        <script src="Script.js"></script>
-        <script src="InputHandlers.js"></script>
-        
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+<head>
+    <title>CATAN_FeFu_Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="Canvas" width="1920" height="1080"></canvas>
+<script charset="utf-8" src="FieldModel.js"></script>
+<script charset="utf-8" src="PlayerModel.js"></script>
+<script charset="utf-8" src="Bot.js"></script>
+<script charset="utf-8" src="UI.js"></script>
+<script charset="utf-8" src="BuildingModeUI.js"></script>
+<script charset="utf-8" src="DevelopmentModeUI.js"></script>
+<script charset="utf-8" src="Button.js"></script>
+<script charset="utf-8" src="Utility.js"></script>
+<script charset="utf-8" src="InputHandlers.js"></script>
 
-        <!-- TODO: Add SDKs for Firebase products that you want to use
-             https://firebase.google.com/docs/web/setup#available-libraries -->
-
-        <script>
-          // Your web app's Firebase configuration
-          var firebaseConfig = {
-            apiKey: "AIzaSyBkKk5COUXh3X4JulzatBmMiJkZj9L9_0M",
-            authDomain: "yearonepractice.firebaseapp.com",
-            projectId: "yearonepractice",
-            storageBucket: "yearonepractice.appspot.com",
-            messagingSenderId: "811185531041",
-            appId: "1:811185531041:web:04289709b79ac1d6bce8e0"
-          };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-        </script>
-    </body>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-database.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBkKk5COUXh3X4JulzatBmMiJkZj9L9_0M",
+        authDomain: "yearonepractice.firebaseapp.com",
+        databaseURL: "https://yearonepractice-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "yearonepractice",
+        storageBucket: "yearonepractice.appspot.com",
+        messagingSenderId: "811185531041",
+        appId: "1:811185531041:web:04289709b79ac1d6bce8e0"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+<script charset="utf-8" src="Network.js"></script>
+<script charset="utf-8" src="Script.js"></script>
+</body>
 </html>

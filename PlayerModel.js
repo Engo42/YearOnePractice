@@ -16,7 +16,9 @@ class Player {
         this.cities = 0;
         this.developmentCards = new Array;
         this.knights = 0;
-        this.pointOfWin = 0;
+        this.victoryPoints = 0;
+        
+        this.isLocalBot = true;
     }
 
     buyCard(id) {
@@ -31,16 +33,52 @@ class Player {
         this.developmentCards[id].use();
         this.developmentCards.splice(id, 1);
     }
+
     buildRoad(x, y, direction) {
         field.edgeMap[y][x][direction].player = this.number;
         field.edgeMap[y][x][direction].level = 1;
+        fieldChanges.push({
+            type: 'Road',
+            x: x,
+            y: y,
+            direction: direction
+        })
+        this.roads++;
     }
+
     buildSettlement(x, y, direction) {
         field.vertexMap[y][x][direction].player = this.number;
         field.vertexMap[y][x][direction].level = 1;
+        fieldChanges.push({
+            type: 'Settlement',
+            x: x,
+            y: y,
+            direction: direction
+        })
+        this.victoryPoints++;
     }
+
     buildCity(x, y, direction) {
         field.vertexMap[y][x][direction].level = 2;
+        fieldChanges.push({
+            type: 'City',
+            x: x,
+            y: y,
+            direction: direction
+        })
+        this.victoryPoints++;
+    }
+
+    endMove() {
+        playerChanges = {
+            resources: this.resources,
+            developmentCards: this.developmentCards.length,
+            roads: this.roads,
+            knights: this.knights
+        };
+        sendMove();
+        fieldChanges.length = 0;
+        currentPlayer = (currentPlayer + 1) % 4;
     }
 }
 

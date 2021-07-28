@@ -1,35 +1,61 @@
 //const { Resources } = require("winjs"); не знаю, откуда это взялось
 
 class GameUI {
-    constructor(field) {
-        this.fieldUI = new FieldUI(field);
+    constructor() {
+        this.fieldUI = new FieldUI;
         this.modeMenuUI = new ModeMenuUI;
-        this.PlayerInfoU1 = new PlayerInfoU(players[0]);
+        /*this.PlayerInfoU1 = new PlayerInfoU(players[0]);
         this.PlayerInfoU2 = new PlayerInfoU(players[1]);
         this.PlayerInfoU3 = new PlayerInfoU(players[2]);
-        this.PlayerInfoU4 = new PlayerInfoU(players[3]);
+        this.PlayerInfoU4 = new PlayerInfoU(players[3]);*/
+        this.PlayerInfoU = new PlayerInfoU;
+        this.endMoveButton = new Button(1700, 1000, 200, 60, 0, this,
+            function(id, parentUI) {
+                players[currentPlayer].endMove();
+                parentUI.modeMenuUI.deleteSelf();
+                parentUI.modeMenuUI = new ModeMenuUI;
+            }
+        )
     }
 
     draw() {
         this.fieldUI.draw();
-        this.modeMenuUI.draw();
-        this.PlayerInfoU1.draw();
-        this.PlayerInfoU2.draw();
+        this.PlayerInfoU.draw();
+        /* this.PlayerInfoU2.draw();
         this.PlayerInfoU3.draw();
-        this.PlayerInfoU4.draw();
-    }
-}
-class EmptyUI {
-    constructor() {}
-    frameAction() {}
-    draw() {}
-    deleteSelf() {
-        this.delete;
+        this.PlayerInfoU4.draw();*/
+        if (currentPlayer === thisPlayer) {
+            this.modeMenuUI.draw();
+            if (this.endMoveButton.active === false)
+                ctx.fillStyle = '#444444';
+            else if (this.endMoveButton.pressed)
+                ctx.fillStyle = '#884400';
+            else if (this.endMoveButton.hover)
+                ctx.fillStyle = '#FFAA22';
+            else
+                ctx.fillStyle = '#FF8800';
+            ctx.fillRect(this.endMoveButton.x, this.endMoveButton.y, this.endMoveButton.width, this.endMoveButton.height);
+            ctx.fillStyle = "white";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "left";
+            ctx.font = "24px Arial";
+            ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
+        } else {
+            ctx.fillStyle = '#000000';
+            ctx.globalAlpha = 0.8;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = "white";
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "center";
+            ctx.font = "96px Arial";
+            ctx.fillText('Ожидание своего хода', canvas.width / 2, canvas.height / 2);
+        }
     }
 }
 
 class FieldUI {
-    constructor(field) {
+    constructor() {
         this.field = field;
         this.edgeImg = new Array(3);
         for (var i = 0; i < 3; i++) {
@@ -141,6 +167,11 @@ class ModeMenuUI {
     }
 
     draw() {
+
+        this.image = [new Image(), new Image(), new Image()];
+        this.image[0].src = "Sprites/Img_But/hammer.png";
+        this.image[1].src = "Sprites/Img_But/coin.png";
+        this.image[2].src = "Sprites/Img_But/scroll.png";
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
@@ -151,15 +182,28 @@ class ModeMenuUI {
             else
                 ctx.fillStyle = '#FF8800';
             ctx.fillRect(10 + 60 * i, 500, 50, 50);
+            if (i !== 1)
+                ctx.drawImage(this.image[i], 10 + 60 * i, 500, 50, 50);
+
         }
+        ctx.drawImage(this.image[1], 0, 430, 190, 190);
         this.childUI.frameAction();
         this.childUI.draw();
+    }
+
+    deleteSelf() {
+        for (var i = 0; i < this.buttons.length; i++) {
+            this.buttons[i].deleteSelf();
+        }
+        this.childUI.deleteSelf();
+        this.delete;
     }
 }
 
 class PlayerInfoU {
     constructor(player) {
         this.player = player;
+        // this.Player = players[currentPlayer]; ???
         this.img_resource_0 = new Image();
         this.img_resource_0.src = 'Sprites/Resources/wood.png';
         this.img_resource_1 = new Image();

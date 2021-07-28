@@ -27,6 +27,7 @@ class DevelopmentModeUI {
             }
         )
     }
+
     frameAction() {
         var width;
         var step;
@@ -55,6 +56,7 @@ class DevelopmentModeUI {
             }
         }
     }
+
     draw() {
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].draw();
@@ -69,6 +71,7 @@ class DevelopmentModeUI {
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.buyButton.x, this.buyButton.y, this.buyButton.width, this.buyButton.height);
     }
+
     deleteSelf() {
         for (var i = 0; i < this.cardsUI.length; i++) {
             this.cardsUI[i].deleteSelf();
@@ -145,6 +148,7 @@ class DevelopmentCardUI {
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
     }
+
     deleteSelf() {
         this.lowTrigger.deleteSelf();
         this.highTrigger.deleteSelf();

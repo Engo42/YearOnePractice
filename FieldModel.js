@@ -1,21 +1,5 @@
 class Field {
-    constructor() {
-        var typeMap = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 1, 0, 0],
-            [0, 0, 0, 1, 1, 1, 1, 0, 0],
-            [0, 0, 1, 1, 2, 1, 1, 0, 0],
-            [0, 0, 1, 1, 1, 1, 0, 0, 0],
-            [0, 0, 1, 1, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ]
-        var typeDeck = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5];
-        typeDeck = shuffle(typeDeck);
-        var levelDeck = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12];
-        levelDeck = shuffle(levelDeck);
-
+    constructor(typeDeck, levelDeck) {        
         this.hexArray = new Array;
         this.edgeArray = new Array;
         this.vertexArray = new Array;
@@ -112,7 +96,7 @@ class Hex {
         this.edges[3] = field.edgeMap[y][x][2];
         this.edges[4] = field.edgeMap[y][x - 1][0];
         this.edges[5] = field.edgeMap[y - 1][x][1];
-        
+
         this.vertexes[0] = field.vertexMap[y - 1][x][0];
         this.vertexes[1] = field.vertexMap[y - 1][x - 1][1];
         this.vertexes[2] = field.vertexMap[y][x][0];
