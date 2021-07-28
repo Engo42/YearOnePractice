@@ -4,11 +4,11 @@ class GameUI {
     constructor() {
         this.fieldUI = new FieldUI;
         this.modeMenuUI = new ModeMenuUI;
-        /*this.PlayerInfoU1 = new PlayerInfoU(players[0]);
+        this.PlayerInfoU1 = new PlayerInfoU(players[0]);
         this.PlayerInfoU2 = new PlayerInfoU(players[1]);
         this.PlayerInfoU3 = new PlayerInfoU(players[2]);
-        this.PlayerInfoU4 = new PlayerInfoU(players[3]);*/
-        this.PlayerInfoU = new PlayerInfoU;
+        this.PlayerInfoU4 = new PlayerInfoU(players[3]);
+        //this.PlayerInfoU = new PlayerInfoU;
         this.endMoveButton = new Button(1700, 1000, 200, 60, 0, this,
             function(id, parentUI) {
                 players[currentPlayer].endMove();
@@ -20,10 +20,10 @@ class GameUI {
 
     draw() {
         this.fieldUI.draw();
-        this.PlayerInfoU.draw();
-        /* this.PlayerInfoU2.draw();
+        this.PlayerInfoU1.draw();
+        this.PlayerInfoU2.draw();
         this.PlayerInfoU3.draw();
-        this.PlayerInfoU4.draw();*/
+        this.PlayerInfoU4.draw();
         if (currentPlayer === thisPlayer) {
             this.modeMenuUI.draw();
             if (this.endMoveButton.active === false)
@@ -203,7 +203,7 @@ class ModeMenuUI {
 class PlayerInfoU {
     constructor(player) {
         this.player = player;
-        // this.Player = players[currentPlayer]; ???
+        //this.Player = players[currentPlayer]; // ???
         this.img_resource_0 = new Image();
         this.img_resource_0.src = 'Sprites/Resources/wood.png';
         this.img_resource_1 = new Image();

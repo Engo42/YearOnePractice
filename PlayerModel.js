@@ -17,14 +17,14 @@ class Player {
         this.developmentCards = new Array;
         this.knights = 0;
         this.victoryPoints = 0;
-        
+
         this.isLocalBot = true;
     }
 
     buyCard(id) {
-        this.wood--;
-        this.seed--;
-        this.ore--;
+        this.resources[0]--;
+        this.resources[2]--;
+        this.resources[4]--;
         this.developmentCards.push(new DevelopmentCard(1));
         return this.developmentCards[this.developmentCards.length - 1];
     }
