@@ -56,7 +56,7 @@ class LobbyUI {
                 parentUI.deleteSelf();
             }
         );
-        if (thisPlayer != 0)
+        if (thisPlayer !== 0)
             this.startGameButton.active = false;
     }
 
@@ -85,6 +85,7 @@ class LobbyUI {
             ctx.fillStyle = "white";
             ctx.fillText('Начать игру', this.startGameButton.x + 160, this.startGameButton.y + 30);
         }
+
     }
 
     deleteSelf() {
@@ -145,7 +146,10 @@ class GameUI {
             ctx.font = "96px Arial";
             ctx.fillText('Ожидание своего хода', canvas.width / 2, canvas.height / 2);
         }
+        let f=new Dices();
+        f.draw();
     }
+
 }
 
 class FieldUI {

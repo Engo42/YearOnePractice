@@ -1,3 +1,5 @@
+var canvas = document.getElementById("Canvas");
+var ctx = canvas.getContext("2d");
 var mousePressed = false;
 var mouseX = 0;
 var mouseY = 0;
