@@ -78,14 +78,7 @@ function gameOpen() {
         players[currentPlayer].developmentCards[i].active = true;
     }
 
-    field.vertexArray[10].level = 1;
-    field.vertexArray[10].player = 0;
-    field.vertexArray[30].level = 1;
-    field.vertexArray[30].player = 1;
-    field.vertexArray[0].level = 1;
-    field.vertexArray[0].player = 2;
-    field.vertexArray[20].level = 1;
-    field.vertexArray[20].player = 3;
+
     
     setInterval(frameLoop, 100 / 6);
 }

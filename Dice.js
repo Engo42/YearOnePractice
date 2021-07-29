@@ -7,7 +7,7 @@ class Dices {
 
     throwDices() {
         this.digit = [Math.floor(Math.random() * 6 + 1), Math.floor(Math.random() * 6 + 1)];
-        if (this.digit[0] + this.digit[1] != 7)
+        if (this.digit[0] + this.digit[1] !== 7)
             players[currentPlayer].harvest(this.digit[0] + this.digit[1]);
         else
             players[currentPlayer].moveBandit();

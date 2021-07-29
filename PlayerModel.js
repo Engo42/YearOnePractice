@@ -18,6 +18,8 @@ class Player {
         this.knights = 0;
         this.victoryPoints = 0;
         this.isLocalBot = false;
+        this.ingSettlementExists = 2;
+        this.ingRoad = 2;
     }
 
     startMove() {
@@ -76,8 +78,13 @@ class Player {
     }
 
     buyRoad(id) {
-        this.resources[0]--;
-        this.resources[3]--;
+        if (this.ingRoad !== 0) {
+            this.ingRoad--;
+        }
+     else   {
+            this.resources[0]--;
+            this.resources[3]--;
+        }
     }
 
     buildRoad(x, y, direction) {
@@ -93,10 +100,15 @@ class Player {
     }
 
     buySettlement(id) {
-        this.resources[0]--;
-        this.resources[1]--;
-        this.resources[2]--;
-        this.resources[3]--;
+        if (this.ingSettlementExists !== 0) {
+            this.ingSettlementExists--;
+        } else {
+
+            this.resources[0]--;
+            this.resources[1]--;
+            this.resources[2]--;
+            this.resources[3]--;
+        }
     }
 
     buildSettlement(x, y, direction) {
@@ -106,14 +118,19 @@ class Player {
             type: 'Settlement',
             x: x,
             y: y,
-            direction: direction
+            direction: direction,
         })
+
+
         this.victoryPoints++;
     }
 
     buyCity(id) {
+
         this.resources[2] -= 2;
         this.resources[4] -= 3;
+
+
     }
 
     buildCity(x, y, direction) {

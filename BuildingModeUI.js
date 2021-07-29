@@ -110,16 +110,16 @@ class RoadBuilderUI {
         for (var i = 0; i < 9; i++) {
             for (var j = 0; j < 9; j++) {
                 for (var k = 0; k < 3; k++) {
-                    if (this.roads[i][j][k] != null && this.roads[i][j][k].player == -1) {
+                    if (this.roads[i][j][k] != null && this.roads[i][j][k].player === -1) {
                         var available = false;
                         for (var q = 0; q < 4; q++) {
-                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player == currentPlayer &&
-                                (this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == -1 ||
-                                    this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == currentPlayer))
+                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player === currentPlayer &&
+                                (this.roads[i][j][k].vertexes[Math.floor(q / 2)].player === -1 ||
+                                    this.roads[i][j][k].vertexes[Math.floor(q / 2)].player === currentPlayer))
                                 available = true;
                         }
                         for (var q = 0; q < 2; q++) {
-                            if (this.roads[i][j][k].vertexes[q].player == currentPlayer)
+                            if (this.roads[i][j][k].vertexes[q].player === currentPlayer)
                                 available = true;
                         }
                         if (available) {
@@ -157,23 +157,30 @@ class SettlementBuilderUI {
         this.vertexes = field.vertexMap;
         this.target = -1;
         this.buttons = new Array;
+
         for (var i = 0; i < 9; i++) {
             for (var j = 0; j < 9; j++) {
                 for (var k = 0; k < 3; k++) {
-                    if (this.vertexes[i][j][k] != null && this.vertexes[i][j][k].player == -1) {
+                    if (this.vertexes[i][j][k] != null && this.vertexes[i][j][k].player === -1) {
+
                         var available = false;
                         for (var q = 0; q < 3; q++) {
-                            if (this.vertexes[i][j][k].edges[q] != null && this.vertexes[i][j][k].edges[q].player == currentPlayer)
+                            if (this.vertexes[i][j][k].edges[q] != null && this.vertexes[i][j][k].edges[q].player === currentPlayer)
                                 available = true;
+                        }
+                        if(  players[currentPlayer].ingSettlementExists!==0){
+                            available=true;
                         }
                         for (var q = 0; q < 3; q++) {
                             if (this.vertexes[i][j][k].vertexes[q] != null && this.vertexes[i][j][k].vertexes[q].level > 0)
                                 available = false;
                         }
-                        if (available) {
+
+                        if (available ) {
                             this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
                             UI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
                         }
+
                     }
                 }
             }
@@ -181,7 +188,7 @@ class SettlementBuilderUI {
     }
 
     frameAction() {
-        if (this.target != -1) {
+        if (this.target !== -1) {
             players[currentPlayer].buySettlement();
             players[currentPlayer].buildSettlement(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
@@ -219,7 +226,7 @@ class CityBuilderUI {
     }
 
     frameAction() {
-        if (this.target != -1) {
+        if (this.target !== -1) {
             players[currentPlayer].buyCity();
             players[currentPlayer].buildCity(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
