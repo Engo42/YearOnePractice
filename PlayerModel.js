@@ -47,7 +47,7 @@ class Player {
         field.hexArray[arr[Math.floor(Math.random() * arr.length)]].bandit = 1;
         for (var i = 0; i < 4; i++) {
             let res = players[i].resources;
-            if (res[0] + res[1] + res[2] + res[3] + res[4] > 7) {
+            if (arrSum(res) > 7) {
                 var a = new Array;
                 for (var j = 0; j < 5; j++) {
                     for (var k = 0; k < res[j]; k++) {

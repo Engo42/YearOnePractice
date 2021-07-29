@@ -11,3 +11,23 @@ function shuffle(a) {
 
 function noop() {
 }
+
+function arrSum(arr) {
+    var ans = 0;
+    for (var i = 0; i < arr.length; i++) {
+        ans += arr[i];
+    }
+    return ans;
+}
+
+function drawColorBox(buttonObj, c0, c1, c2, c3) {
+    if (buttonObj.active === false)
+        ctx.fillStyle = c0;
+    else if (buttonObj.pressed)
+        ctx.fillStyle = c1;
+    else if (buttonObj.hover)
+        ctx.fillStyle = c2;
+    else
+        ctx.fillStyle = c3;
+    ctx.fillRect(buttonObj.x, buttonObj.y, buttonObj.width, buttonObj.height);
+}
