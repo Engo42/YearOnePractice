@@ -1,4 +1,101 @@
-//const { Resources } = require("winjs"); не знаю, откуда это взялось
+class StartUI {
+    constructor() {
+        this.newSessionButton = new Button(800, 500, 320, 60, 0, this, 
+            function(id, parentUI) {
+                newSession();
+                UI = new LobbyUI;
+                parentUI.newSessionButton.deleteSelf();
+                parentUI.joinSessionButton.deleteSelf();
+                parentUI.delete;
+            }
+        );
+        this.joinSessionButton = new Button(800, 600, 320, 60, 0, this, 
+            function(id, parentUI) {
+                sessionCode = prompt("Введите код сессии:", "");
+                if (joinSession()) {
+                }
+            }
+        );
+    }
+
+    draw() {        
+        if (this.newSessionButton.active === false)
+            ctx.fillStyle = '#444444';
+        else if (this.newSessionButton.pressed)
+            ctx.fillStyle = '#884400';
+        else if (this.newSessionButton.hover)
+            ctx.fillStyle = '#FFAA22';
+        else
+            ctx.fillStyle = '#FF8800';
+        ctx.fillRect(this.newSessionButton.x, this.newSessionButton.y, this.newSessionButton.width, this.newSessionButton.height);
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.font = "36px Arial";
+        ctx.fillText('Создать сессию', this.newSessionButton.x + 160, this.newSessionButton.y + 30);
+        
+        if (this.joinSessionButton.active === false)
+            ctx.fillStyle = '#444444';
+        else if (this.joinSessionButton.pressed)
+            ctx.fillStyle = '#884400';
+        else if (this.joinSessionButton.hover)
+            ctx.fillStyle = '#FFAA22';
+        else
+            ctx.fillStyle = '#FF8800';
+        ctx.fillRect(this.joinSessionButton.x, this.joinSessionButton.y, this.joinSessionButton.width, this.joinSessionButton.height);
+        ctx.fillStyle = "white";
+        ctx.fillText('Войти в сессию', this.joinSessionButton.x + 160, this.joinSessionButton.y + 30);
+    }
+}
+
+class LobbyUI {
+    constructor() {
+        this.startGameButton = new Button(800, 700, 320, 60, 0, this, 
+            function(id, parentUI) {
+                startSession();
+                parentUI.deleteSelf();
+            }
+        );
+        if (thisPlayer !== 0)
+            this.startGameButton.active = false;
+    }
+
+    draw() {
+        if (gameState === 2) {
+            startSession();
+            this.deleteSelf();
+        }
+        
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.font = "36px Arial";
+        ctx.fillText('Код: ' + sessionCode, this.startGameButton.x + 160, this.startGameButton.y - 90);
+        ctx.fillText(playerCount + '/4 игоков в сессии', this.startGameButton.x + 160, this.startGameButton.y - 30);
+        if (thisPlayer === 0) {
+            if (this.startGameButton.active === false)
+                ctx.fillStyle = '#444444';
+            else if (this.startGameButton.pressed)
+                ctx.fillStyle = '#884400';
+            else if (this.startGameButton.hover)
+                ctx.fillStyle = '#FFAA22';
+            else
+                ctx.fillStyle = '#FF8800';
+            ctx.fillRect(this.startGameButton.x, this.startGameButton.y, this.startGameButton.width, this.startGameButton.height);
+            ctx.fillStyle = "white";
+            ctx.fillText('Начать игру', this.startGameButton.x + 160, this.startGameButton.y + 30);
+        }
+
+    }
+
+    deleteSelf() {
+        UI = new GameUI;
+        if (thisPlayer === 0)
+            players[0].startMove();
+        this.startGameButton.deleteSelf();
+        this.delete;
+    }
+}
 
 class GameUI {
     constructor() {
@@ -8,7 +105,7 @@ class GameUI {
         this.PlayerInfoU2 = new PlayerInfoU(players[1]);
         this.PlayerInfoU3 = new PlayerInfoU(players[2]);
         this.PlayerInfoU4 = new PlayerInfoU(players[3]);
-        //this.PlayerInfoU = new PlayerInfoU;
+        this.dices = new Dices;
         this.endMoveButton = new Button(1700, 1000, 200, 60, 0, this,
             function(id, parentUI) {
                 players[currentPlayer].endMove();
@@ -40,6 +137,8 @@ class GameUI {
             ctx.textAlign = "left";
             ctx.font = "24px Arial";
             ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
+            
+            this.dices.draw();
         } else {
             ctx.fillStyle = '#000000';
             ctx.globalAlpha = 0.8;
@@ -52,6 +151,7 @@ class GameUI {
             ctx.fillText('Ожидание своего хода', canvas.width / 2, canvas.height / 2);
         }
     }
+
 }
 
 class FieldUI {
@@ -95,8 +195,8 @@ class FieldUI {
                 ctx.textAlign = "center";
                 ctx.font = "48px Arial";
                 ctx.fillText(hex.level, 283 + hex.x * 160 + hex.y * 80, -25 + hex.y * 140);
-            } else if (hex.bandit === 1) { ///я же правильно понимаю,что у него там до этого проверка была, типа
-                ///нужен он или нет?
+            }
+            if (hex.bandit === 1) {
                 ctx.drawImage(hex.img_bandit, 243 + hex.x * 160 + hex.y * 80, -100 + hex.y * 140);
             }
         }
@@ -159,7 +259,7 @@ class ModeMenuUI {
             this.childUI = new BuildModeUI;
         }
         if (newState === 1) {
-            this.childUI = new DevelopmentModeUI;
+            this.childUI = new TradingModeUI;
         }
         if (newState === 2) {
             this.childUI = new DevelopmentModeUI;

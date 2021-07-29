@@ -25,19 +25,21 @@ var fieldLevelDeck = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12]
 
 var buttonArray = new Array;
 var field;
-var gameUI;
+var UI;
 var players;
 var currentPlayer = 0;
+var gameState = 0;
 
+var sessionData = {
+    currentPlayer: 0,
+    gameState: 0,
+    playerCount: 1,
+};
 var sessionCode = -1;
 var thisPlayer = 0;
+var playerCount = 1;
 var fieldChanges = new Array;
-var playerChanges = {
-    resources: [0, 0, 0, 0, 0],
-    developmentCards: 0,
-    roads: 0,
-    knights: 0
-};
+var playerChanges = new Array(4);
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -49,7 +51,7 @@ function frameLoop() {
         makeBotMove(players[currentPlayer]);
     }
 
-    gameUI.draw();
+    UI.draw();
 }
 
 function gameOpen() {
@@ -63,11 +65,9 @@ function gameOpen() {
     for (var i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
     }
-    players[thisPlayer].isLocalBot = false;
-
-    gameUI = new GameUI;
-    newSession();
-
+    
+    UI = new StartUI;
+    
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
@@ -84,7 +84,7 @@ function gameOpen() {
     field.vertexArray[0].player = 2;
     field.vertexArray[20].level = 1;
     field.vertexArray[20].player = 3;
-
+    
     setInterval(frameLoop, 100 / 6);
 }
 

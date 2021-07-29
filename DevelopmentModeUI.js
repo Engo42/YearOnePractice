@@ -147,6 +147,7 @@ class DevelopmentCardUI {
         else
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
+
     }
 
     deleteSelf() {
