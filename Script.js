@@ -67,9 +67,9 @@ function gameOpen() {
     for (var i = 0; i < 4; i++) {
         players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
     }
-    
+
     UI = new StartUI;
-    
+
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
@@ -79,7 +79,7 @@ function gameOpen() {
     }
 
 
-    
+
     setInterval(frameLoop, 100 / 6);
 }
 

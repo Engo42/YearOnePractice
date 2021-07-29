@@ -1,6 +1,6 @@
 class StartUI {
     constructor() {
-        this.newSessionButton = new Button(800, 500, 320, 60, 0, this, 
+        this.newSessionButton = new Button(800, 500, 320, 60, 0, this,
             function(id, parentUI) {
                 newSession();
                 UI = new LobbyUI;
@@ -9,16 +9,15 @@ class StartUI {
                 parentUI.delete;
             }
         );
-        this.joinSessionButton = new Button(800, 600, 320, 60, 0, this, 
+        this.joinSessionButton = new Button(800, 600, 320, 60, 0, this,
             function(id, parentUI) {
                 sessionCode = prompt("Введите код сессии:", "");
-                if (joinSession()) {
-                }
+                if (joinSession()) {}
             }
         );
     }
 
-    draw() {        
+    draw() {
         if (this.newSessionButton.active === false)
             ctx.fillStyle = '#444444';
         else if (this.newSessionButton.pressed)
@@ -33,7 +32,7 @@ class StartUI {
         ctx.textAlign = "center";
         ctx.font = "36px Arial";
         ctx.fillText('Создать сессию', this.newSessionButton.x + 160, this.newSessionButton.y + 30);
-        
+
         if (this.joinSessionButton.active === false)
             ctx.fillStyle = '#444444';
         else if (this.joinSessionButton.pressed)
@@ -50,7 +49,7 @@ class StartUI {
 
 class LobbyUI {
     constructor() {
-        this.startGameButton = new Button(800, 700, 320, 60, 0, this, 
+        this.startGameButton = new Button(800, 700, 320, 60, 0, this,
             function(id, parentUI) {
                 startSession();
                 parentUI.deleteSelf();
@@ -65,7 +64,7 @@ class LobbyUI {
             startSession();
             this.deleteSelf();
         }
-        
+
         ctx.fillStyle = "white";
         ctx.textBaseline = "middle";
         ctx.textAlign = "center";
@@ -137,7 +136,7 @@ class GameUI {
             ctx.textAlign = "left";
             ctx.font = "24px Arial";
             ctx.fillText('Закончить ход', this.endMoveButton.x + 10, this.endMoveButton.y + 30);
-            
+
             this.dices.draw();
         } else {
             ctx.fillStyle = '#000000';
@@ -170,8 +169,7 @@ class GameUI {
 }
 
 class GameOverUI {
-    constructor() {
-    }
+    constructor() {}
     draw() {
         ctx.fillStyle = playerColors[winner];
         ctx.textBaseline = "middle";
