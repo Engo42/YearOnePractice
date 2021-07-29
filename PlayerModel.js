@@ -45,6 +45,21 @@ class Player {
                 arr.push(i);
         }
         field.hexArray[arr[Math.floor(Math.random() * arr.length)]].bandit = 1;
+        for (var i = 0; i < 4; i++){
+            let res = players[i].resources;
+            if (res[0] + res[1] + res[2] + res[3] + res[4] > 7) {
+                var a = new Array;
+                for (var j = 0; j < 5; j++){
+                    for (var k = 0; k < res[j]; k++){
+                        a.push(j);
+                    }
+                }
+                shuffle(a);
+                for (var j = 0; j < a.length / 2; j++){
+                    res[a[j]]--;
+                }
+            }
+        }
     }
 
     buyCard(id) {
@@ -96,14 +111,7 @@ class Player {
     }
 
     endMove() {
-        playerChanges = {
-            resources: this.resources,
-            developmentCards: this.developmentCards.length,
-            roads: this.roads,
-            knights: this.knights
-        };
         sendMove();
-        fieldChanges.length = 0;
     }
 }
 

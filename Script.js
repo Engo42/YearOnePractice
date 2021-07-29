@@ -39,12 +39,7 @@ var sessionCode = -1;
 var thisPlayer = 0;
 var playerCount = 1;
 var fieldChanges = new Array;
-var playerChanges = {
-    resources: [0, 0, 0, 0, 0],
-    developmentCards: 0,
-    roads: 0,
-    knights: 0
-};
+var playerChanges = new Array(4);
 
 function frameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);

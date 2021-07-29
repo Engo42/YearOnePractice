@@ -1,11 +1,20 @@
 var database = firebase.database();
 
 function sendMove() {
+    for (var i = 0; i < 4; i++) {
+        playerChanges[i] = {
+            resources: players[i].resources,
+            developmentCards: players[i].developmentCards.length,
+            roads: players[i].roads,
+            knights: players[i].knights
+        };
+    }
     firebase.database().ref('session/' + sessionCode + '/p' + currentPlayer).set({
         fieldChanges: fieldChanges,
         playerChanges: playerChanges
     });
     firebase.database().ref('session/' + sessionCode + '/currentPlayer').set((currentPlayer + 1) % 4);
+    fieldChanges.length = 0;
 }
 
 function newSession() {
@@ -76,13 +85,13 @@ function listenToSession() {
             let changes = [sessionData.p0, sessionData.p1, sessionData.p2, sessionData.p3]
             for (var i = (currentPlayer + 1) % 4; i != currentPlayer; i = (i + 1) % 4) {
                 if (changes[i] != null) {
-                    if (changes[i].playerChanges != null) {
-                        for (var j = 0; j < 5; j++) {
-                            players[i].resources[j] = changes[i].playerChanges.resources[j];
+                    for (var j = 0; j < 4; j++) {
+                        for (var k = 0; k < 5; k++) {
+                            players[j].resources[k] = changes[i].playerChanges[j].resources[k];
                         }
-                        players[i].developmentCards.length = changes[i].playerChanges.developmentCards;
-                        players[i].roads = changes[i].playerChanges.roads;
-                        players[i].knights = changes[i].playerChanges.knights;
+                        players[j].developmentCards.length = changes[i].playerChanges[j].developmentCards;
+                        players[j].roads = changes[i].playerChanges[j].roads;
+                        players[j].knights = changes[i].playerChanges[j].knights;
                     }
                     if (changes[i].fieldChanges != null) {
                         for (var j = 0; j < changes[i].fieldChanges.length; j++) {
