@@ -5,7 +5,7 @@ class BuildModeUI {
         this.childUI = new EmptyUI;
         for (var i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
-                function (id, parentUI) {
+                function(id, parentUI) {
                     parentUI.changeState(id);
                 }
             )
@@ -90,14 +90,11 @@ class BuildModeUI {
 }
 
 class EmptyUI {
-    constructor() {
-    }
+    constructor() {}
 
-    frameAction() {
-    }
+    frameAction() {}
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         this.delete;
@@ -116,9 +113,9 @@ class RoadBuilderUI {
                     if (this.roads[i][j][k] != null && this.roads[i][j][k].player == -1) {
                         var available = false;
                         for (var q = 0; q < 4; q++) {
-                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player == currentPlayer
-                            && (this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == -1 
-                            || this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == currentPlayer))
+                            if (this.roads[i][j][k].edges[q] != null && this.roads[i][j][k].edges[q].player == currentPlayer &&
+                                (this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == -1 ||
+                                    this.roads[i][j][k].vertexes[Math.floor(q / 2)].player == currentPlayer))
                                 available = true;
                         }
                         for (var q = 0; q < 2; q++) {
@@ -143,8 +140,7 @@ class RoadBuilderUI {
         }
     }
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         gameUI.fieldUI.highlightEdges = [];
@@ -191,8 +187,7 @@ class SettlementBuilderUI {
         }
     }
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         gameUI.fieldUI.highlightVertexes = [];
@@ -212,8 +207,8 @@ class CityBuilderUI {
         for (var i = 0; i < 9; i++) {
             for (var j = 0; j < 9; j++) {
                 for (var k = 0; k < 3; k++) {
-                    if (this.vertexes[i][j][k] != null
-                        && this.vertexes[i][j][k].player === currentPlayer && this.vertexes[i][j][k].level === 1) {
+                    if (this.vertexes[i][j][k] != null &&
+                        this.vertexes[i][j][k].player === currentPlayer && this.vertexes[i][j][k].level === 1) {
                         this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
                         gameUI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
                     }
@@ -229,8 +224,7 @@ class CityBuilderUI {
         }
     }
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         gameUI.fieldUI.highlightVertexes = [];
