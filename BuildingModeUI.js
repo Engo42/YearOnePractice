@@ -137,6 +137,7 @@ class RoadBuilderUI {
 
     frameAction() {
         if (this.target != -1) {
+            //players[currentPlayer].buyRoad
             players[currentPlayer].buildRoad(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
         }
