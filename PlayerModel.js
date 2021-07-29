@@ -75,6 +75,11 @@ class Player {
         this.developmentCards.splice(id, 1);
     }
 
+    buyRoad(id) {
+        this.resources[0]--;
+        this.resources[3]--;
+    }
+
     buildRoad(x, y, direction) {
         field.edgeMap[y][x][direction].player = this.number;
         field.edgeMap[y][x][direction].level = 1;
@@ -87,6 +92,13 @@ class Player {
         this.roads++;
     }
 
+    buySettlement(id) {
+        this.resources[0]--;
+        this.resources[1]--;
+        this.resources[2]--;
+        this.resources[3]--;
+    }
+
     buildSettlement(x, y, direction) {
         field.vertexMap[y][x][direction].player = this.number;
         field.vertexMap[y][x][direction].level = 1;
@@ -97,6 +109,11 @@ class Player {
             direction: direction
         })
         this.victoryPoints++;
+    }
+
+    buyCity(id) {
+        this.resources[2] -= 2;
+        this.resources[4] -= 3;
     }
 
     buildCity(x, y, direction) {
