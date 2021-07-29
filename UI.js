@@ -270,7 +270,7 @@ class ModeMenuUI {
                 function(id, parentUI) {
                     parentUI.buttons[parentUI.state].active = true;
                     parentUI.changeState(id);
-                    parentUI.buttons[id].active = false;
+                     parentUI.buttons[id].active = false;
                 }
             )
         }

@@ -34,10 +34,6 @@ class BuildModeUI {
             this.childUI = new SettlementBuilderUI;
         if (newState === 2)
             this.childUI = new CityBuilderUI;
-
-        this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
-        this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
-        this.buttons[2].active  = players[currentPlayer].check_Resources("City");
     }
 
 
@@ -58,9 +54,9 @@ class BuildModeUI {
         img_wood.src = "Sprites/Resources/wood.png";
         img_wool.src = "Sprites/Resources/wool.png";
 
-        this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
-        this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
-        this.buttons[2].active  = players[currentPlayer].check_Resources("City");
+        this.buttons[0].active = players[currentPlayer].check_Resources("Road");
+        this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement");
+     this.buttons[2].active  = players[currentPlayer].check_Resources("City");
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
@@ -152,6 +148,7 @@ class RoadBuilderUI {
     frameAction() {
         if (this.target !== -1) {
             players[currentPlayer].buyRoad();
+            this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
             players[currentPlayer].buildRoad(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
         }
@@ -208,6 +205,8 @@ class SettlementBuilderUI {
     frameAction() {
         if (this.target !== -1) {
             players[currentPlayer].buySettlement();
+            this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
+
             players[currentPlayer].buildSettlement(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
         }
