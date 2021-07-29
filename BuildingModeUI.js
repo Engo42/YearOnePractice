@@ -3,19 +3,25 @@ class BuildModeUI {
         this.state = -1;
         this.buttons = new Array(3);
         this.childUI = new EmptyUI;
-        for (var i = 0; i < 3; i++) {
+
+        for (let i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
-                function(id, parentUI) {
+                function (id, parentUI) {
+
                     parentUI.changeState(id);
                 }
             )
+
+
         }
+
     }
 
     changeState(newState) {
-        if (this.state != -1)
+
+        if (this.state !== -1)
             this.buttons[this.state].active = true;
-        if (newState != -1)
+        if (newState !== -1)
             this.buttons[newState].active = false;
 
         this.childUI.deleteSelf();
@@ -28,7 +34,12 @@ class BuildModeUI {
             this.childUI = new SettlementBuilderUI;
         if (newState === 2)
             this.childUI = new CityBuilderUI;
+
+        this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
+        this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
+        this.buttons[2].active  = players[currentPlayer].check_Resources("City");
     }
+
 
     frameAction() {
         this.childUI.frameAction();
@@ -47,7 +58,9 @@ class BuildModeUI {
         img_wood.src = "Sprites/Resources/wood.png";
         img_wool.src = "Sprites/Resources/wool.png";
 
-
+        this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
+        this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
+        this.buttons[2].active  = players[currentPlayer].check_Resources("City");
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
@@ -78,6 +91,7 @@ class BuildModeUI {
             }
         }
         this.childUI.draw();
+
     }
 
     deleteSelf() {
@@ -90,11 +104,14 @@ class BuildModeUI {
 }
 
 class EmptyUI {
-    constructor() {}
+    constructor() {
+    }
 
-    frameAction() {}
+    frameAction() {
+    }
 
-    draw() {}
+    draw() {
+    }
 
     deleteSelf() {
         this.delete;
@@ -133,14 +150,15 @@ class RoadBuilderUI {
     }
 
     frameAction() {
-        if (this.target != -1) {
+        if (this.target !== -1) {
             players[currentPlayer].buyRoad();
             players[currentPlayer].buildRoad(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
         }
     }
 
-    draw() {}
+    draw() {
+    }
 
     deleteSelf() {
         UI.fieldUI.highlightEdges = [];
@@ -168,15 +186,15 @@ class SettlementBuilderUI {
                             if (this.vertexes[i][j][k].edges[q] != null && this.vertexes[i][j][k].edges[q].player === currentPlayer)
                                 available = true;
                         }
-                        if(  players[currentPlayer].ingSettlementExists!==0){
-                            available=true;
+                        if (players[currentPlayer].ingSettlementExists !== 0) {
+                            available = true;
                         }
                         for (var q = 0; q < 3; q++) {
                             if (this.vertexes[i][j][k].vertexes[q] != null && this.vertexes[i][j][k].vertexes[q].level > 0)
                                 available = false;
                         }
 
-                        if (available ) {
+                        if (available) {
                             this.buttons.push(new SpriteButton(j, i, 2, this.vertexes[i][j][k].direction, this));
                             UI.fieldUI.highlightVertexes.push(this.vertexes[i][j][k]);
                         }
@@ -195,7 +213,8 @@ class SettlementBuilderUI {
         }
     }
 
-    draw() {}
+    draw() {
+    }
 
     deleteSelf() {
         UI.fieldUI.highlightVertexes = [];
@@ -233,7 +252,8 @@ class CityBuilderUI {
         }
     }
 
-    draw() {}
+    draw() {
+    }
 
     deleteSelf() {
         UI.fieldUI.highlightVertexes = [];

@@ -77,11 +77,29 @@ class Player {
         this.developmentCards.splice(id, 1);
     }
 
+    check_Resources(type_build) {
+        if (type_build === "Road") {
+            if (this.resources[0] * this.resources[3] > 0 || this.ingRoad>0)
+                return true;
+            return false
+        } else if (type_build === "Settlement" ) {
+            if (this.resources[0] *
+                this.resources[1] *
+                this.resources[2] *
+                this.resources[3] > 0 || this.ingSettlementExists>0)
+                return true;
+            return false;
+        } else if (this.resources[2] > 1 &&
+            this.resources[4] > 2)
+            return true;
+        return false;
+
+    }
+
     buyRoad(id) {
         if (this.ingRoad !== 0) {
             this.ingRoad--;
-        }
-     else   {
+        } else {
             this.resources[0]--;
             this.resources[3]--;
         }
