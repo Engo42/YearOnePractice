@@ -50,11 +50,15 @@ class DevelopmentModeUI {
                 this.cardsUI[i].deleteSelf();
                 this.cardsUI.splice(i, 1);
                 for (var j = 0; j < this.cards.length; j++) {
-                    //this.cards[j].active = false;
+                    this.cards[j].active = false;
                 }
                 i--;
             }
         }
+        if (players[currentPlayer].resources[0] === 0 || players[currentPlayer].resources[2] === 0 || players[currentPlayer].resources[3] === 0)
+            this.buyButton.active = false;
+        else
+            this.buyButton.active = true;
     }
 
     draw() {
