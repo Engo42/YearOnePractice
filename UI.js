@@ -342,8 +342,12 @@ class PlayerInfoU {
         this.img_resource_4 = new Image();
         this.img_resource_4.src = 'Sprites/Resources/iron.png';
         this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4]; //*/
-        //this.img_knight = new Image();
-        //this.img_knight.src = 'Sprites/Indicators/knight30.png'
+        this.img_knight = new Image();
+        this.img_knight.src = 'Sprites/Indicators/knight25.png';
+        this.img_road = new Image();
+        this.img_road.src = 'Sprites/Indicators/road22.png';
+        this.img_pointOfWin = new Image();
+        this.img_pointOfWin.src = 'Sprites/Indicators/pointOfWin28.png';
         //'Sprites/Hexes/t' + this.type + '.png';
     }
     draw() {
@@ -359,6 +363,12 @@ class PlayerInfoU {
             ctx.drawImage(this.img_resources[j], leftBoard - 3 + j * (widthOfSmall + 32), highBoard + 47);
             ctx.fillText(this.player.resources[j], leftBoard + 9 + j * (widthOfSmall + 32), highBoard + 40 + heightOfSmall + 40);
         }
+        ctx.drawImage(this.img_knight, leftBoard + 215, highBoard + 45);
+        ctx.fillText(this.player.knights, leftBoard + 223, highBoard + 90);
+        ctx.drawImage(this.img_road, leftBoard + 255, highBoard + 45);
+        ctx.fillText(this.player.roads, leftBoard + 265, highBoard + 90);
+        ctx.drawImage(this.img_pointOfWin, leftBoard + 295, highBoard + 45);
+        ctx.fillText(this.player.roads, leftBoard + 308, highBoard + 90);
         //ctx.drawImage(this.img_knight, 200, 200);
     }
 }

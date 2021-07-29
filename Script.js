@@ -4,7 +4,7 @@ var ctx = canvas.getContext("2d");
 const leftBoard = 20; //константы для отрисовки списка игроков
 const highBoardOfHighest = 10;
 const heightOfBig = 100;
-const widthOfBig = 300;
+const widthOfBig = 340;
 const heightOfSmall = 10;
 const widthOfSmall = 10;
 
