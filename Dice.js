@@ -6,17 +6,25 @@ class Dices {
     }
 
     throwDices() {
+        let f = 0
         this.digit = [Math.floor(Math.random() * 6 + 1), Math.floor(Math.random() * 6 + 1)];
         if (this.digit[0] + this.digit[1] !== 7)
             players[currentPlayer].harvest(this.digit[0] + this.digit[1]);
-        else
-            players[currentPlayer].moveBandit();
+        else {
+            for (let i = 0; i < players.length; i++) {
+                if (players[i].ingSettlementExists > 0 && players[i].ingRoad>0) { ///currentPlayer для тестов
+                    f = 1;
+                    break;
+                }
+            }
+            if (f !== 1) players[currentPlayer].moveBandit();
+        }
     }
 
     draw_point(x, d) {
 
         ctx.fillStyle = '#fff';
-      switch (d) {
+        switch (d) {
             case 1:
                 ctx.beginPath();
                 ctx.arc(x + (90) / 2, 95, 5, 0, 2 * Math.PI);
@@ -107,8 +115,8 @@ class Dices {
         this.draw_point(this.x_1, this.digit[0]);
         this.draw_point(this.x_2, this.digit[1]);
         ctx.fillStyle = '#fff';
-       let sum=+this.digit[0] + +this.digit[1];
-        ctx.fillText("Вам выпало:" +sum,this.x_1,160,120);
+        let sum = +this.digit[0] + +this.digit[1];
+        ctx.fillText("Вам выпало:" + sum, this.x_1, 160, 120);
         return sum;
 
     }
