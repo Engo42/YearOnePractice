@@ -29,11 +29,13 @@ var UI;
 var players;
 var currentPlayer = 0;
 var gameState = 0;
+var winner = -1;
 
 var sessionData = {
     currentPlayer: 0,
     gameState: 0,
     playerCount: 1,
+    winner: -1,
 };
 var sessionCode = -1;
 var thisPlayer = 0;

@@ -150,8 +150,35 @@ class GameUI {
             ctx.font = "96px Arial";
             ctx.fillText('Ожидание своего хода', canvas.width / 2, canvas.height / 2);
         }
+        if (winner !== -1)
+            this.gameOver();
+        for (var i = 0; i < 4; i++) {
+            if (players[i].victoryPoints >= 10) {
+                winner = i;
+                players[i].endMove();
+                this.gameOver();
+            }
+        }
     }
 
+    gameOver() {
+        UI = new GameOverUI;
+        this.modeMenuUI.deleteSelf();
+        this.endMoveButton.deleteSelf();
+        this.delete;
+    }
+}
+
+class GameOverUI {
+    constructor() {
+    }
+    draw() {
+        ctx.fillStyle = playerColors[winner];
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.font = "96px Arial";
+        ctx.fillText(players[winner].name + ' одержал победу!', canvas.width / 2, canvas.height / 2);
+    }
 }
 
 class FieldUI {

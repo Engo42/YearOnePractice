@@ -1,6 +1,7 @@
 var database = firebase.database();
 
 function sendMove() {
+    firebase.database().ref('session/' + sessionCode + '/winner').set(winner);
     for (var i = 0; i < 4; i++) {
         playerChanges[i] = {
             resources: players[i].resources,
@@ -35,6 +36,7 @@ function newSession() {
         firebase.database().ref('session/' + sessionCode + '/currentPlayer').set(thisPlayer);
         firebase.database().ref('session/' + sessionCode + '/playerCount').set(1);
         firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
+        firebase.database().ref('session/' + sessionCode + '/winner').set(-1);
         firebase.database().ref('nextSessionCode').set((sessionCode + 1) % 1000);
         listenToSession();
     }).catch((error) => {
@@ -81,6 +83,7 @@ function listenToSession() {
         currentPlayer = sessionData.currentPlayer;
         gameState = sessionData.gameState;
         playerCount = sessionData.playerCount;
+        winner = sessionData.winner;
         if (currentPlayer != prevPlayer && (players[currentPlayer].isLocalBot || currentPlayer === thisPlayer)) {
             let changes = [sessionData.p0, sessionData.p1, sessionData.p2, sessionData.p3]
             for (var i = (currentPlayer + 1) % 4; i != currentPlayer; i = (i + 1) % 4) {
@@ -112,7 +115,8 @@ function listenToSession() {
                     }
                 }
             }
-            players[currentPlayer].startMove();
+            if (winner === -1)
+                players[currentPlayer].startMove();
         }
     });
 }
