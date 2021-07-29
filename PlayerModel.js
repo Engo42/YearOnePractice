@@ -36,6 +36,15 @@ class Player {
     }
     
     moveBandit() {
+        var arr = new Array;
+        var banditLocation;
+        for (var i = 0; i < field.hexArray.length; i++){
+            if (field.hexArray[i].bandit !== 0)
+                field.hexArray[i].bandit = 0;
+            else
+                arr.push(i);
+        }
+        field.hexArray[arr[Math.floor(Math.random() * arr.length)]].bandit = 1;
     }
 
     buyCard(id) {

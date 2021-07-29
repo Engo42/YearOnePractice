@@ -195,8 +195,8 @@ class FieldUI {
                 ctx.textAlign = "center";
                 ctx.font = "48px Arial";
                 ctx.fillText(hex.level, 283 + hex.x * 160 + hex.y * 80, -25 + hex.y * 140);
-            } else if (hex.bandit === 1) { ///я же правильно понимаю,что у него там до этого проверка была, типа
-                ///нужен он или нет?
+            }
+            if (hex.bandit === 1) {
                 ctx.drawImage(hex.img_bandit, 243 + hex.x * 160 + hex.y * 80, -100 + hex.y * 140);
             }
         }
