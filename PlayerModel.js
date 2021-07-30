@@ -120,8 +120,8 @@ class Player {
                 imax = i;
             }
         }
-        if (maxRoads < maxRoadsVal && maxRoadsVal >= 3) {
-            if (maxRoads !== -1)
+        if (maxRoads < maxRoadsVal && maxRoadsVal >= 2) {
+            if (maxRoadsPlayer !== -1)
                 players[maxRoadsPlayer].victoryPoints -= 2;
             players[imax].victoryPoints += 2;
             maxRoadsPlayer = imax;
@@ -202,7 +202,7 @@ class DevelopmentCard {
                 }
             }
             if (maxKnights < maxKnightsVal && maxKnightsVal >= 2) {
-                if (maxKnights !== -1)
+                if (maxKnightsPlayer !== -1)
                     players[maxKnightsPlayer].victoryPoints -= 2;
                 players[imax].victoryPoints += 2;
                 maxKnightsPlayer = imax;

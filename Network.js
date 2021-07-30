@@ -13,8 +13,8 @@ function sendMove() {
     firebase.database().ref('session/' + sessionCode + '/p' + currentPlayer).set({
         fieldChanges: fieldChanges,
         playerChanges: playerChanges,
-        maxKnights: maxKnights,
-        maxRoads: maxRoads
+        maxKnightsPlayer: maxKnightsPlayer,
+        maxRoadsPlayer: maxRoadsPlayer
     });
     fieldChanges = [];
     firebase.database().ref('session/' + sessionCode + '/currentPlayer').set((currentPlayer + 1) % 4);
@@ -149,6 +149,7 @@ function listenToSession() {
                         }
                         players[j].roads = changes[i].playerChanges[j].roads;
                         players[j].knights = changes[i].playerChanges[j].knights;
+                        players[j].victoryPoints = changes[i].playerChanges[j].victoryPoints;
                     }
                     if (changes[i].fieldChanges != null) {
                         for (var j = 0; j < changes[i].fieldChanges.length; j++) {
@@ -167,8 +168,8 @@ function listenToSession() {
                             }
                         }
                     }
-                    maxKnights = changes[i].maxKnights;
-                    maxRoads = changes[i].maxRoads;
+                    maxKnightsPlayer = changes[i].maxKnightsPlayer;
+                    maxRoadsPlayer = changes[i].maxRoadsPlayer;
                 }
             }
             if (winner === -1)
