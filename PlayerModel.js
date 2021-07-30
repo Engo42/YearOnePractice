@@ -8,7 +8,7 @@ class Player {
         this.seed = 0;
         this.clay = 0;
         this.ore = 0;
-        this.resources = [1, 1, 1, 1, 1]; //wood,wool,seed(corn),clay,ore(iron)
+        this.resources = [0, 0, 0, 0, 0]; //wood,wool,seed(corn),clay,ore(iron)
         this.totalResources = 0;
         this.indicators = [0, 0, 0, 0, 0, 0]; //setlements, roads - самая длинная сеть дорог у данного игрока, cities, количество карт развития, knights, pointsOfWin
         this.settlements = 0;
