@@ -120,7 +120,7 @@ class Player {
                 imax = i;
             }
         }
-        if (maxRoads < maxRoadsVal && maxRoadsVal >= 2) {
+        if (maxRoads < maxRoadsVal && maxRoadsVal >= 5) {
             if (maxRoadsPlayer !== -1)
                 players[maxRoadsPlayer].victoryPoints -= 2;
             players[imax].victoryPoints += 2;
