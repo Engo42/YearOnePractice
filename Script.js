@@ -22,7 +22,7 @@ const typeMap = [
 ]
 var fieldTypeDeck = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5];
 var fieldLevelDeck = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12];
-var botNames = ['???', 'Король', 'Царь', 'Вождь']
+var botNames = ['???', 'Тимофей', 'Александр', 'Владимир']
 
 var buttonArray = new Array;
 var field;
