@@ -21,27 +21,53 @@ function sendMove() {
 }
 
 function newSession() {
-    firebase.database().ref('nextSessionCode').get().then((snapshot) => {
-        if (snapshot.exists()){
-            sessionCode = snapshot.val();
-        }
-        else {
-            sessionCode = 0;
-        }
-        gameState = 1;
-        firebase.database().ref('session/' + sessionCode + '/currentPlayer').set(thisPlayer);
-        firebase.database().ref('session/' + sessionCode + '/playerCount').set(1);
-        firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
-        firebase.database().ref('session/' + sessionCode + '/winner').set(-1);
-        firebase.database().ref('nextSessionCode').set((sessionCode + 1) % 1000);
-        listenToSession();
-    }).catch((error) => {
-        console.error(error);
-    });
+    if (players[0].name.length < 3) {
+        alert("Имя должно быть длиной минимум 3 символов.");
+        return false;
+    }
+    else if (players[0].name.length > 12) {
+        alert("Имя должно быть длиной максимум 13 символов.");
+        return false;
+    }
+    else {
+        firebase.database().ref('nextSessionCode').get().then((snapshot) => {
+            if (snapshot.exists()){
+                sessionCode = snapshot.val();
+            }
+            else {
+                sessionCode = 0;
+            }
+            gameState = 1;
+            firebase.database().ref('session/' + sessionCode + '/currentPlayer').set(thisPlayer);
+            firebase.database().ref('session/' + sessionCode + '/playerCount').set(1);
+            firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
+            firebase.database().ref('session/' + sessionCode + '/winner').set(-1);
+            firebase.database().ref('session/' + sessionCode + '/names/p' + thisPlayer).set(players[thisPlayer].name);
+            firebase.database().ref('nextSessionCode').set((sessionCode + 1) % 1000);
+            listenToSession();
+            UI.newSessionButton.deleteSelf();
+            UI.joinSessionButton.deleteSelf();
+            UI.delete;
+            UI = new LobbyUI;
+        }).catch((error) => {
+            console.error(error);
+        });
+        return true;
+    }
 }
 
 function startSession() {
     gameState = 2;
+    firebase.database().ref('session/' + sessionCode + '/names').get().then((snapshot) => {
+        if (snapshot.exists()){
+            players[0].name = snapshot.val().p0;
+            players[1].name = snapshot.val().p1;
+            players[2].name = snapshot.val().p2;
+            players[3].name = snapshot.val().p3;
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
     firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
     if (thisPlayer === 0) {
         for (var i = playerCount; i < 4; i++) {
@@ -51,25 +77,36 @@ function startSession() {
 }
 
 function joinSession() {
-    firebase.database().ref('session/' + sessionCode).get().then((snapshot) => {
-        if (snapshot.exists() 
-            && snapshot.val().gameState === 1 
-        && snapshot.val().playerCount < 4){
-            thisPlayer = snapshot.val().playerCount;
-            firebase.database().ref('session/' + sessionCode + '/playerCount').set(snapshot.val().playerCount + 1);
-            listenToSession();
-            UI.newSessionButton.deleteSelf();
-            UI.joinSessionButton.deleteSelf();
-            UI.delete;
-            UI = new LobbyUI;
-            return true;
-        }
-        else {
-            alert("Сессии не существует или она переполнена.");
-        }
-    }).catch((error) => {
-        console.error(error);
-    });
+    if (players[0].name.length < 3) {
+        alert("Имя должно быть длиной минимум 3 символов.");
+        return false;
+    }
+    else if (players[0].name.length > 12) {
+        alert("Имя должно быть длиной максимум 13 символов.");
+        return false;
+    }
+    else {
+        firebase.database().ref('session/' + sessionCode).get().then((snapshot) => {
+            if (snapshot.exists() 
+                && snapshot.val().gameState === 1 
+            && snapshot.val().playerCount < 4){
+                thisPlayer = snapshot.val().playerCount;
+                players[thisPlayer].name = players[0].name;
+                firebase.database().ref('session/' + sessionCode + '/playerCount').set(snapshot.val().playerCount + 1);
+                firebase.database().ref('session/' + sessionCode + '/names/p' + thisPlayer).set(players[thisPlayer].name);
+                listenToSession();
+                UI.newSessionButton.deleteSelf();
+                UI.joinSessionButton.deleteSelf();
+                UI.delete;
+                UI = new LobbyUI;
+            }
+            else {
+                alert("Сессии не существует или она переполнена.");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
 }
 
 function listenToSession() {

@@ -2,17 +2,15 @@ class StartUI {
     constructor() {
         this.newSessionButton = new Button(800, 500, 320, 60, 0, this,
             function(id, parentUI) {
+                players[0].name = prompt("Введите имя игрока:", "");
                 newSession();
-                UI = new LobbyUI;
-                parentUI.newSessionButton.deleteSelf();
-                parentUI.joinSessionButton.deleteSelf();
-                parentUI.delete;
             }
         );
         this.joinSessionButton = new Button(800, 600, 320, 60, 0, this,
             function(id, parentUI) {
+                players[0].name = prompt("Введите имя игрока:", "");
                 sessionCode = prompt("Введите код сессии:", "");
-                if (joinSession()) {}
+                joinSession();
             }
         );
     }

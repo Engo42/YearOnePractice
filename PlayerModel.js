@@ -200,7 +200,7 @@ class DevelopmentCard {
                     maxKnightsPlayer = i;
                 }
             }
-            if (maxKnights < maxKnightsVal && maxKnightsVal >= 5) {
+            if (maxKnights < maxKnightsVal && maxKnightsVal >= 2) {
                 if (maxKnights !== -1)
                     players[maxKnights].victoryPoints -= 2;
                 players[maxKnightsPlayer].victoryPoints += 2;
