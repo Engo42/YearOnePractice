@@ -112,7 +112,7 @@ class TradingModeUI {
             this.buttonsBuyInc[i].deleteSelf();
             this.buttonsBuyDec[i].deleteSelf();
         }
-        this.buttonConfirm[i].deleteSelf();
+        this.buttonConfirm.deleteSelf();
         this.delete;
     }
 }
