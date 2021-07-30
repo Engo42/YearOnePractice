@@ -20,6 +20,18 @@ function arrSum(arr) {
     return ans;
 }
 
+function arrMax(arr) {
+    var max = -1;
+    var ans = -1;
+    for (var i = 0; i < arr.length; i++) {
+        if (max < arr[i]) {
+            max = arr[i];
+            ans = i;
+        }
+    }
+    return ans;
+}
+
 function drawColorBox(buttonObj, c0, c1, c2, c3) {
     if (buttonObj.active === false)
         ctx.fillStyle = c0;

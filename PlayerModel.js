@@ -24,6 +24,8 @@ class Player {
 
     startMove() {
         UI.dices.throwDices();
+        if (this.isLocalBot)
+            makeBotMove(this);
     }
 
     harvest(level) {
@@ -81,7 +83,7 @@ class Player {
 
     }
 
-    buyRoad(id) {
+    buyRoad() {
         if (this.ingRoad !== 0) {
             this.ingRoad--;
         } else {
@@ -102,7 +104,7 @@ class Player {
         this.roads++;
     }
 
-    buySettlement(id) {
+    buySettlement() {
         if (this.ingSettlementExists !== 0) {
             this.ingSettlementExists--;
         } else {
@@ -128,7 +130,7 @@ class Player {
         this.victoryPoints++;
     }
 
-    buyCity(id) {
+    buyCity() {
 
         this.resources[2] -= 2;
         this.resources[4] -= 3;

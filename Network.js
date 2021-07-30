@@ -14,8 +14,8 @@ function sendMove() {
         fieldChanges: fieldChanges,
         playerChanges: playerChanges
     });
+    fieldChanges = [];
     firebase.database().ref('session/' + sessionCode + '/currentPlayer').set((currentPlayer + 1) % 4);
-    fieldChanges.length = 0;
 }
 
 function newSession() {

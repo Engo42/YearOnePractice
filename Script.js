@@ -49,10 +49,6 @@ function frameLoop() {
         buttonArray[i].onFrame();
     }
 
-    if (players[currentPlayer].isLocalBot) {
-        makeBotMove(players[currentPlayer]);
-    }
-
     UI.draw();
 }
 
