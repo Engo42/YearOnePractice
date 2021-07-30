@@ -352,9 +352,13 @@ class PlayerInfoU {
         let highBoard = highBoardOfHighest + (heightOfBig + 10) * this.player.number;
         ctx.fillStyle = this.player.color;
         ctx.fillRect(leftBoard - 10, highBoard, widthOfBig, heightOfBig);
-        ctx.font = "20px serif";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "left";
+        ctx.font = "24px serif";
         ctx.fillStyle = "black";
-        ctx.fillText(this.player.name, leftBoard + 50, highBoard + 25);
+        ctx.fillText(this.player.name, leftBoard, highBoard + 10);
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
         for (let j = 0; j < 5; j++) {
             ctx.drawImage(this.img_resources[j], leftBoard - 3 + j * (widthOfSmall + 32), highBoard + 47);
             ctx.fillText(this.player.resources[j], leftBoard + 9 + j * (widthOfSmall + 32), highBoard + 40 + heightOfSmall + 40);

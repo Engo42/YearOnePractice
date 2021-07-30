@@ -25,8 +25,8 @@ function newSession() {
         alert("Имя должно быть длиной минимум 3 символов.");
         return false;
     }
-    else if (players[0].name.length > 12) {
-        alert("Имя должно быть длиной максимум 13 символов.");
+    else if (players[0].name.length > 18) {
+        alert("Имя должно быть длиной максимум 18 символов.");
         return false;
     }
     else {
@@ -87,8 +87,8 @@ function joinSession() {
         alert("Имя должно быть длиной минимум 3 символов.");
         return false;
     }
-    else if (players[0].name.length > 12) {
-        alert("Имя должно быть длиной максимум 13 символов.");
+    else if (players[0].name.length > 18) {
+        alert("Имя должно быть длиной максимум 18 символов.");
         return false;
     }
     else {
