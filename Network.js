@@ -1,14 +1,15 @@
 var database = firebase.database();
 
 function sendMove() {
-    firebase.database().ref('session/' + sessionCode + '/winner').set(winner);
     for (var i = 0; i < 4; i++) {
         playerChanges[i] = {
             resources: players[i].resources,
             roads: players[i].roads,
-            knights: players[i].knights
+            knights: players[i].knights,
+            victoryPoints: players[i].victoryPoints
         };
     }
+    let copyValues = [(currentPlayer + 1) % 4, winner, maxKnights, maxRoads]
     firebase.database().ref('session/' + sessionCode + '/p' + currentPlayer).set({
         fieldChanges: fieldChanges,
         playerChanges: playerChanges,
@@ -16,7 +17,10 @@ function sendMove() {
         maxRoads: maxRoads,
     });
     fieldChanges = [];
-    firebase.database().ref('session/' + sessionCode + '/currentPlayer').set((currentPlayer + 1) % 4);
+    firebase.database().ref('session/' + sessionCode + '/currentPlayer').set(copyValues[0]);
+    firebase.database().ref('session/' + sessionCode + '/winner').set(copyValues[1]);
+    firebase.database().ref('session/' + sessionCode + '/maxKnights').set(copyValues[2]);
+    firebase.database().ref('session/' + sessionCode + '/maxRoads').set(copyValues[3]);
 }
 
 function newSession() {
@@ -28,16 +32,12 @@ function newSession() {
             sessionCode = 0;
         }
         gameState = 1;
-        for (var i = 0; i < 4; i++) {
-            firebase.database().ref('session/' + sessionCode + '/p' + i).set({
-                fieldChanges: null,
-                playerChanges: null
-            });
-        }
         firebase.database().ref('session/' + sessionCode + '/currentPlayer').set(thisPlayer);
         firebase.database().ref('session/' + sessionCode + '/playerCount').set(1);
         firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
         firebase.database().ref('session/' + sessionCode + '/winner').set(-1);
+        firebase.database().ref('session/' + sessionCode + '/maxKnights').set(-1);
+        firebase.database().ref('session/' + sessionCode + '/maxRoads').set(-1);
         firebase.database().ref('nextSessionCode').set((sessionCode + 1) % 1000);
         listenToSession();
     }).catch((error) => {
@@ -85,6 +85,8 @@ function listenToSession() {
         gameState = sessionData.gameState;
         playerCount = sessionData.playerCount;
         winner = sessionData.winner;
+        maxKnights = sessionData.maxKnights;
+        maxRoads = sessionData.maxRoads;
         if (currentPlayer != prevPlayer && (players[currentPlayer].isLocalBot || currentPlayer === thisPlayer)) {
             let changes = [sessionData.p0, sessionData.p1, sessionData.p2, sessionData.p3]
             for (var i = (currentPlayer + 1) % 4; i != currentPlayer; i = (i + 1) % 4) {
@@ -95,6 +97,7 @@ function listenToSession() {
                         }
                         players[j].roads = changes[i].playerChanges[j].roads;
                         players[j].knights = changes[i].playerChanges[j].knights;
+                        players[j].victoryPoints = changes[i].playerChanges[j].victoryPoints;
                     }
                     if (changes[i].fieldChanges != null) {
                         for (var j = 0; j < changes[i].fieldChanges.length; j++) {
@@ -113,8 +116,6 @@ function listenToSession() {
                             }
                         }
                     }
-                    maxKnights = changes[i].maxKnights;
-                    maxRoads = changes[i].maxRoads;
                 }
             }
             if (winner === -1)
