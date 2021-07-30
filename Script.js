@@ -73,7 +73,7 @@ function gameOpen() {
     }
 
     UI = new StartUI;
-    
+
     setInterval(frameLoop, 100 / 6);
 }
 

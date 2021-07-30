@@ -23,7 +23,7 @@ class Player {
             makeBotMove(this);
         for (var i = 0; i < this.developmentCards.length; i++) {
             this.developmentCards[i].active = true;
-        }        
+        }
     }
 
     harvest(level) {
@@ -62,7 +62,7 @@ class Player {
             this.developmentCards.push(new DevelopmentCard(3));
         else
             this.developmentCards.push(new DevelopmentCard(4));
-            
+
         this.resources[0]--;
         this.resources[2]--;
         this.resources[4]--;
@@ -76,14 +76,14 @@ class Player {
 
     check_Resources(type_build) {
         if (type_build === "Road") {
-            if (this.resources[0] * this.resources[3] > 0 || this.ingRoad>0)
+            if (this.resources[0] * this.resources[3] > 0 || this.ingRoad > 0)
                 return true;
             return false
-        } else if (type_build === "Settlement" ) {
+        } else if (type_build === "Settlement") {
             if (this.resources[0] *
                 this.resources[1] *
                 this.resources[2] *
-                this.resources[3] > 0 || this.ingSettlementExists>0)
+                this.resources[3] > 0 || this.ingSettlementExists > 0)
                 return true;
             return false;
         } else if (this.resources[2] > 1 &&
