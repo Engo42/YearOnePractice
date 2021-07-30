@@ -8,7 +8,7 @@ const widthOfBig = 340;
 const heightOfSmall = 10;
 const widthOfSmall = 10;
 
-const playerColors = ['#FF0000', '#FFFF00', '#00FF00', '#0000FF'];
+const playerColors = ['#FF0000', '#FFFF00', '#00FF00', '#0099FF'];
 const typeMap = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -33,6 +33,7 @@ var gameState = 0;
 var winner = -1;
 var maxKnights = -1;
 var maxRoads = -1;
+var maxRoadsPlayer = 1;
 
 var sessionData = {
     currentPlayer: 0,
@@ -40,7 +41,9 @@ var sessionData = {
     playerCount: 1,
     winner: -1,
     maxKnights: -1,
+    maxKnightsPlayer: -1,
     maxRoads: -1,
+    maxRoadsPlayer: -1,
 };
 var sessionCode = '--';
 var thisPlayer = 0;
@@ -67,7 +70,7 @@ function gameOpen() {
     }
 
     UI = new StartUI;
-    
+
     setInterval(frameLoop, 100 / 6);
 }
 

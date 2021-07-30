@@ -270,7 +270,7 @@ class ModeMenuUI {
                 function(id, parentUI) {
                     parentUI.buttons[parentUI.state].active = true;
                     parentUI.changeState(id);
-                     parentUI.buttons[id].active = false;
+                    parentUI.buttons[id].active = false;
                 }
             )
         }
@@ -328,7 +328,6 @@ class ModeMenuUI {
 class PlayerInfoU {
     constructor(player) {
         this.player = player;
-        //this.Player = players[currentPlayer]; // ???
         this.img_resource_0 = new Image();
         this.img_resource_0.src = 'Sprites/Resources/wood.png';
         this.img_resource_1 = new Image();
@@ -336,17 +335,16 @@ class PlayerInfoU {
         this.img_resource_2 = new Image();
         this.img_resource_2.src = 'Sprites/Resources/corn.png';
         this.img_resource_3 = new Image();
-        this.img_resource_3.src = 'Sprites/Resources/clay26.png';
+        this.img_resource_3.src = 'Sprites/Resources/clay.png';
         this.img_resource_4 = new Image();
         this.img_resource_4.src = 'Sprites/Resources/iron.png';
-        this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4]; //*/
+        this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4];
         this.img_knight = new Image();
         this.img_knight.src = 'Sprites/Indicators/knight25.png';
         this.img_road = new Image();
         this.img_road.src = 'Sprites/Indicators/road22.png';
         this.img_pointOfWin = new Image();
         this.img_pointOfWin.src = 'Sprites/Indicators/pointOfWin28.png';
-        //'Sprites/Hexes/t' + this.type + '.png';
     }
     draw() {
 
@@ -356,7 +354,7 @@ class PlayerInfoU {
         ctx.fillRect(leftBoard - 10, highBoard, widthOfBig, heightOfBig);
         ctx.font = "20px serif";
         ctx.fillStyle = "black";
-        ctx.fillText(this.player.name, leftBoard + 32, highBoard + 25);
+        ctx.fillText(this.player.name, leftBoard + 50, highBoard + 25);
         for (let j = 0; j < 5; j++) {
             ctx.drawImage(this.img_resources[j], leftBoard - 3 + j * (widthOfSmall + 32), highBoard + 47);
             ctx.fillText(this.player.resources[j], leftBoard + 9 + j * (widthOfSmall + 32), highBoard + 40 + heightOfSmall + 40);
@@ -367,6 +365,5 @@ class PlayerInfoU {
         ctx.fillText(this.player.roads, leftBoard + 265, highBoard + 90);
         ctx.drawImage(this.img_pointOfWin, leftBoard + 295, highBoard + 45);
         ctx.fillText(this.player.victoryPoints, leftBoard + 308, highBoard + 90);
-        //ctx.drawImage(this.img_knight, 200, 200);
     }
 }

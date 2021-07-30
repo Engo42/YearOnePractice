@@ -23,7 +23,7 @@ class Player {
             makeBotMove(this);
         for (var i = 0; i < this.developmentCards.length; i++) {
             this.developmentCards[i].active = true;
-        }        
+        }
     }
 
     harvest(level) {
@@ -62,7 +62,7 @@ class Player {
             this.developmentCards.push(new DevelopmentCard(3));
         else
             this.developmentCards.push(new DevelopmentCard(4));
-            
+
         this.resources[0]--;
         this.resources[2]--;
         this.resources[4]--;
@@ -76,14 +76,14 @@ class Player {
 
     check_Resources(type_build) {
         if (type_build === "Road") {
-            if (this.resources[0] * this.resources[3] > 0 || this.ingRoad>0)
+            if (this.resources[0] * this.resources[3] > 0 || this.ingRoad > 0)
                 return true;
             return false
-        } else if (type_build === "Settlement" ) {
+        } else if (type_build === "Settlement") {
             if (this.resources[0] *
                 this.resources[1] *
                 this.resources[2] *
-                this.resources[3] > 0 || this.ingSettlementExists>0)
+                this.resources[3] > 0 || this.ingSettlementExists > 0)
                 return true;
             return false;
         } else if (this.resources[2] > 1 &&
@@ -112,19 +112,20 @@ class Player {
             direction: direction
         })
         this.roads++;
-        var maxRoadsPlayer = maxRoads;
-        var maxRoadsVal = players[maxRoads].roads;
+        let imax = 0;
+        var maxRoadsVal = players[0].roads;
         for (var i = 1; i < 4; i++) {
             if (maxRoadsVal < players[i].roads) {
                 maxRoadsVal = players[i].roads
-                maxRoadsPlayer = i;
+                imax = i;
             }
         }
-        if (maxRoads < maxRoadsVal && maxRoadsVal >= 5) {
+        if (maxRoads < maxRoadsVal && maxRoadsVal >= 3) {
             if (maxRoads !== -1)
-                players[maxRoads].victoryPoints -= 2;
-            players[maxRoadsPlayer].victoryPoints += 2;
-            maxRoads = maxRoadsPlayer;
+                players[maxRoadsPlayer].victoryPoints -= 2;
+            players[imax].victoryPoints += 2;
+            maxRoadsPlayer = imax;
+            maxRoads = maxRoadsVal;
         }
     }
 
@@ -192,30 +193,28 @@ class DevelopmentCard {
         else if (this.type === 1) {
             players[currentPlayer].knights++;
             players[currentPlayer].moveBandit();
-            var maxKnightsPlayer = maxKnights;
-            var maxKnightsVal = players[maxKnights].knights;
+            let imax = 0;
+            var maxKnightsVal = players[0].knights;
             for (var i = 1; i < 4; i++) {
                 if (maxKnightsVal < players[i].knights) {
                     maxKnightsVal = players[i].knights
-                    maxKnightsPlayer = i;
+                    imax = i;
                 }
             }
             if (maxKnights < maxKnightsVal && maxKnightsVal >= 2) {
                 if (maxKnights !== -1)
-                    players[maxKnights].victoryPoints -= 2;
-                players[maxKnightsPlayer].victoryPoints += 2;
-                maxKnights = maxKnightsPlayer;
+                    players[maxKnightsPlayer].victoryPoints -= 2;
+                players[imax].victoryPoints += 2;
+                maxKnightsPlayer = imax;
+                maxKnights = maxKnightsVal;
             }
-        }
-        else if (this.type === 2) {
+        } else if (this.type === 2) {
             players[currentPlayer].ingRoad += 2;
-        }
-        else if (this.type === 3) {
+        } else if (this.type === 3) {
             for (var i = 0; i < 4; i++) {
                 players[currentPlayer].resources[Math.floor(Math.random() * 5)]++;
             }
-        }
-        else if (this.type === 4) {
+        } else if (this.type === 4) {
             let type = Math.floor(Math.random() * 5);
             for (var i = 0; i < 4; i++) {
                 if (i !== currentPlayer) {
