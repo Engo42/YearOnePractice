@@ -16,7 +16,7 @@ class BuildModeUI {
 
         for (let i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 340, 50, i, this,
-                function (id, parentUI) {
+                function(id, parentUI) {
                     parentUI.changeState(id);
                 }
             )
@@ -76,8 +76,8 @@ class BuildModeUI {
                 ctx.drawImage(this.img_corn, 260, 565 + i * 60, 40, 40);
                 ctx.drawImage(this.img_clay, 300, 565 + i * 60, 40, 40);
             } else {
-                ctx.drawImage(this.img_corn, 180, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_corn, 210, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 152, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 189, 565 + i * 60, 40, 40);
                 ctx.drawImage(this.img_iron, 240, 565 + i * 60, 40, 40);
                 ctx.drawImage(this.img_iron, 270, 565 + i * 60, 40, 40);
                 ctx.drawImage(this.img_iron, 300, 565 + i * 60, 40, 40);
@@ -97,14 +97,11 @@ class BuildModeUI {
 }
 
 class EmptyUI {
-    constructor() {
-    }
+    constructor() {}
 
-    frameAction() {
-    }
+    frameAction() {}
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         this.delete;
@@ -150,8 +147,7 @@ class RoadBuilderUI {
         }
     }
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         UI.fieldUI.highlightEdges = [];
@@ -206,8 +202,7 @@ class SettlementBuilderUI {
         }
     }
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         UI.fieldUI.highlightVertexes = [];
@@ -245,8 +240,7 @@ class CityBuilderUI {
         }
     }
 
-    draw() {
-    }
+    draw() {}
 
     deleteSelf() {
         UI.fieldUI.highlightVertexes = [];
