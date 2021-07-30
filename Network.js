@@ -5,7 +5,6 @@ function sendMove() {
     for (var i = 0; i < 4; i++) {
         playerChanges[i] = {
             resources: players[i].resources,
-            developmentCards: players[i].developmentCards.length,
             roads: players[i].roads,
             knights: players[i].knights
         };
@@ -92,7 +91,6 @@ function listenToSession() {
                         for (var k = 0; k < 5; k++) {
                             players[j].resources[k] = changes[i].playerChanges[j].resources[k];
                         }
-                        players[j].developmentCards.length = changes[i].playerChanges[j].developmentCards;
                         players[j].roads = changes[i].playerChanges[j].roads;
                         players[j].knights = changes[i].playerChanges[j].knights;
                     }
