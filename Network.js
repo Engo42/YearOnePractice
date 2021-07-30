@@ -11,7 +11,9 @@ function sendMove() {
     }
     firebase.database().ref('session/' + sessionCode + '/p' + currentPlayer).set({
         fieldChanges: fieldChanges,
-        playerChanges: playerChanges
+        playerChanges: playerChanges,
+        maxKnights: maxKnights,
+        maxRoads: maxRoads,
     });
     fieldChanges = [];
     firebase.database().ref('session/' + sessionCode + '/currentPlayer').set((currentPlayer + 1) % 4);
@@ -111,6 +113,8 @@ function listenToSession() {
                             }
                         }
                     }
+                    maxKnights = changes[i].maxKnights;
+                    maxRoads = changes[i].maxRoads;
                 }
             }
             if (winner === -1)

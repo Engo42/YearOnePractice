@@ -15,16 +15,12 @@ class BuildModeUI {
         this.img_wool.src = "Sprites/Resources/wool.png";
 
         for (let i = 0; i < 3; i++) {
-            this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
+            this.buttons[i] = new Button(10, 560 + i * 60, 340, 50, i, this,
                 function (id, parentUI) {
-
                     parentUI.changeState(id);
                 }
             )
-
-
         }
-
     }
 
     changeState(newState) {
@@ -49,14 +45,13 @@ class BuildModeUI {
 
     frameAction() {
         this.childUI.frameAction();
+        this.buttons[0].active = (players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad > 0);
+        this.buttons[1].active = (players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists > 0);
+        this.buttons[2].active = players[currentPlayer].check_Resources("City");
     }
 
     draw() {
         let text = ["Дорога", "Поселение", "Город"]
-
-        this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
-        this.buttons[1].active = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
-        this.buttons[2].active = players[currentPlayer].check_Resources("City");
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';

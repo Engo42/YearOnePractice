@@ -23,7 +23,7 @@ class Player {
             makeBotMove(this);
         for (var i = 0; i < this.developmentCards.length; i++) {
             this.developmentCards[i].active = true;
-        }
+        }        
     }
 
     harvest(level) {
@@ -112,6 +112,20 @@ class Player {
             direction: direction
         })
         this.roads++;
+        var maxRoadsPlayer = 0;
+        var maxRoadsVal = players[0].roads;
+        for (var i = 1; i < 4; i++) {
+            if (maxRoadsVal < players[i].roads) {
+                maxRoadsVal = players[i].roads
+                maxRoadsPlayer = i;
+            }
+        }
+        if (maxRoads < maxRoadsVal && maxRoadsVal >= 5) {
+            if (maxRoads !== -1)
+                players[maxRoads].victoryPoints -= 2;
+            players[maxRoadsPlayer].victoryPoints += 2;
+            maxRoads = maxRoadsPlayer;
+        }
     }
 
     buySettlement() {
@@ -178,6 +192,20 @@ class DevelopmentCard {
         else if (this.type === 1) {
             players[currentPlayer].knights++;
             players[currentPlayer].moveBandit();
+            var maxKnightsPlayer = 0;
+            var maxKnightsVal = players[0].knights;
+            for (var i = 1; i < 4; i++) {
+                if (maxKnightsVal < players[i].knights) {
+                    maxKnightsVal = players[i].knights
+                    maxKnightsPlayer = i;
+                }
+            }
+            if (maxKnights < maxKnightsVal && maxKnightsVal >= 5) {
+                if (maxKnights !== -1)
+                    players[maxKnights].victoryPoints -= 2;
+                players[maxKnightsPlayer].victoryPoints += 2;
+                maxKnights = maxKnightsPlayer;
+            }
         }
         else if (this.type === 2) {
             players[currentPlayer].ingRoad += 2;
