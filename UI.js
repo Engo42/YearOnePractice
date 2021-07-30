@@ -336,7 +336,7 @@ class PlayerInfoU {
         this.img_resource_2 = new Image();
         this.img_resource_2.src = 'Sprites/Resources/corn.png';
         this.img_resource_3 = new Image();
-        this.img_resource_3.src = 'Sprites/Resources/clay26.png';
+        this.img_resource_3.src = 'Sprites/Resources/clay.png';
         this.img_resource_4 = new Image();
         this.img_resource_4.src = 'Sprites/Resources/iron.png';
         this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4]; //*/
