@@ -8,7 +8,7 @@ class Player {
         this.seed = 0;
         this.clay = 0;
         this.ore = 0;
-        this.resources = [0, 0, 0, 0, 0]; //wood,wool,seed(corn),clay,ore(iron)
+        this.resources = [1, 1, 1, 1, 1]; //wood,wool,seed(corn),clay,ore(iron)
         this.totalResources = 0;
         this.indicators = [0, 0, 0, 0, 0, 0]; //setlements, roads - самая длинная сеть дорог у данного игрока, cities, количество карт развития, knights, pointsOfWin
         this.settlements = 0;
@@ -47,21 +47,6 @@ class Player {
                 arr.push(i);
         }
         field.hexArray[arr[Math.floor(Math.random() * arr.length)]].bandit = 1;
-        for (var i = 0; i < 4; i++) {
-            let res = players[i].resources;
-            if (arrSum(res) > 7) {
-                var a = new Array;
-                for (var j = 0; j < 5; j++) {
-                    for (var k = 0; k < res[j]; k++) {
-                        a.push(j);
-                    }
-                }
-                shuffle(a);
-                for (var j = 0; j < a.length / 2; j++) {
-                    res[a[j]]--;
-                }
-            }
-        }
     }
 
     buyCard(id) {
@@ -176,6 +161,29 @@ class DevelopmentCard {
     }
 
     use() {
-
+        if (this.type === 0)
+            players[currentPlayer].victoryPoints++;
+        else if (this.type === 1) {
+            players[currentPlayer].knights++;
+            players[currentPlayer].moveBandit();
+        }
+        else if (this.type === 2) {
+            players[currentPlayer].ingRoad += 2;
+        }
+        else if (this.type === 3) {
+            for (var i = 0; i < 4; i++) {
+                players[currentPlayer].resources[Math.floor(Math.random() * 5)]++;
+            }
+        }
+        else if (this.type === 4) {
+            let type = Math.floor(Math.random() * 5);
+            for (var i = 0; i < 4; i++) {
+                if (i !== currentPlayer) {
+                    players[currentPlayer].resources[type] += players[i].resources[type];
+                    players[i].resources[type] = 0;
+                }
+            }
+        }
+        this.delete;
     }
 }

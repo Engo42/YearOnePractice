@@ -18,6 +18,21 @@ class Dices {
                 }
             }
             if (f !== 1) players[currentPlayer].moveBandit();
+            for (var i = 0; i < 4; i++) {
+                let res = players[i].resources;
+                if (arrSum(res) > 7) {
+                    var a = new Array;
+                    for (var j = 0; j < 5; j++) {
+                        for (var k = 0; k < res[j]; k++) {
+                            a.push(j);
+                        }
+                    }
+                    shuffle(a);
+                    for (var j = 0; j < a.length / 2; j++) {
+                        res[a[j]]--;
+                    }
+                }
+            }
         }
     }
 

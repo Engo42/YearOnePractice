@@ -70,11 +70,12 @@ function gameOpen() {
 
     UI = new StartUI;
 
-    players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
-    players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(4));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(3));
+    players[currentPlayer].developmentCards.push(new DevelopmentCard(2));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(1));
     players[currentPlayer].developmentCards.push(new DevelopmentCard(0));
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < 5; i++) {
         players[currentPlayer].developmentCards[i].active = true;
     }
 

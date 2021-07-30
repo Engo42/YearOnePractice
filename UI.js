@@ -366,7 +366,7 @@ class PlayerInfoU {
         ctx.drawImage(this.img_road, leftBoard + 255, highBoard + 45);
         ctx.fillText(this.player.roads, leftBoard + 265, highBoard + 90);
         ctx.drawImage(this.img_pointOfWin, leftBoard + 295, highBoard + 45);
-        ctx.fillText(this.player.roads, leftBoard + 308, highBoard + 90);
+        ctx.fillText(this.player.victoryPoints, leftBoard + 308, highBoard + 90);
         //ctx.drawImage(this.img_knight, 200, 200);
     }
 }
