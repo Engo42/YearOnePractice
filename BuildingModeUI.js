@@ -54,8 +54,8 @@ class BuildModeUI {
     draw() {
         let text = ["Дорога", "Поселение", "Город"]
 
-        this.buttons[0].active = players[currentPlayer].check_Resources("Road");
-        this.buttons[1].active = players[currentPlayer].check_Resources("Settlement");
+        this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
+        this.buttons[1].active = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
         this.buttons[2].active = players[currentPlayer].check_Resources("City");
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
@@ -150,7 +150,6 @@ class RoadBuilderUI {
     frameAction() {
         if (this.target !== -1) {
             players[currentPlayer].buyRoad();
-            this.buttons[0].active = players[currentPlayer].check_Resources("Road") || players[currentPlayer].ingRoad;
             players[currentPlayer].buildRoad(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
         }
@@ -207,8 +206,6 @@ class SettlementBuilderUI {
     frameAction() {
         if (this.target !== -1) {
             players[currentPlayer].buySettlement();
-            this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement") || players[currentPlayer].ingSettlementExists;
-
             players[currentPlayer].buildSettlement(this.target[0], this.target[1], this.target[2]);
             this.ParentUI.changeState(-1);
         }
