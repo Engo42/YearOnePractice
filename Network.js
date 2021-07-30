@@ -42,6 +42,8 @@ function newSession() {
             firebase.database().ref('session/' + sessionCode + '/playerCount').set(1);
             firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
             firebase.database().ref('session/' + sessionCode + '/winner').set(-1);
+            firebase.database().ref('session/' + sessionCode + '/fieldTypeDeck').set(fieldTypeDeck);
+            firebase.database().ref('session/' + sessionCode + '/fieldLevelDeck').set(fieldLevelDeck);
             for (var i = 0; i < 4; i++) {
                 firebase.database().ref('session/' + sessionCode + '/names/p' + i).set(players[i].name);
             }
@@ -107,6 +109,22 @@ function joinSession() {
             else {
                 alert("Сессии не существует или она переполнена.");
             }
+        }).catch((error) => {
+            console.error(error);
+        });
+        firebase.database().ref('session/' + sessionCode + '/fieldTypeDeck').get().then((snapshot) => {
+            if (snapshot.exists())
+                fieldTypeDeck = snapshot.val();
+            else
+                alert("Не удалось найти расклад поля.");
+        }).catch((error) => {
+            console.error(error);
+        });
+        firebase.database().ref('session/' + sessionCode + '/fieldLevelDeck').get().then((snapshot) => {
+            if (snapshot.exists())
+                fieldLevelDeck = snapshot.val();
+            else
+                alert("Не удалось найти расклад поля.");
         }).catch((error) => {
             console.error(error);
         });

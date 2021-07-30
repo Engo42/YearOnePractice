@@ -50,6 +50,7 @@ class LobbyUI {
         this.startGameButton = new Button(800, 700, 320, 60, 0, this,
             function(id, parentUI) {
                 startSession();
+                field = new Field(fieldTypeDeck, fieldLevelDeck);
                 parentUI.deleteSelf();
             }
         );
@@ -60,6 +61,7 @@ class LobbyUI {
     draw() {
         if (gameState === 2) {
             startSession();
+            field = new Field(fieldTypeDeck, fieldLevelDeck);
             this.deleteSelf();
         }
 

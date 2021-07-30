@@ -112,8 +112,8 @@ class Player {
             direction: direction
         })
         this.roads++;
-        var maxRoadsPlayer = 0;
-        var maxRoadsVal = players[0].roads;
+        var maxRoadsPlayer = maxRoads;
+        var maxRoadsVal = players[maxRoads].roads;
         for (var i = 1; i < 4; i++) {
             if (maxRoadsVal < players[i].roads) {
                 maxRoadsVal = players[i].roads
@@ -192,8 +192,8 @@ class DevelopmentCard {
         else if (this.type === 1) {
             players[currentPlayer].knights++;
             players[currentPlayer].moveBandit();
-            var maxKnightsPlayer = 0;
-            var maxKnightsVal = players[0].knights;
+            var maxKnightsPlayer = maxKnights;
+            var maxKnightsVal = players[maxKnights].knights;
             for (var i = 1; i < 4; i++) {
                 if (maxKnightsVal < players[i].knights) {
                     maxKnightsVal = players[i].knights

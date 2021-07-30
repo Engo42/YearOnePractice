@@ -58,12 +58,9 @@ function frameLoop() {
 }
 
 function gameOpen() {
-
-    if (thisPlayer === 0) {
-        fieldTypeDeck = shuffle(fieldTypeDeck);
-        fieldLevelDeck = shuffle(fieldLevelDeck);
-    }
-    field = new Field(fieldTypeDeck, fieldLevelDeck);
+    fieldTypeDeck = shuffle(fieldTypeDeck);
+    fieldLevelDeck = shuffle(fieldLevelDeck);
+    
     players = new Array(4);
     for (var i = 0; i < 4; i++) {
         players[i] = new Player(botNames[i], playerColors[i], i);
