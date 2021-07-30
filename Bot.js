@@ -58,11 +58,16 @@ function makeBotMove(player) {
             optionsExist = false;
     }
     
-    while (player.ingRoad) {
+    var roadPlaceExists = false;
+    while (player.ingRoad && roadPlaceExists) {
         var arr = findRoadPlaces();
-        shuffle(arr);
-        player.buyRoad();
-        player.buildRoad(arr[0].x, arr[0].y, arr[0].direction);
+        if (arr.length > 0) {
+            shuffle(arr);
+            player.buyRoad();
+            player.buildRoad(arr[0].x, arr[0].y, arr[0].direction);
+        }
+        else
+            roadPlaceExists = false;
     }
     player.endMove();
 }
