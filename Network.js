@@ -42,7 +42,9 @@ function newSession() {
             firebase.database().ref('session/' + sessionCode + '/playerCount').set(1);
             firebase.database().ref('session/' + sessionCode + '/gameState').set(gameState);
             firebase.database().ref('session/' + sessionCode + '/winner').set(-1);
-            firebase.database().ref('session/' + sessionCode + '/names/p' + thisPlayer).set(players[thisPlayer].name);
+            for (var i = 0; i < 4; i++) {
+                firebase.database().ref('session/' + sessionCode + '/names/p' + i).set(players[i].name);
+            }
             firebase.database().ref('nextSessionCode').set((sessionCode + 1) % 1000);
             listenToSession();
             UI.newSessionButton.deleteSelf();
@@ -73,6 +75,8 @@ function startSession() {
         for (var i = playerCount; i < 4; i++) {
             players[i].isLocalBot = true;
         }
+    }
+    for (var i = playerCount; i < 4; i++) {
     }
 }
 
