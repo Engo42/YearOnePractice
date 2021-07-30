@@ -8,7 +8,7 @@ const widthOfBig = 340;
 const heightOfSmall = 10;
 const widthOfSmall = 10;
 
-const playerColors = ['#FF0000', '#FFFF00', '#00FF00', '#0000FF'];
+const playerColors = ['#FF0000', '#FFFF00', '#00FF00', '#0099FF'];
 const typeMap = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
