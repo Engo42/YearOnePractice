@@ -22,6 +22,7 @@ const typeMap = [
 ]
 var fieldTypeDeck = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5];
 var fieldLevelDeck = [2, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11, 12];
+var botNames = ['???', 'Тимофей', 'Александр', 'Владимир']
 
 var buttonArray = new Array;
 var field;
@@ -41,7 +42,7 @@ var sessionData = {
     maxKnights: -1,
     maxRoads: -1,
 };
-var sessionCode = -1;
+var sessionCode = '--';
 var thisPlayer = 0;
 var playerCount = 1;
 var fieldChanges = new Array;
@@ -65,7 +66,7 @@ function gameOpen() {
     field = new Field(fieldTypeDeck, fieldLevelDeck);
     players = new Array(4);
     for (var i = 0; i < 4; i++) {
-        players[i] = new Player("Player_" + (i + 1), playerColors[i], i);
+        players[i] = new Player(botNames[i], playerColors[i], i);
     }
 
     UI = new StartUI;

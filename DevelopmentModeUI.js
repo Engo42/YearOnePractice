@@ -165,7 +165,11 @@ class DevelopmentCardUI {
         else
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.useButton.x, this.useButton.y, this.useButton.width, this.useButton.height);
-
+        ctx.fillStyle = 'white';
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+        ctx.font = "18px Arial";
+        ctx.fillText('Использовать', this.useButton.x + this.useButton.width / 2, this.useButton.y + this.useButton.height / 2);
     }
 
     deleteSelf() {

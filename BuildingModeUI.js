@@ -68,19 +68,19 @@ class BuildModeUI {
             ctx.font = "24px Arial";
             ctx.fillText(text[i], 20, 585 + i * 60)
             if (i === 0) {
-                ctx.drawImage(this.img_clay, 260, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_wood, 300, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_wood, 260, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_clay, 300, 565 + i * 60, 40, 40);
             } else if (i === 1) {
-                ctx.drawImage(this.img_clay, 180, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_wood, 220, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_wool, 260, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_corn, 300, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_wood, 180, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_wool, 220, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 260, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_clay, 300, 565 + i * 60, 40, 40);
             } else {
-                ctx.drawImage(this.img_iron, 180, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_iron, 210, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 180, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 210, 565 + i * 60, 40, 40);
                 ctx.drawImage(this.img_iron, 240, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_corn, 270, 565 + i * 60, 40, 40);
-                ctx.drawImage(this.img_corn, 300, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_iron, 270, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_iron, 300, 565 + i * 60, 40, 40);
             }
         }
         this.childUI.draw();
