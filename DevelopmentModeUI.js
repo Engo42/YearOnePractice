@@ -3,9 +3,15 @@ class DevelopmentModeUI {
         this.deckX = 40;
         this.deckLowY = 1020;
         this.deckHighY = 585;
-        this.deckWidth = 580;
+        this.deckWidth = 550;
         var width;
         var step;
+        this.img_wood = new Image();
+        this.img_corn = new Image();
+        this.img_iron = new Image();
+        this.img_wood.src = "Sprites/Resources/wood.png";
+        this.img_corn.src = "Sprites/Resources/corn.png";
+        this.img_iron.src = "Sprites/Resources/iron.png";
         this.cards = players[currentPlayer].developmentCards;
         this.cardsUI = new Array(this.cards.length);
         for (var i = 0; i < this.cardsUI.length; i++) {
@@ -20,7 +26,7 @@ class DevelopmentModeUI {
             this.cardsUI[i] = new DevelopmentCardUI(this.deckX + i * step,
                 this.deckLowY, this.deckHighY, width, this.cards[i]);
         }
-        this.buyButton = new Button(640, 980, 200, 60, 0, this,
+        this.buyButton = new Button(600, 980, 300, 60, 0, this,
             function (id, parentUI) {
                 parentUI.cardsUI.push(new DevelopmentCardUI(parentUI.deckX + parentUI.deckWidth,
                     parentUI.deckLowY, parentUI.deckHighY, 300, players[currentPlayer].buyCard()));
@@ -55,7 +61,7 @@ class DevelopmentModeUI {
                 i--;
             }
         }
-        if (players[currentPlayer].resources[0] === 0 || players[currentPlayer].resources[2] === 0 || players[currentPlayer].resources[3] === 0)
+        if (players[currentPlayer].resources[0] === 0 || players[currentPlayer].resources[2] === 0 || players[currentPlayer].resources[4] === 0)
             this.buyButton.active = false;
         else
             this.buyButton.active = true;
@@ -74,6 +80,14 @@ class DevelopmentModeUI {
         else
             ctx.fillStyle = '#00AA00';
         ctx.fillRect(this.buyButton.x, this.buyButton.y, this.buyButton.width, this.buyButton.height);
+        ctx.fillStyle = 'white';
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "left";
+        ctx.font = "24px Arial";
+        ctx.fillText('Купить карту', this.buyButton.x + 10, this.buyButton.y + this.buyButton.height / 2);
+        ctx.drawImage(this.img_wood, 770, 990, 40, 40);
+        ctx.drawImage(this.img_corn, 810, 990, 40, 40);
+        ctx.drawImage(this.img_iron, 850, 990, 40, 40);
     }
 
     deleteSelf() {

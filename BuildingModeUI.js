@@ -3,6 +3,16 @@ class BuildModeUI {
         this.state = -1;
         this.buttons = new Array(3);
         this.childUI = new EmptyUI;
+        this.img_corn = new Image();
+        this.img_wood = new Image();
+        this.img_clay = new Image();
+        this.img_iron = new Image();
+        this.img_wool = new Image();
+        this.img_clay.src = "Sprites/Resources/clay.png";
+        this.img_corn.src = "Sprites/Resources/corn.png";
+        this.img_iron.src = "Sprites/Resources/iron.png";
+        this.img_wood.src = "Sprites/Resources/wood.png";
+        this.img_wool.src = "Sprites/Resources/wool.png";
 
         for (let i = 0; i < 3; i++) {
             this.buttons[i] = new Button(10, 560 + i * 60, 300, 50, i, this,
@@ -42,21 +52,11 @@ class BuildModeUI {
     }
 
     draw() {
-        let text = [" Road", "   Colony", "City"]
-        let img_corn = new Image();
-        let img_wood = new Image();
-        let img_clay = new Image();
-        let img_iron = new Image();
-        let img_wool = new Image();
-        img_clay.src = "Sprites/Resources/clay.png";
-        img_corn.src = "Sprites/Resources/corn.png";
-        img_iron.src = "Sprites/Resources/iron.png";
-        img_wood.src = "Sprites/Resources/wood.png";
-        img_wool.src = "Sprites/Resources/wool.png";
+        let text = ["Дорога", "Поселение", "Город"]
 
         this.buttons[0].active = players[currentPlayer].check_Resources("Road");
-        this.buttons[1].active  = players[currentPlayer].check_Resources("Settlement");
-     this.buttons[2].active  = players[currentPlayer].check_Resources("City");
+        this.buttons[1].active = players[currentPlayer].check_Resources("Settlement");
+        this.buttons[2].active = players[currentPlayer].check_Resources("City");
         for (var i = 0; i < 3; i++) {
             if (this.buttons[i].active === false)
                 ctx.fillStyle = '#444444';
@@ -66,24 +66,26 @@ class BuildModeUI {
                 ctx.fillStyle = '#4444FF';
             else
                 ctx.fillStyle = '#0000FF';
-            ctx.fillRect(10, 560 + i * 60, 300, 50);
+            ctx.fillRect(10, 560 + i * 60, 340, 50);
+            ctx.textBaseline = "middle";
+            ctx.textAlign = "left";
             ctx.fillStyle = 'white';
-            ctx.font = "22px Verdana";
-            ctx.fillText(text[i], 70, 590 + i * 58, 120)
+            ctx.font = "24px Arial";
+            ctx.fillText(text[i], 20, 585 + i * 60)
             if (i === 0) {
-                ctx.drawImage(img_clay, 210, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_wood, 260, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_clay, 260, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_wood, 300, 565 + i * 60, 40, 40);
             } else if (i === 1) {
-                ctx.drawImage(img_clay, 130, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_wood, 175, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_wool, 225, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_corn, 270, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_clay, 180, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_wood, 220, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_wool, 260, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 300, 565 + i * 60, 40, 40);
             } else {
-                ctx.drawImage(img_iron, 145, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_iron, 165, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_iron, 185, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_corn, 270, 565 + i * 60, 40, 40);
-                ctx.drawImage(img_corn, 235, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_iron, 180, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_iron, 210, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_iron, 240, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 270, 565 + i * 60, 40, 40);
+                ctx.drawImage(this.img_corn, 300, 565 + i * 60, 40, 40);
             }
         }
         this.childUI.draw();

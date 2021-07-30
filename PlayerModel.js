@@ -3,11 +3,6 @@ class Player {
         this.name = name;
         this.color = color;
         this.number = number;
-        this.wood = 0;
-        this.wool = 0;
-        this.seed = 0;
-        this.clay = 0;
-        this.ore = 0;
         this.resources = [0, 0, 0, 0, 0]; //wood,wool,seed(corn),clay,ore(iron)
         this.totalResources = 0;
         this.indicators = [0, 0, 0, 0, 0, 0]; //setlements, roads - самая длинная сеть дорог у данного игрока, cities, количество карт развития, knights, pointsOfWin
@@ -26,6 +21,9 @@ class Player {
         UI.dices.throwDices();
         if (this.isLocalBot)
             makeBotMove(this);
+        for (var i = 0; i < this.developmentCards.length; i++) {
+            this.developmentCards[i].active = true;
+        }
     }
 
     harvest(level) {
@@ -52,10 +50,22 @@ class Player {
     }
 
     buyCard(id) {
+        let rand = Math.random();
+        //шансы в %: 20 50 12 9 9
+        if (rand > 0.8)
+            this.developmentCards.push(new DevelopmentCard(0));
+        else if (rand > 0.30)
+            this.developmentCards.push(new DevelopmentCard(1));
+        else if (rand > 0.18)
+            this.developmentCards.push(new DevelopmentCard(2));
+        else if (rand > 0.09)
+            this.developmentCards.push(new DevelopmentCard(3));
+        else
+            this.developmentCards.push(new DevelopmentCard(4));
+            
         this.resources[0]--;
         this.resources[2]--;
         this.resources[4]--;
-        this.developmentCards.push(new DevelopmentCard(1));
         return this.developmentCards[this.developmentCards.length - 1];
     }
 
