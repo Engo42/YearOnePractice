@@ -41,7 +41,7 @@ var sessionData = {
     maxKnights: -1,
     maxRoads: -1,
 };
-var sessionCode = -1;
+var sessionCode = '--';
 var thisPlayer = 0;
 var playerCount = 1;
 var fieldChanges = new Array;

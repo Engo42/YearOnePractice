@@ -58,7 +58,7 @@ function makeBotMove(player) {
             optionsExist = false;
     }
     
-    var roadPlaceExists = false;
+    var roadPlaceExists = true;
     while (player.ingRoad && roadPlaceExists) {
         var arr = findRoadPlaces();
         if (arr.length > 0) {
