@@ -326,7 +326,6 @@ class ModeMenuUI {
 class PlayerInfoU {
     constructor(player) {
         this.player = player;
-        //this.Player = players[currentPlayer]; // ???
         this.img_resource_0 = new Image();
         this.img_resource_0.src = 'Sprites/Resources/wood.png';
         this.img_resource_1 = new Image();
@@ -337,14 +336,13 @@ class PlayerInfoU {
         this.img_resource_3.src = 'Sprites/Resources/clay.png';
         this.img_resource_4 = new Image();
         this.img_resource_4.src = 'Sprites/Resources/iron.png';
-        this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4]; //*/
+        this.img_resources = [this.img_resource_0, this.img_resource_1, this.img_resource_2, this.img_resource_3, this.img_resource_4];
         this.img_knight = new Image();
         this.img_knight.src = 'Sprites/Indicators/knight25.png';
         this.img_road = new Image();
         this.img_road.src = 'Sprites/Indicators/road22.png';
         this.img_pointOfWin = new Image();
         this.img_pointOfWin.src = 'Sprites/Indicators/pointOfWin28.png';
-        //'Sprites/Hexes/t' + this.type + '.png';
     }
     draw() {
 
@@ -365,6 +363,5 @@ class PlayerInfoU {
         ctx.fillText(this.player.roads, leftBoard + 265, highBoard + 90);
         ctx.drawImage(this.img_pointOfWin, leftBoard + 295, highBoard + 45);
         ctx.fillText(this.player.victoryPoints, leftBoard + 308, highBoard + 90);
-        //ctx.drawImage(this.img_knight, 200, 200);
     }
 }
