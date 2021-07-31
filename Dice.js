@@ -1,6 +1,6 @@
 class Dices {
     constructor() {
-        this.digit = [Math.floor(Math.random() * 6 + 1), Math.floor(Math.random() * 6 + 1)];
+        this.digit = -1;
         this.x_1 = 1720;
         this.x_2 = 1820;
     }
@@ -11,12 +11,6 @@ class Dices {
         if (this.digit[0] + this.digit[1] !== 7)
             players[currentPlayer].harvest(this.digit[0] + this.digit[1]);
         else {
-            for (let i = 0; i < players.length; i++) {
-                if (players[i].ingSettlementExists > 0 && players[i].ingRoad>0) { ///currentPlayer для тестов
-                    f = 1;
-                    break;
-                }
-            }
             if (f !== 1) players[currentPlayer].moveBandit();
             for (var i = 0; i < 4; i++) {
                 let res = players[i].resources;
@@ -123,17 +117,17 @@ class Dices {
 
 
     draw() {
-        ctx.fillStyle = '#16b700';
-        ctx.fillRect(this.x_1, 50, 90, 90);
-        ctx.fillRect(this.x_2, 50, 90, 90);
+        if (this.digit !== -1) {
+            ctx.fillStyle = '#16b700';
+            ctx.fillRect(this.x_1, 50, 90, 90);
+            ctx.fillRect(this.x_2, 50, 90, 90);
 
-        this.draw_point(this.x_1, this.digit[0]);
-        this.draw_point(this.x_2, this.digit[1]);
-        ctx.fillStyle = '#fff';
-        let sum = +this.digit[0] + +this.digit[1];
-        ctx.fillText("Вам выпало:" + sum, this.x_1, 160, 120);
-        return sum;
-
+            this.draw_point(this.x_1, this.digit[0]);
+            this.draw_point(this.x_2, this.digit[1]);
+            ctx.fillStyle = '#fff';
+            let sum = +this.digit[0] + +this.digit[1];
+            ctx.fillText("Вам выпало:" + sum, this.x_1, 160, 120);
+        }
     }
 
 }
