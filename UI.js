@@ -373,8 +373,8 @@ class PlayerInfoU {
         ctx.fillText(this.player.roads, leftBoard + 265, highBoard + 90);
         ctx.drawImage(this.img_pointOfWin, leftBoard + 295, highBoard + 45);
         ctx.fillText(this.player.victoryPoints, leftBoard + 308, highBoard + 90);
-        if (this.player.number == maxRoadsPlayer) ctx.drawImage(this.img_goldRoad, leftBoard + widthOfBig + 5, highBoard + 5 + (heightOfSmall + 10) * this.player.number);
-        if (this.player.number == maxKnightsPlayer) ctx.drawImage(this.img_goldKnight, leftBoard + widthOfBig + 5, highBoard + 45 + (heightOfSmall + 10) * this.player.number);
+        if (this.player.number == maxRoadsPlayer) ctx.drawImage(this.img_goldRoad, leftBoard + widthOfBig + 5, highBoard + 5);
+        if (this.player.number == maxKnightsPlayer) ctx.drawImage(this.img_goldKnight, leftBoard + widthOfBig + 5, highBoard + 50);
 
     }
 }

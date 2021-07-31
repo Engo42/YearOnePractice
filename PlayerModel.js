@@ -25,8 +25,7 @@ class Player {
             this.totalFreeSettlements--;
             this.ingRoad++;
             this.totalFreeRoads--;
-        }
-        else {
+        } else {
             UI.dices.throwDices();
         }
         if (this.isLocalBot)
@@ -130,7 +129,7 @@ class Player {
                 imax = i;
             }
         }
-        if (maxRoads < maxRoadsVal && maxRoadsVal >= 3) {
+        if (maxRoads < maxRoadsVal && maxRoadsVal >= 2) {
             if (maxRoadsPlayer !== -1)
                 players[maxRoadsPlayer].victoryPoints -= 2;
             players[imax].victoryPoints += 2;
