@@ -1,6 +1,6 @@
 class Dices {
     constructor() {
-        this.digit = [Math.floor(Math.random() * 6 + 1), Math.floor(Math.random() * 6 + 1)];
+        this.digit = -1;
         this.x_1 = 1720;
         this.x_2 = 1820;
     }
@@ -117,17 +117,17 @@ class Dices {
 
 
     draw() {
-        ctx.fillStyle = '#16b700';
-        ctx.fillRect(this.x_1, 50, 90, 90);
-        ctx.fillRect(this.x_2, 50, 90, 90);
+        if (this.digit !== -1) {
+            ctx.fillStyle = '#16b700';
+            ctx.fillRect(this.x_1, 50, 90, 90);
+            ctx.fillRect(this.x_2, 50, 90, 90);
 
-        this.draw_point(this.x_1, this.digit[0]);
-        this.draw_point(this.x_2, this.digit[1]);
-        ctx.fillStyle = '#fff';
-        let sum = +this.digit[0] + +this.digit[1];
-        ctx.fillText("Вам выпало:" + sum, this.x_1, 160, 120);
-        return sum;
-
+            this.draw_point(this.x_1, this.digit[0]);
+            this.draw_point(this.x_2, this.digit[1]);
+            ctx.fillStyle = '#fff';
+            let sum = +this.digit[0] + +this.digit[1];
+            ctx.fillText("Вам выпало:" + sum, this.x_1, 160, 120);
+        }
     }
 
 }
