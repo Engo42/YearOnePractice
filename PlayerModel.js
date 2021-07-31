@@ -13,12 +13,22 @@ class Player {
         this.knights = 0;
         this.victoryPoints = 0;
         this.isLocalBot = false;
-        this.ingSettlementExists = 2;
-        this.ingRoad = 2;
+        this.totalFreeSettlements = 2;
+        this.totalFreeRoads = 2;
+        this.ingSettlementExists = 0;
+        this.ingRoad = 0;
     }
 
     startMove() {
-        UI.dices.throwDices();
+        if (this.totalFreeSettlements > 0) {
+            this.ingSettlementExists++;
+            this.totalFreeSettlements--;
+            this.ingRoad++;
+            this.totalFreeRoads--;
+        }
+        else {
+            UI.dices.throwDices();
+        }
         if (this.isLocalBot)
             makeBotMove(this);
         for (var i = 0; i < this.developmentCards.length; i++) {

@@ -11,12 +11,6 @@ class Dices {
         if (this.digit[0] + this.digit[1] !== 7)
             players[currentPlayer].harvest(this.digit[0] + this.digit[1]);
         else {
-            for (let i = 0; i < players.length; i++) {
-                if (players[i].ingSettlementExists > 0 && players[i].ingRoad>0) { ///currentPlayer для тестов
-                    f = 1;
-                    break;
-                }
-            }
             if (f !== 1) players[currentPlayer].moveBandit();
             for (var i = 0; i < 4; i++) {
                 let res = players[i].resources;
